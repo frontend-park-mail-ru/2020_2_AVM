@@ -1,5 +1,5 @@
 {
-  "name": "sample-2020-2",
+  "name": "2020_2_AVM",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frontend-park-mail-ru/sample-2020-2.git"
+    "url": "git+https://github.com/frontend-park-mail-ru/2020_2_AVM.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/frontend-park-mail-ru/sample-2020-2/issues"
+    "url": "https://github.com/frontend-park-mail-ru/2020_2_AVM/issues"
   },
-  "homepage": "https://github.com/frontend-park-mail-ru/sample-2020-2#readme",
+  "homepage": "https://github.com/frontend-park-mail-ru/2020_2_AVM#readme",
   "dependencies": {
     "debug": "^4.1.1"
   }
