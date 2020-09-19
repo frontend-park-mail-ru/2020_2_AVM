@@ -1,88 +1,4 @@
-/* =================================================================== 
- * Abstract Main Stylesheet
- * Template Ver. 2.0.0
- * 07-19-2020
- * ------------------------------------------------------------------
- *
- * TOC:
- * # settings and variables
- *      ## fonts
- *      ## colors
- *      ## vertical spacing and typescale
- *      ## grid variables
- * # normalize
- * # basic/base setup styles
- *      ## media
- *      ## typography resets
- *      ## links
- *      ## inputs
- * # Grid v3.0.0
- *      ## medium screen devices
- *      ## tablets
- *      ## mobile devices
- *      ## small mobile devices <= 400px
- * # block grids
- *      ## block grids - medium screen devices
- *      ## block grids - tablets
- *      ## block grids - mobile devices
- *      ## block grids - small mobile devices <= 400px
- * # MISC
- * # custom grid, block grid STACK breakpoints 
- * # base style overrides
- *      ## links
- * # typography & general theme styles
- *      ## lists
- *      ## responsive video container
- *      ## floated image
- *      ## tables
- *      ## spacing
- * # preloader
- *      ## page loaded
- * # forms 
- *      ## style placeholder text
- *      ## change autocomplete styles in Chrome
- * # buttons
- * # additional components
- *      ## additional typo styles
- *      ## skillbars
- *      ## alert box
- *      ## pagination
- * # common and reusable styles
- *      ## animation stuff 
- *      ## close button for search and mobile navigation
- *      ## slick slider 
- *      ## masonry entries
- *      ## format gallery
- * # site header
- *      ## header logo
- *      ## main navigation
- *      ## header-toggle
- *      ## header-search
- *      ## search triggers
- * # pageheader
- * # content wrap
- * # bricks masonry
- * # footer
- *      ## footer main
- *      ## footer bottom
- *      ## go top
- * # blog styles and blog components
- *      ## single post meta 
- *      ## single post tags
- *      ## author profile
- *      ## single post page nav
- *      ## comments
- *
- * ------------------------------------------------------------------ */
-
-
-
-/* ===================================================================
- * # settings and variables
- *
- * ------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## fonts
  * ------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
@@ -4406,12 +4322,6 @@ body.search-is-visible {
     }
 }
 
-
-
-/* ===================================================================
- * # bricks masonry
- *
- * ------------------------------------------------------------------- */
 .s-bricks {
     padding-top: 4.2rem;
 }
