@@ -2,32 +2,34 @@
 <html class="no-js" lang="ru">
     <head>
 
-        <!--- basic page needs
-        ================================================== -->
-        <meta charset="utf-8">
-        <title>Главная</title>
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Статьи</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-       <!-- mobile specific metas
-        ================================================== -->
+   <!-- mobile specific metas
+    ================================================== -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <!-- CSS
-        ================================================== -->
-        <link rel="stylesheet" href="css/styles.css">
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/styles.css">
 
-        <!-- favicons
-        ================================================== -->
-        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <!--    <link rel="manifest" href="site.webmanifest">-->
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<!--    <link rel="manifest" href="site.webmanifest">-->
 
-    </head>
+</head>
 
     <body id="top">
 
+        <!-- header
+        ================================================== -->
         <!-- header
         ================================================== -->
         <header class="s-header">
@@ -47,7 +49,7 @@
                     <ul class="s-header__nav">
                         <li class="current"><a href="index.html" title="">Главная</a></li>
                         <li class="has-children">
-                            <a href="#" title="">Категории</a>
+                            <a href="#0" title="">Категории</a>
                             <ul class="sub-menu">
                                 <li><a href="#">Категория</a></li>
                                 <li><a href="#">Категория</a></li>
@@ -69,11 +71,11 @@
                         <li><a href="#" title="">Профиль</a></li>
                     </ul> <!-- end header__nav -->
 
-                    <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Закрыть</a>
+                    <a href="#" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Закрыть</a>
 
                 </nav> <!-- end header__nav-wrap -->
 
-                <a class="s-header__toggle-menu" href="#0" title="Menu"><span>Навигация</span></a>
+                <a class="s-header__toggle-menu" href="#" title="Menu"><span>Навигация</span></a>
 
                 <div class="s-header__search">
 
@@ -98,42 +100,32 @@
         </header> <!-- end header -->
 
 
+        <!-- page header
+        ================================================== -->
+        <section class="s-pageheader">
+            <div class="row current-cat">
+                <div class="column">
+                    <h1 class="h2">Категория: Образ жизни</h1>
+                </div>
+            </div>
+        </section>
+
+
         <!-- masonry
         ================================================== -->
-        <section class="s-bricks">
+        <section class="s-bricks with-top-sep">
 
             <div class="masonry">
+
+                <!-- brick-wrapper -->
                 <div class="bricks-wrapper h-group">
 
-                    <div class="brick entry featured-grid animate-this">
-                        <div class="entry__content">
-
-                            <div class="featured-post-slider">
-
-                                <div class="featured-post-slide">
-                                    <div class="f-slide">
-
-                                        <div class="f-slide__background" style="background-image:url('images/thumbs/featured/featured-1.jpg');"></div>
-                                        <div class="f-slide__overlay"></div>
-
-                                        <div class="f-slide__content">
-                                            <ul class="f-slide__meta">
-                                                <li>8 сентября, 2020</li>
-                                                <li><a href="#" >Автор</a></li>
-                                            </ul>
-                                            <h1 class="f-slide__title"><a href="#" title="">Съешь же ещё этих мягких французских булок да выпей чаю.</a></h1>
-                                        </div>
-                                    </div> <!-- f-slide -->
-                                </div> <!-- featured-post-slide -->
-                            </div> <!-- end feature post slider -->
-
-                        </div> <!-- end entry content -->
-                    </div> <!-- end entry, featured grid -->
+                    <div class="grid-sizer"></div>
 
                     <article class="brick entry format-standard animate-this">
 
                         <div class="entry__thumb">
-                            <a href="single-standard.html" class="thumb-link">
+                            <a href="#" class="thumb-link">
                                 <img src="images/thumbs/masonry/woodcraft-600.jpg"
                                      srcset="images/thumbs/masonry/woodcraft-600.jpg 1x, images/thumbs/masonry/woodcraft-1200.jpg 2x" alt="">
                             </a>
@@ -195,56 +187,13 @@
                     <article class="brick entry format-standard animate-this">
 
                         <div class="entry__thumb">
-                            <a href="#" class="thumb-link">
+                            <a href="single-standard.html" class="thumb-link">
                                 <img src="images/thumbs/masonry/dew-600.jpg"
                                      srcset="images/thumbs/masonry/dew-600.jpg 1x, images/thumbs/masonry/dew-1200.jpg 2x" alt="">
                             </a>
                         </div> <!-- end entry__thumb -->
 
                         <div class="entry__text">
-                            <div class="entry__header">
-
-                                <div class="entry__meta">
-                                    <span class="entry__cat-links">
-                                        <a href="#">Дизайн</a>
-                                        <a href="#">Фотография</a>
-                                    </span>
-                                </div>
-
-                                <h1 class="entry__title"><a href="#">Съешь же ещё этих мягких французских булок да выпей чаю.</a></h1>
-
-                            </div>
-                            <div class="entry__excerpt">
-                                <p>
-                                    Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
-                                </p>
-                            </div>
-                        </div> <!-- end entry__text -->
-
-                    </article> <!-- end article -->
-
-                    <article class="brick entry format-quote animate-this" >
-
-                        <div class="entry__thumb">
-                            <blockquote>
-                                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                                <cite>Автор</cite>
-                            </blockquote>
-                        </div>
-
-                    </article> <!-- end article -->
-
-                    <article class="brick entry format-standard animate-this">
-
-                        <div class="entry__thumb">
-                            <a href="#" class="thumb-link">
-                                <img src="images/thumbs/masonry/rucksack-600.jpg"
-                                     srcset="images/thumbs/masonry/rucksack-600.jpg 1x, images/thumbs/masonry/rucksack-1200.jpg 2x" alt="">
-                            </a>
-                        </div> <!-- end entry__thumb -->
-
-                       <div class="entry__text">
                             <div class="entry__header">
 
                                 <div class="entry__meta">
@@ -275,19 +224,19 @@
                     <nav class="pgn">
                         <ul>
                             <li>
-                                <a class="pgn__prev" href="#">
+                                <a class="pgn__prev" href="#0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
                                 </a>
                             </li>
-                            <li><a class="pgn__num" href="#">1</a></li>
+                            <li><a class="pgn__num" href="#0">1</a></li>
                             <li><span class="pgn__num current">2</span></li>
-                            <li><a class="pgn__num" href="#">3</a></li>
-                            <li><a class="pgn__num" href="#">4</a></li>
-                            <li><a class="pgn__num" href="#">5</a></li>
+                            <li><a class="pgn__num" href="#0">3</a></li>
+                            <li><a class="pgn__num" href="#0">4</a></li>
+                            <li><a class="pgn__num" href="#0">5</a></li>
                             <li><span class="pgn__num dots">…</span></li>
-                            <li><a class="pgn__num" href="#">8</a></li>
+                            <li><a class="pgn__num" href="#0">8</a></li>
                             <li>
-                                <a class="pgn__next" href="#">
+                                <a class="pgn__next" href="#0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
                                 </a>
                             </li>
