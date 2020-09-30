@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Вход - vc.ru Account</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+   <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+</head>
+
+<body id="top">
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="row s-header__content">
+
+            <div class="s-header__logo">
+                <a class="logo" href="#">
+                    <img src="images/logo.svg" alt="Homepage">
+                </a>
+            </div>
+
+            <nav class="s-header__nav-wrap">
+
+                <h2 class="s-header__nav-heading h6">Навигация</h2>
+
+                <ul class="s-header__nav">
+                    <li class="current"><a href="#" title="">Главная</a></li>
+                    <li class="has-children">
+                        <a href="#" title="">Категории</a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Категория</a></li>
+                            <li><a href="#">Категория</a></li>
+                            <li><a href="#">Категория</a></li>
+                            <li><a href="#">Категория</a></li>
+                            <li><a href="#">Категория</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="#" title="">Блог</a>
+                        <ul class="sub-menu">
+                        <li><a href="#">Пост</a></li>
+                        <li><a href="#">Пост</a></li>
+                        <li><a href="#">Пост</a></li>
+                        <li><a href="#">Пост</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" title="">Информация</a></li>
+                    <li><a href="#" title="">Профиль</a></li>
+                </ul> <!-- end header__nav -->
+
+                <a href="#" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Закрыть</a>
+
+            </nav> <!-- end header__nav-wrap -->
+                   
+            <a class="s-header__toggle-menu" href="#" title="Menu"><span>Навигация</span></a>
+            
+            <div class="s-header__search">
+                    
+                <form role="search" method="get" class="s-header__search-form" action="#">
+                    <label>
+                        <span class="hide-content">Искать для:</span>
+                        <input type="search" class="s-header__search-field" placeholder="Введите запрос" value="" name="s" title="Search for:" autocomplete="off">
+                    </label>
+                    <input type="submit" class="s-header__search-submit" value="Search">
+                </form>
+
+                <a href="#" title="Close Search" class="s-header__overlay-close">Закрыть</a>
+
+            </div> <!-- end search wrap --> 
+
+            <a class="s-header__search-trigger" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18a7.952 7.952 0 004.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0018 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
+            </a>
+
+        </div> <!-- end s-header__content -->
+
+    </header> <!-- end header -->
+    
+     <!-- content
+    ================================================== -->
+    <section class="s-content s-styles">
+
+        <div style="width: 450px; margin:auto;">
+
+            <div class="alert-box alert-box--error">
+                <p style="text-align: center;">Упс, неверно введён логин или пароль.</p>
+                <span class="alert-box__close"></span>
+            </div>
+
+        </div>
+
+        <div class="authreg-wrapper">
+ 
+            <div class="entry__text" style="width: 450px; margin:auto; padding-bottom: 20px;">
+
+                <div class="column">
+
+                        <h2 class="s-content__title s-content__title--post">Вход</h2>
+
+                        <form>
+                            <div>
+                                <label for="sampleInput">Ваш email</label>
+                                <input class="h-full-width" type="email" placeholder="test@mail.ru" id="sampleInput">
+                            </div>
+                            <div>
+                                <label for="password">Пароль</label>
+                                <input class="h-full-width" type="password" placeholder="********" id="password">
+                            </div>
+                        
+                            <input class="btn--primary h-full-width" type="submit" value="Войти">
+                        </form>
+                    
+                </div>
+            </div> <!-- end entry__thumb -->
+
+            <div style="text-align: center; padding: 25px;">
+                Ещё нет аккаунта? <a href="./vc_signUp.html">Зарегистрируйтесь</a>
+            </div>
+        
+        </div>
+            
+    </section> <!-- end s-content -->
+
+       <!-- Java Script
+   ================================================== --> 
+   <script src="js/main.js"></script>
+
+</body>
+
+</html>
