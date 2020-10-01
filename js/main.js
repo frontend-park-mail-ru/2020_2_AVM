@@ -49,6 +49,25 @@ const config = {
     },
 };
 
+function ajax(method, url, body = null, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.withCredentials = true;
+
+    xhr.addEventListener('readystatechange', function() {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+        callback(xhr.status, xhr.responseText);
+    });
+
+    if (body) {
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
+        xhr.send(JSON.stringify(body));
+        return;
+    }
+
+    xhr.send();
+}
 
 /* Mobile Menu -------------------------- */
 const MobileMenu = function () {
@@ -570,611 +589,701 @@ function listPage() {
 function loginPage() {
     container.innerHTML = '';
 
-    container.innerHTML =
-        `
-            <section class="s-content s-styles">
-        <div style="width: 450px; margin:auto;">
-            <div class="alert-box alert-box--error">
-                <p style="text-align: center;">Упс, неверно введён логин или пароль.</p>
-                <span class="alert-box__close"></span>
-            </div>
-        </div>
-        <div class="authreg-wrapper">
-            <div class="entry__text" style="width: 450px; margin:auto; padding-bottom: 20px;">
-                <div class="column"
-                        <h2 class="s-content__title s-content__title--post">Вход</h2>
-                        <form>
-                            <div>
-                                <label for="sampleInput">Ваш email</label>
-                                <input class="h-full-width" type="email" placeholder="test@mail.ru" id="sampleInput">
-                            </div>
-                            <div>
-                                <label for="password">Пароль</label>
-                                <input class="h-full-width" type="password" placeholder="********" id="password">
-                            </div>
-                        
-                            <input class="btn--primary h-full-width" type="submit" value="Войти">
-                        </form>
-                    
-                </div>
-            </div>
-            <div style="text-align: center; padding: 25px;">
-                Ещё нет аккаунта? <a href="./vc_signUp.html">Зарегистрируйтесь</a>
-            </div>
-        </div>
-    </section>
-        `;
+    const sectionContent = document.createElement('section');
+    sectionContent.className = "s-content";
+    sectionContent.classList.add('s-styles');
+    container.appendChild(sectionContent);
 
+    //form block
+    const wrapperForm = document.createElement('div');
+    wrapperForm.className = "authreg-wrapper";
+    const entryText = document.createElement('div');
+    entryText.className = "entry__text";
+    entryText.cssText = "width: 450px; margin: auto; padding-bottom: 20px;";
+    wrapperForm.appendChild(entryText);
+    const column = document.createElement('div');
+    column.className = "column";
+    entryText.appendChild(column);
+    const formTitle = document.createElement('h2');
+    formTitle.className = "s-content__title";
+    formTitle.classList.add('s-content__title--post');
+    formTitle.innerHTML = "Вход";
+    column.appendChild(formTitle);
+    const form = document.createElement('form');
+    const divEmail = document.createElement('div');
+    column.appendChild(form);
+    form.appendChild(divEmail);
+    const labelEmail = document.createElement('label');
+    labelEmail.for = "email";
+    labelEmail.innerHTML = "Ваш email";
+    const inputEmail = document.createElement('input');
+    inputEmail.className = "h-full-width";
+    inputEmail.type = "email";
+    inputEmail.placeholder = "test@mail.ru";
+    divEmail.appendChild(labelEmail);
+    divEmail.appendChild(inputEmail);
+
+    sectionContent.appendChild(wrapperForm);
+
+    const divPassword = document.createElement('div');
+    form.appendChild(divPassword);
+    const labelPassword = document.createElement('label');
+    labelPassword.for = "password";
+    labelPassword.innerHTML = "Пароль";
+    const inputPassword = document.createElement('input');
+    inputPassword.className = "h-full-width";
+    inputPassword.type = "password";
+    inputPassword.placeholder = "********";
+    divPassword.appendChild(labelPassword);
+    divPassword.appendChild(inputPassword);
+    const submitButton = document.createElement('input');
+    submitButton.className = "btn--primary";
+    submitButton.classList.add('h-full-width');
+    submitButton.type = "submit";
+    submitButton.value = "Войти";
+    form.appendChild(submitButton);
+
+    //Question block
+    const divQuestion = document.createElement('div');
+    divQuestion.cssText = "text-align: center; padding: 25px;";
+    const pQuestion = document.createElement('p');
+    pQuestion.innerHTML = "Ещё нет аккаунта?";
+    const aQuestion = document.createElement('a');
+    aQuestion.href = "/signup";
+    aQuestion.text = "Зарегистрируйтесь";
+    divQuestion.appendChild(pQuestion);
+    divQuestion.appendChild(aQuestion);
+    wrapperForm.appendChild(divQuestion);
+
+    form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+
+        const email = inputEmail.value.trim();
+        const password = inputPassword.value.trim();
+
+        ajax(
+            'POST',
+            '/login',
+            {email, password},
+            (status, response) => {
+                if (status === 200) {
+                    profilePage();
+                } else {
+                    const {error} = JSON.parse(response);
+                    //alert block
+                    const divError = document.createElement('div');
+                    divError.cssText = "width: 450px; margin: auto;";
+                    const alertBoxError = document.createElement('div');
+                    alertBoxError.className = "alert-box";
+                    alertBoxError.classList.add('alert-box--error');
+                    const pError = document.createElement('p');
+                    pError.cssText = "text-align: center;";
+                    pError.innerText = error;
+                    const alertBoxClose = document.createElement('span');
+                    alertBoxClose.className = "alert-box__close";
+                    divError.appendChild(alertBoxError);
+                    alertBoxError.appendChild(pError);
+                    alertBoxError.appendChild(alertBoxClose);
+                }
+            }
+        )
+
+    });
 
 }
 
 function profilePage() {
-    container.innerHTML = '';
+container.innerHTML = '';
 
+    ajax('GET', '/me', null, (status, responseText) => {
+        let isAuthorized = false;
+
+        if (status === 200) {
+            isAuthorized = true;
+        }
+
+        if (status === 401) {
+            isAuthorized = false;
+        }
+
+        if (isAuthorized) {
+            const responseBody = JSON.parse(responseText);
+            //TODO: вставить профиль, когда появится backend
+
+        console.log('Нет авторизации');
+        loginPage();
+        }
+    });
+
+    //временная статика
     container.innerHTML = `
     <section class="s-content s-styles">
-        
-        <div class="row">
-
-            <div class="column large-12 intro">
-
-                <h1>Имя Фамилия</h1>
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="column large-6 tab-12">
-
-                <h3 class="h-add-bottom">Аватар</h3>
-
-                <figure>
-                    <img src="images/sample-525.jpg" 
-                         srcset="images/sample-1050.jpg 1050w, 
-                                 images/samaple-525.jpg 525w" 
-                         sizes="(max-width: 1050px) 100vw, 1050px" alt="">
-
-                    <figcaption>
-                        Описание фото
-                    </figcaption>
-                </figure>
-
-            </div>
-
-            <div class="column large-6 tab-12">
-
-                <h3>О себе</h3>
-
-                <p class="drop-cap">Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="column large-6 tab-12">
-
-                <h3 class="h-add-bottom">Любимая цитата</h3>
-
-                <figure class="pull-quote">
-                    <blockquote>
-                        <p>
-                        Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
-                        </p>
-
-                        <footer>
-                            <cite>Автор</cite>
-                        </footer>
-                    </blockquote>
-                </figure>
-
-
-            </div>
-
-            <div class="column large-6 tab-12">
-
-                <h3>Статистика</h3>
-
-                <ul class="stats-tabs">
-                    <li><a href="#">111<em>Постов</em></a></li>
-                    <li><a href="#">222<em>Комментариев</em></a></li>
-                    <li><a href="#">3333<em>Лайков</em></a></li>
-                    <li><a href="#">444<em>Дизайков</em></a></li>
-                    <li><a href="#">55<em>Дней на сайте</em></a></li>
-                </ul>
-
-                <h3>Лучшие посты</h3>
-
-                <div class="table-responsive">
-
-                    <table>
-                            <thead>
-                            <tr>
-                                <th>Название</th>
-                                <th>Лайки</th>
-                                <th>Дата публикации</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Статья</td>
-                                <td>22</td>
-                                <td>8 сентября 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Статья</td>
-                                <td>22</td>
-                                <td>8 сентября 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Статья</td>
-                                <td>22</td>
-                                <td>8 сентября 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Статья</td>
-                                <td>22</td>
-                                <td>8 сентября 2020</td>
-                            </tr>
-                            </tbody>
-                    </table>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="column large-12">
-
-                <h3>Статьи</h3>
-
-            </div>
-
-        </div>
-
-
-        <div class="row half-bottom">
-
-            <div class="column large-6 tab-12">
-                    
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-            </div>
-
-            <div class="column large-6 tab-12">
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-
-                <h4>Название статьи</h4>
-                <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-                
-            </div>
-
-        </div>
-
+    
+    <div class="row">
+    
+    <div class="column large-12 intro">
+    
+    <h1>Имя Фамилия</h1>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row">
+    
+    <div class="column large-6 tab-12">
+    
+    <h3 class="h-add-bottom">Аватар</h3>
+    
+    <figure>
+    <img src="images/sample-525.jpg"
+    srcset="images/sample-1050.jpg 1050w,
+    images/samaple-525.jpg 525w"
+    sizes="(max-width: 1050px) 100vw, 1050px" alt="">
+    
+    <figcaption>
+    Описание фото
+    </figcaption>
+    </figure>
+    
+    </div>
+    
+    <div class="column large-6 tab-12">
+    
+    <h3>О себе</h3>
+    
+    <p class="drop-cap">Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
+    </p>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row">
+    
+    <div class="column large-6 tab-12">
+    
+    <h3 class="h-add-bottom">Любимая цитата</h3>
+    
+    <figure class="pull-quote">
+    <blockquote>
+    <p>
+    Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
+    </p>
+    
+    <footer>
+    <cite>Автор</cite>
+    </footer>
+    </blockquote>
+    </figure>
+    
+    
+    </div>
+    
+    <div class="column large-6 tab-12">
+    
+    <h3>Статистика</h3>
+    
+    <ul class="stats-tabs">
+    <li><a href="#">111<em>Постов</em></a></li>
+    <li><a href="#">222<em>Комментариев</em></a></li>
+    <li><a href="#">3333<em>Лайков</em></a></li>
+    <li><a href="#">444<em>Дизайков</em></a></li>
+    <li><a href="#">55<em>Дней на сайте</em></a></li>
+    </ul>
+    
+    <h3>Лучшие посты</h3>
+    
+    <div class="table-responsive">
+    
+    <table>
+    <thead>
+    <tr>
+    <th>Название</th>
+    <th>Лайки</th>
+    <th>Дата публикации</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Статья</td>
+    <td>22</td>
+    <td>8 сентября 2020</td>
+    </tr>
+    <tr>
+    <td>Статья</td>
+    <td>22</td>
+    <td>8 сентября 2020</td>
+    </tr>
+    <tr>
+    <td>Статья</td>
+    <td>22</td>
+    <td>8 сентября 2020</td>
+    </tr>
+    <tr>
+    <td>Статья</td>
+    <td>22</td>
+    <td>8 сентября 2020</td>
+    </tr>
+    </tbody>
+    </table>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row">
+    
+    <div class="column large-12">
+    
+    <h3>Статьи</h3>
+    
+    </div>
+    
+    </div>
+    
+    
+    <div class="row half-bottom">
+    
+    <div class="column large-6 tab-12">
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    </div>
+    
+    <div class="column large-6 tab-12">
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    <h4>Название статьи</h4>
+    <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+    
+    </div>
+    
+    </div>
+    
     </section>
     `;
 }
 
 function singlePage() {
-    container.innerHTML = '';
+container.innerHTML = '';
 
-    container.innerHTML = `
-    <section class="s-content s-content--single">
-        <div class="row">
-            <div class="column large-12">
+//временная статика
+container.innerHTML = `
+<section class="s-content s-content--single">
+<div class="row">
+<div class="column large-12">
 
-                <article class="entry">
+<article class="entry">
 
-                    <div class="s-content__media">
-                        <div class="s-content__post-thumb">
-                            <img src="images/thumbs/single/standard/standard-1050.jpg" 
-                                 srcset="images/thumbs/single/standard/standard-2100.jpg 2100w, 
-                                         images/thumbs/single/standard/standard-1050.jpg 1050w, 
-                                         images/thumbs/single/standard/standard-525.jpg 525w" sizes="(max-width: 2100px) 100vw, 2100px" alt="">
-                        </div>
-                    </div> <!-- end s-content__media -->
+<div class="s-content__media">
+<div class="s-content__post-thumb">
+<img src="images/thumbs/single/standard/standard-1050.jpg"
+srcset="images/thumbs/single/standard/standard-2100.jpg 2100w,
+images/thumbs/single/standard/standard-1050.jpg 1050w,
+images/thumbs/single/standard/standard-525.jpg 525w" sizes="(max-width: 2100px) 100vw, 2100px" alt="">
+</div>
+</div> <!-- end s-content__media -->
 
-                    <div class="s-content__primary">
+<div class="s-content__primary">
 
-                        <h2 class="s-content__title s-content__title--post">Съешь ещё этих мягких французских булок, да выпей чаю</h2>
+<h2 class="s-content__title s-content__title--post">Съешь ещё этих мягких французских булок, да выпей чаю</h2>
 
-                        <ul class="s-content__post-meta">
-                            <li class="date">September 05, 2020</li>
-                            <li class="cat"><a href="">Frontend</a><a href="">Design</a></li>
-                        </ul>
+<ul class="s-content__post-meta">
+<li class="date">September 05, 2020</li>
+<li class="cat"><a href="">Frontend</a><a href="">Design</a></li>
+</ul>
 
-                        <p class="lead">
-                        Съешь ещё этих мягких французских булок, да выпей чаю. </p> 
+<p class="lead">
+Съешь ещё этих мягких французских булок, да выпей чаю. </p>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.
-                        </p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.
+</p>
 
-                        <p>
-                            <img src="images/sample-1050.jpg" 
-                                 srcset="images/sample-2100.jpg 2100w, 
-                                         images/sample-1050.jpg 1050w, 
-                                         images/sample-525.jpg 525w" sizes="(max-width: 2100px) 100vw, 2100px" alt="">
-                        </p>
+<p>
+<img src="images/sample-1050.jpg"
+srcset="images/sample-2100.jpg 2100w,
+images/sample-1050.jpg 1050w,
+images/sample-525.jpg 525w" sizes="(max-width: 2100px) 100vw, 2100px" alt="">
+</p>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.
-                        </p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.
+</p>
 
-                        <h2>Съешь ещё этих мягких французских булок, да выпей чаю.</h2>
+<h2>Съешь ещё этих мягких французских булок, да выпей чаю.</h2>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю. <a href="http://#">Съешь ещё этих мягких французских булок, да выпей чаю.</a> Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю. <a href="http://#">Съешь ещё этих мягких французских булок, да выпей чаю.</a> Съешь ещё этих мягких французских булок, да выпей чаю.</p>
 
-                        <blockquote>
-                            <p>
-                                Съешь ещё этих мягких французских булок, да выпей чаю.
-                            </p>
-                            <cite>Съешь ещё этих мягких французских булок, да выпей чаю.</cite>
-                        </blockquote>
+<blockquote>
+<p>
+Съешь ещё этих мягких французских булок, да выпей чаю.
+</p>
+<cite>Съешь ещё этих мягких французских булок, да выпей чаю.</cite>
+</blockquote>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
 
-                        <h3>Съешь ещё этих мягких французских булок, да выпей чаю.</h3>
+<h3>Съешь ещё этих мягких французских булок, да выпей чаю.</h3>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
-                                                   
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
 
-                        <ul>
-                            <li>Съешь ещё этих мягких французских булок, да выпей чаю.
-                                <ul>
-                                    <li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
-                                    <li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
-                                    <li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
-                                </ul>
-                            </li>
-                            <li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
-                            <li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
-                        </ul>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
 
-                        <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+<ul>
+<li>Съешь ещё этих мягких французских булок, да выпей чаю.
+<ul>
+<li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
+<li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
+<li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
+</ul>
+</li>
+<li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
+<li>Съешь ещё этих мягких французских булок, да выпей чаю.</li>
+</ul>
 
-                        <p class="s-content__post-tags">
-                            <span>Tagged in :</span>
-                            <a href="#">orci</a><a href="#">lectus</a><a href="#">varius</a><a href="#">turpis</a>
-                        </p>
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
 
-                        <div class="s-content__author">
-                            <img src="images/avatars/user-06.jpg" alt="">
+<p class="s-content__post-tags">
+<span>Tagged in :</span>
+<a href="#">orci</a><a href="#">lectus</a><a href="#">varius</a><a href="#">turpis</a>
+</p>
 
-                            <div class="about">
-                                <h5><a href="#">Jonathan Smith</a></h5>
-                            
-                                <p>Съешь ещё этих мягких французских булок, да выпей чаю.
-                                </p>
+<div class="s-content__author">
+<img src="images/avatars/user-06.jpg" alt="">
 
-                                <ul class="author-social">
-                                    <li><a href="#0">Facebook</a></li>
-                                    <li><a href="#0">Twitter</a></li>
-                                    <li><a href="#0">Dribbble</a></li>
-                                    <li><a href="#0">Instagram</i></a></li>
-                                </ul>
-                            </div>
-                        </div> <!-- end s-content__author -->
+<div class="about">
+<h5><a href="#">Jonathan Smith</a></h5>
 
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.
+</p>
 
-                        <div class="s-content__pagenav group">
-                            <div class="prev-nav">
-                                <a href="#" rel="prev">
-                                    <span>Previous</span>
-                                    Tips on Minimalist Design 
-                                </a>
-                            </div>
-                             <div class="next-nav">
-                                 <a href="#" rel="next">
-                                     <span>Next</span>
-                                    Less Is More 
-                                 </a>
-                             </div>
-                         </div> <!-- end s-content__pagenav -->
-
-                    </div> <!-- end s-content__primary -->
-                </article>
-
-            </div> <!-- end column -->
-        </div> <!-- end row -->
+<ul class="author-social">
+<li><a href="#0">Facebook</a></li>
+<li><a href="#0">Twitter</a></li>
+<li><a href="#0">Dribbble</a></li>
+<li><a href="#0">Instagram</i></a></li>
+</ul>
+</div>
+</div> <!-- end s-content__author -->
 
 
-        <!-- comments
-        ================================================== -->
-        <div class="comments-wrap">
-            <div id="comments" class="row">
-                <div class="column">
-                    <h3>5 Comments</h3>
-                    <ol class="commentlist">
-                        <li class="comment">
-                            <div class="comment__avatar">
-                                <img class="avatar" src="images/avatars/user-01.jpg" alt="" width="50" height="50">
-                            </div>
-                            <div class="comment__content">
-                                <div class="comment__info">
-                                    <div class="comment__author">Itachi Uchiha</div>
-                                    <div class="comment__meta">
-                                        <div class="comment__time">Sept 05, 2020</div>
-                                        <div class="comment__reply">
-                                            <a class="comment-reply-link" href="#0">Reply</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment__text">
-                                <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <div class="comment__avatar">
-                                <img class="avatar" src="images/avatars/user-04.jpg" alt="" width="50" height="50">
-                            </div>
-                            <div class="comment__content">
-                                <div class="comment__info">
-                                    <div class="comment__author">John Doe</div>
-                                    <div class="comment__meta">
-                                        <div class="comment__time">Sept 05, 2020</div>
-                                        <div class="comment__reply">
-                                            <a class="comment-reply-link" href="#0">Reply</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment__text">
-                                <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
-                                </div>
-                            </div>
-                            <ul class="children">
-                                <li class="comment">
-                                    <div class="comment__avatar">
-                                        <img class="avatar" src="images/avatars/user-03.jpg" alt="" width="50" height="50">
-                                    </div>
-                                    <div class="comment__content">
-                                        <div class="comment__info">
-                                            <div class="comment__author">Kakashi Hatake</div>
-                                            <div class="comment__meta">
-                                                <div class="comment__time">Sept, 05 2020</div>
-                                                <div class="comment__reply">
-                                                    <a class="comment-reply-link" href="#0">Reply</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment__text">
-                                            <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
-                                        </div>
-                                    </div>
-                                    <ul class="children">
-                                        <li class="depth-3 comment">
-                                            <div class="comment__avatar">
-                                                <img class="avatar" src="images/avatars/user-04.jpg" alt="" width="50" height="50">
-                                            </div>
-                                            <div class="comment__content">
-                                                <div class="comment__info">
-                                                    <div class="comment__author">John Doe</div>
-                                                    <div class="comment__meta">
-                                                        <div class="comment__time">Sept 04, 2020</div>
-                                                        <div class="comment__reply">
-                                                            <a class="comment-reply-link" href="#0">Reply</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="comment__text">
-                                                <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="comment">
-                            <div class="comment__avatar">
-                                <img class="avatar" src="images/avatars/user-02.jpg" alt="" width="50" height="50">
-                            </div>
-                            <div class="comment__content">
-                                <div class="comment__info">
-                                    <div class="comment__author">Shikamaru Nara</div>
-                                    <div class="comment__meta">
-                                        <div class="comment__time">Sept 03, 2020</div>
-                                        <div class="comment__reply">
-                                            <a class="comment-reply-link" href="#0">Reply</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment__text">
-                                <p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div class="row comment-respond">
-                <div id="respond" class="column">
-                    <h3>
-                    Добавить комментарий
-                    </h3>
-                    <form name="commentForm" id="commentForm" method="post" action="" autocomplete="off">
-                        <fieldset>
-                            <div class="message form-field">
-                                <textarea name="cMessage" id="cMessage" class="h-full-width" placeholder="Ваш комментарий"></textarea>
-                            </div>
-                            <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large h-full-width" value="Комментировать" type="submit">
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    `;
+<div class="s-content__pagenav group">
+<div class="prev-nav">
+<a href="#" rel="prev">
+<span>Previous</span>
+Tips on Minimalist Design
+</a>
+</div>
+<div class="next-nav">
+<a href="#" rel="next">
+<span>Next</span>
+Less Is More
+</a>
+</div>
+</div> <!-- end s-content__pagenav -->
+
+</div> <!-- end s-content__primary -->
+</article>
+
+</div> <!-- end column -->
+</div> <!-- end row -->
+
+
+<!-- comments
+================================================== -->
+<div class="comments-wrap">
+<div id="comments" class="row">
+<div class="column">
+<h3>5 Comments</h3>
+<ol class="commentlist">
+<li class="comment">
+<div class="comment__avatar">
+<img class="avatar" src="images/avatars/user-01.jpg" alt="" width="50" height="50">
+</div>
+<div class="comment__content">
+<div class="comment__info">
+<div class="comment__author">Itachi Uchiha</div>
+<div class="comment__meta">
+<div class="comment__time">Sept 05, 2020</div>
+<div class="comment__reply">
+<a class="comment-reply-link" href="#0">Reply</a>
+</div>
+</div>
+</div>
+<div class="comment__text">
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+</div>
+</div>
+</li>
+<li class="comment">
+<div class="comment__avatar">
+<img class="avatar" src="images/avatars/user-04.jpg" alt="" width="50" height="50">
+</div>
+<div class="comment__content">
+<div class="comment__info">
+<div class="comment__author">John Doe</div>
+<div class="comment__meta">
+<div class="comment__time">Sept 05, 2020</div>
+<div class="comment__reply">
+<a class="comment-reply-link" href="#0">Reply</a>
+</div>
+</div>
+</div>
+<div class="comment__text">
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment">
+<div class="comment__avatar">
+<img class="avatar" src="images/avatars/user-03.jpg" alt="" width="50" height="50">
+</div>
+<div class="comment__content">
+<div class="comment__info">
+<div class="comment__author">Kakashi Hatake</div>
+<div class="comment__meta">
+<div class="comment__time">Sept, 05 2020</div>
+<div class="comment__reply">
+<a class="comment-reply-link" href="#0">Reply</a>
+</div>
+</div>
+</div>
+<div class="comment__text">
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+</div>
+</div>
+<ul class="children">
+<li class="depth-3 comment">
+<div class="comment__avatar">
+<img class="avatar" src="images/avatars/user-04.jpg" alt="" width="50" height="50">
+</div>
+<div class="comment__content">
+<div class="comment__info">
+<div class="comment__author">John Doe</div>
+<div class="comment__meta">
+<div class="comment__time">Sept 04, 2020</div>
+<div class="comment__reply">
+<a class="comment-reply-link" href="#0">Reply</a>
+</div>
+</div>
+</div>
+<div class="comment__text">
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+</div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="comment">
+<div class="comment__avatar">
+<img class="avatar" src="images/avatars/user-02.jpg" alt="" width="50" height="50">
+</div>
+<div class="comment__content">
+<div class="comment__info">
+<div class="comment__author">Shikamaru Nara</div>
+<div class="comment__meta">
+<div class="comment__time">Sept 03, 2020</div>
+<div class="comment__reply">
+<a class="comment-reply-link" href="#0">Reply</a>
+</div>
+</div>
+</div>
+<div class="comment__text">
+<p>Съешь ещё этих мягких французских булок, да выпей чаю.</p>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="row comment-respond">
+<div id="respond" class="column">
+<h3>
+Добавить комментарий
+</h3>
+<form name="commentForm" id="commentForm" method="post" action="" autocomplete="off">
+<fieldset>
+<div class="message form-field">
+<textarea name="cMessage" id="cMessage" class="h-full-width" placeholder="Ваш комментарий"></textarea>
+</div>
+<input name="submit" id="submit" class="btn btn--primary btn-wide btn--large h-full-width" value="Комментировать" type="submit">
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+</section>
+`;
 }
 
 function signupPage() {
-    container.innerHTML = '';
+container.innerHTML = '';
 
-    container.innerHTML = `
-    <section class="s-content s-styles">
+//временная статика
+container.innerHTML = `
+<section class="s-content s-styles">
 
-        <div style="width: 450px; margin:auto;">
+<div style="width: 450px; margin:auto;">
 
-            <div class="alert-box alert-box--success">
-                <p style="text-align: center;">Вы успешно зарегистрировались!</p>
-                <span class="alert-box__close"></span>
-            </div>
+<div class="alert-box alert-box--success">
+<p style="text-align: center;">Вы успешно зарегистрировались!</p>
+<span class="alert-box__close"></span>
+</div>
 
-        </div>
+</div>
 
-        <div class="authreg-wrapper">
- 
-            <div class="entry__text" style="width: 450px; margin-left: auto; margin-right: auto;">
+<div class="authreg-wrapper">
 
-                <div class="column">
+<div class="entry__text" style="width: 450px; margin-left: auto; margin-right: auto;">
 
-                        <h2 class="s-content__title s-content__title--post">Регистрация</h2>
+<div class="column">
 
-                        <form>
-                            <div>
-                                <label for="inputName">Ваше имя</label>
-                                <input class="h-full-width" type="name" placeholder="Иван" id="inputName" required>
-                            </div>
-                            <div>
-                                <label for="inputSecondName">Ваша фамилия</label>
-                                <input class="h-full-width" type="name" placeholder="Иванов" id="inputSecondName">
-                            </div>
-                            <div>
-                                <label for="inputEmail">Ваш email</label>
-                                <input class="h-full-width" type="email" placeholder="test@mail.ru" id="inputEmail" required>
-                            </div>
-                            <div>
-                                <label for="inputAvatar">Аватар</label>
-                                <input class="h-full-width" type="file" accept=".jpg, .jpeg, .png" id="inputAvatar">
-                            </div>
-                            <div>
-                                <label for="aboutAvatar">Описание картинки</label>
-                                <textarea class="h-full-width" placeholder="Описание..." id="aboutAvatar"></textarea>
-                            </div>
-                            <div>
-                                <label for="inputQuote">Любимая цитата</label>
-                                <textarea class="h-full-width" type="text" placeholder="Цитата..." id="inputQuote"></textarea>
-                            </div>
-                            <div>
-                                <label for="quoteAuthor">Автор цитаты</label>
-                                <input class="h-full-width"  type="name" placeholder="Автор..." id="quoteAuthor">
-                            </div>
-                            <div>
-                                <label for="aboutInput">О себе</label>
-                                <textarea class="h-full-width" placeholder="Хороший фуллстэк-программист..." id="aboutInput"></textarea>
-                            </div>
-                            <div>
-                                <label for="password">Пароль</label>
-                                <input class="h-full-width" type="password" placeholder="********" id="password" required>
-                            </div>
-                            <div>
-                                <label for="passwordRepeat">Пароль ещё раз</label>
-                                <input class="h-full-width" type="password" placeholder="********" id="passwordRepeat" required >
-                            </div>
-                        
-                            <input class="btn--primary h-full-width" type="submit" value="Зарегистрироваться">
-                        </form>
-                    
-                </div>
-            </div>
+<h2 class="s-content__title s-content__title--post">Регистрация</h2>
 
-            <div style="text-align: center; padding: 25px;">
-                Уже есть аккаунт? Тогда <a href="./vc_signIn.html">войдите</a>
-            </div>
-        
-        </div>
-            
-    </section>
-    `;
+<form>
+<div>
+<label for="inputName">Ваше имя</label>
+<input class="h-full-width" type="name" placeholder="Иван" id="inputName" required>
+</div>
+<div>
+<label for="inputSecondName">Ваша фамилия</label>
+<input class="h-full-width" type="name" placeholder="Иванов" id="inputSecondName">
+</div>
+<div>
+<label for="inputEmail">Ваш email</label>
+<input class="h-full-width" type="email" placeholder="test@mail.ru" id="inputEmail" required>
+</div>
+<div>
+<label for="inputAvatar">Аватар</label>
+<input class="h-full-width" type="file" accept=".jpg, .jpeg, .png" id="inputAvatar">
+</div>
+<div>
+<label for="aboutAvatar">Описание картинки</label>
+<textarea class="h-full-width" placeholder="Описание..." id="aboutAvatar"></textarea>
+</div>
+<div>
+<label for="inputQuote">Любимая цитата</label>
+<textarea class="h-full-width" type="text" placeholder="Цитата..." id="inputQuote"></textarea>
+</div>
+<div>
+<label for="quoteAuthor">Автор цитаты</label>
+<input class="h-full-width"  type="name" placeholder="Автор..." id="quoteAuthor">
+</div>
+<div>
+<label for="aboutInput">О себе</label>
+<textarea class="h-full-width" placeholder="Хороший фуллстэк-программист..." id="aboutInput"></textarea>
+</div>
+<div>
+<label for="password">Пароль</label>
+<input class="h-full-width" type="password" placeholder="********" id="password" required>
+</div>
+<div>
+<label for="passwordRepeat">Пароль ещё раз</label>
+<input class="h-full-width" type="password" placeholder="********" id="passwordRepeat" required >
+</div>
+
+<input class="btn--primary h-full-width" type="submit" value="Зарегистрироваться">
+</form>
+
+</div>
+</div>
+
+<div style="text-align: center; padding: 25px;">
+Уже есть аккаунт? Тогда <a href="./vc_signIn.html">войдите</a>
+</div>
+
+</div>
+
+</section>
+`;
 
 
 }
 
 function addPage() {
-    container.innerHTML = '';
-    container.innerHTML = `
-    <section class="s-content site-page">
-        <div class="row">
-            <div class="column large-12">
+container.innerHTML = '';
 
-                <section>
-                    <div class="s-content__primary">
-                        <h1 class="s-content__title">Добавьте новость</h1>
+//временная статика
+container.innerHTML = `
+<section class="s-content site-page">
+<div class="row">
+<div class="column large-12">
 
-                        <form name="cForm" id="cForm" class="s-content__form" method="post" action="">
-                            <fieldset>
+<section>
+<div class="s-content__primary">
+<h1 class="s-content__title">Добавьте новость</h1>
 
-                                <div class="form-field">
-                                    <input name="postName" type="text" id="postName" class="h-full-width" placeholder="Заголовок поста" value="">
-                                </div>
+<form name="cForm" id="cForm" class="s-content__form" method="post" action="">
+<fieldset>
 
-                                <div class="form-field">
-                                    <textarea name="postBody" type="text" id="postBody" class="h-full-width" placeholder="О чём хотите рассказать?"  value=""></textarea>
-                                </div>
+<div class="form-field">
+<input name="postName" type="text" id="postName" class="h-full-width" placeholder="Заголовок поста" value="">
+</div>
 
-                                <div class="message form-field">
-                                    <input name="postTags" type="text" id="postTags" class="h-full-width" placeholder="Тэги" value="">
-                                </div>
+<div class="form-field">
+<textarea name="postBody" type="text" id="postBody" class="h-full-width" placeholder="О чём хотите рассказать?"  value=""></textarea>
+</div>
 
-                                <button type="submit" class="submit btn btn--primary btn--medium h-full-width">Опубликовать</button>
+<div class="message form-field">
+<input name="postTags" type="text" id="postTags" class="h-full-width" placeholder="Тэги" value="">
+</div>
 
-                            </fieldset>
-                       </form> <!-- end form -->
-                    </div>
-                </section>
+<button type="submit" class="submit btn btn--primary btn--medium h-full-width">Опубликовать</button>
 
-            </div>
-        </div>
-    </section>
+</fieldset>
+</form> <!-- end form -->
+</div>
+</section>
 
-    `;
+</div>
+</div>
+</section>
+
+`;
 }
 
 application.addEventListener('click', (evt) => {
-    const {target} = evt;
+const {target} = evt;
 
-    if (target instanceof HTMLAnchorElement) {
-        evt.preventDefault();
-        config[target.dataset.section].open();
-    }
+if (target instanceof HTMLAnchorElement) {
+evt.preventDefault();
+config[target.dataset.section].open();
+}
 });
 
 
