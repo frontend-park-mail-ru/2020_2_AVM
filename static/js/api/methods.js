@@ -1,10 +1,17 @@
-import Fetching from './fetch';
+import Fetching from './fetch.js';
 
-export default class Api {
+export default class Methods {
+
+    static getUserData() {
+        return Fetching.queryGet({
+            url: '/user',
+        });
+    }
+
     static makeLogin({
-           login = '',
-           password = '',
-                   }) {
+                         login = '',
+                         password = '',
+                     }) {
         return Fetching.queryPost({
             url: '/login',
             body: JSON.stringify({
@@ -19,10 +26,10 @@ export default class Api {
     }
 
     static makeSignUp({
-            login= '',
-            email = '',
-            password = '',
-                    }) {
+                          login = '',
+                          email = '',
+                          password = '',
+                      }) {
         return Fetching.queryPost({
             url: '/signup',
             body: JSON.stringify({
@@ -37,14 +44,12 @@ export default class Api {
         });
     }
 
-    static getUserData() {
-        return Fetching.queryGet({
-            url: '/user',
-        });
-    }
-
-    static updateUser({login = '', email = '', password = ''} = {}) {
-        return Fetching.queryPut({
+    static updateUser({
+                          login = '',
+                          password = '',
+                          email = ''
+                      } = {}) {
+        return Fetching.queryUpdate({
             url: '/user',
             body: JSON.stringify({
                 'username': login,
@@ -59,7 +64,7 @@ export default class Api {
     }
 
     static uploadUserAvatar(formData) {
-        return Network.queryPost({
+        return Fetching.queryPost({
             url: '/user/image',
             body: formData,
             headers: {
@@ -69,7 +74,7 @@ export default class Api {
     }
 
     static makeLogout() {
-        return Network.queryDelete({
+        return Fetching.queryDelete({
             url: '/logout',
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),

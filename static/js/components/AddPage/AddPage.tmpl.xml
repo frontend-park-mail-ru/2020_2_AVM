@@ -1,0 +1,26 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+
+    <section class="s-content site-page">
+        <div class="row">
+            <div class="column large-12">
+                <div class="s-content__primary">
+                    <h1 class="s-content__title">Добавьте новость</h1>
+
+                    <form name="cForm" class="s-content__form" method="post" action="">
+
+
+                            <div class="form-field">
+                                <input name="postName" type="text" id="postName" class="h-full-width" placeholder="Заголовок поста" value="" />
+                            </div>
+
+                            <div class="form-field">
+                                <textarea name="postBody" type="text" id="postBody" class="h-full-width" placeholder="О чём хотите рассказать?"  value=""></textarea>
+                            </div>
+
+                            <button type="submit" class="submit btn btn--primary btn--medium h-full-width">Опубликовать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</fest:template>

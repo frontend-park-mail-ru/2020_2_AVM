@@ -36,7 +36,7 @@ export default class Fetching {
             });
     }
 
-    static queryPut({
+    static queryUpdate({
                      host = SERVER_ADDRESS,
                      url = '/',
                      body = {},
