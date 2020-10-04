@@ -1,32 +1,64 @@
-const fs = require('fs');
-const http = require('http');
-const debug = require('debug')('http')
+const http = require('http') // To use the HTTP interfaces in Node.js
+const fs = require('fs') // For interacting with the file system
+const path = require('path') // For working with file and directory paths
+const url = require('url') // For URL resolution and parsing
 
-const server = http.createServer((req, res) => {
-  debug('requested', req.url);
+const mimeTypes = {
+  '.html': 'text/html',
+  '.js': 'application/javascript',
+  '.css': 'text/css',
+  '.ico': 'image/x-icon',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.json': 'application/json',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2'
+}
 
-  const path = `./static${req.url === '/' ? '/index.html' : req.url}`;
+const server = http.createServer()
 
-  const ip = res.socket.remoteAddress;
-  const port = res.socket.remotePort;
-  debug(`Your IP address is ${ip} and your source port is ${port}.`);
+server.on('request', (req, res) => {
+  const parsedUrl = new URL(req.url, 'https://node-http.glitch.me/')
 
-  fs.readFile(path, (err, file) => {
-    if (err) {
-      debug('file read error', path, err);
-      res.write('error');
-      res.end();
+  let pathName = parsedUrl.pathname
 
-      return;
+  let ext = path.extname(pathName)
+
+  if (pathName !== '/' && pathName[pathName.length - 1] === '/') {
+    res.writeHead(302, {'Location': pathName.slice(0, -1)})
+    res.end()
+    return
+  }
+
+  if (pathName === '/') {
+    ext = '.html'
+    pathName = '/index.html'
+  } else if (!ext) {
+    ext = '.html'
+    pathName += ext
+  }
+
+  const filePath = path.join(process.cwd(), '/static', pathName)
+
+  fs.exists(filePath, function (exists, err) {
+
+    if (!exists || !mimeTypes[ext]) {
+      console.log('File does not exist: ' + pathName)
+      res.writeHead(404, {'Content-Type': 'text/plain'})
+      res.write('404 Not Found')
+      res.end()
+      return
     }
 
-    debug('file read', path);
+    res.writeHead(200, {'Content-Type': mimeTypes[ext]})
 
-    res.write(file);
-    res.end();
-  });
+    const fileStream = fs.createReadStream(filePath)
+    fileStream.pipe(res)
+  })
+})
 
-  debug('after read file');
-});
+server.listen(3000)
 
-server.listen(3000);
+console.log('Server listening on ' + 3000);
