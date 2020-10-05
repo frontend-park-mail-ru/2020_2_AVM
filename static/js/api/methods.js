@@ -8,6 +8,12 @@ export default class Methods {
         });
     }
 
+    static getUserArticles(id) {
+        return Fetching.queryGet({
+            url: 'user/${id}/article',
+        });
+    }
+
     static makeLogin({
                          login = '',
                          password = '',
@@ -28,14 +34,24 @@ export default class Methods {
     static makeSignUp({
                           login = '',
                           email = '',
+                          avatar = '',
+                          quote = '',
+                          quoteAuthor = '',
+                          about = '',
                           password = '',
+                          passwordRepeat = '',
                       }) {
         return Fetching.queryPost({
             url: '/signup',
             body: JSON.stringify({
-                'username': login,
-                'password': password,
+                'login': login,
                 'email': email,
+                'avatar': avatar,
+                'quote': quote,
+                'quoteAuthor': quoteAuthor,
+                'about': about,
+                'password': password,
+                'passwordRepeat': passwordRepeat,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
@@ -46,15 +62,25 @@ export default class Methods {
 
     static updateUser({
                           login = '',
+                          email = '',
+                          avatar = '',
+                          quote = '',
+                          quoteAuthor = '',
+                          about = '',
                           password = '',
-                          email = ''
+                          passwordRepeat = '',
                       } = {}) {
         return Fetching.queryUpdate({
-            url: '/user',
+            url: '/user/update',
             body: JSON.stringify({
-                'username': login,
-                'password': password,
+                'login': login,
                 'email': email,
+                'avatar': avatar,
+                'quote': quote,
+                'quoteAuthor': quoteAuthor,
+                'about': about,
+                'password': password,
+                'passwordRepeat': passwordRepeat,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
@@ -63,21 +89,29 @@ export default class Methods {
         });
     }
 
-    static uploadUserAvatar(formData) {
-        return Fetching.queryPost({
-            url: '/user/image',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
-            },
-        });
-    }
 
     static makeLogout() {
         return Fetching.queryDelete({
             url: '/logout',
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
+            },
+        });
+    }
+
+    static makeArticle({
+                          title = '',
+                          text = '',
+                      }) {
+        return Fetching.queryPost({
+            url: '/add',
+            body: JSON.stringify({
+                'title': title,
+                'text': text,
+            }),
+            headers: {
+                'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
+                'Content-Type': 'application/json',
             },
         });
     }

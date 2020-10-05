@@ -5,13 +5,13 @@ import {footerView} from './components/Footer/footer.js';
 import {mobileMenu} from './components/MobileMenu/usingMobileMenu.js';
 import {search} from './components/Search/search.js';
 
-import {ProfilePage} from './components/ProfilePage/ProfilePage.js';
-import {PostPage} from './components/PostPage/PostPage.js';
+import {profilePage} from './views/ProfilePage/profilePage.js';
+
+import {SettingsPage} from './components/SettingsPage/SettingsPage.js';
 import {AddPage} from './components/AddPage/AddPage.js';
 import {SignUpPage} from './components/SignUpPage/SignUpPage.js';
 import {LoginPage} from './components/LoginPage/LoginPage.js';
-
-import Methods from './api/methods.js';
+import {LogoutPage} from './components/LogoutPage/LogoutPage.js';
 
 /* Base init */
 const application = document.getElementById('app');
@@ -23,12 +23,16 @@ application.appendChild(header);
 application.appendChild(container);
 application.appendChild(footer);
 
-
 const config = {
     profile: {
         href: '/profile',
         text: 'Профиль',
-        open: profilePage,
+        open: profileList,
+    },
+    settings: {
+        href: '/settings',
+        text: 'Настройки',
+        open: settingsList,
     },
     signup: {
         href: '/signup',
@@ -40,15 +44,20 @@ const config = {
         text: 'Авторизоваться',
         open: loginPage,
     },
-    single: {
-        href: '/single',
-        text: 'Статья',
-        open: singlePage,
-    },
+    // single: {
+    //     href: '/single',
+    //     text: 'Статья',
+    //     open: singlePage,
+    // },
     add: {
         href: '/add',
         text: 'Добавить',
         open: addPage,
+    },
+    logout: {
+        href: '/logout',
+        text: 'Выйти',
+        open: logoutList,
     },
 };
 
@@ -56,42 +65,56 @@ function loginPage() {
     container.innerHTML = '';
 
     const login = new LoginPage(container);
-    login.data = "eeee";
+    login.data = {};
     login.render();
-
+    login.submitForm();
 }
 
-function profilePage() {
+function logoutList() {
     container.innerHTML = '';
 
-    const profile = new ProfilePage(container);
-    profile.data = "eeee";
-    profile.render();
-
+    const logout = new LogoutPage(container);
+    logout.data = {};
+    logout.render();
 }
 
-function singlePage() {
-    container.innerHTML = '';
-
-    const post = new PostPage(container);
-    post.data = "eeee";
-    post.render();
+function profileList() {
+    profilePage(container);
 }
+
+// function singlePage() {
+//     container.innerHTML = '';
+//
+//     const post = new PostPage(container);
+//     post.data = {};
+//     post.render();
+// }
 
 function signupPage() {
     container.innerHTML = '';
 
     const signup = new SignUpPage(container);
-    signup.data = "eeee";
+    signup.data = {};
     signup.render();
+    signup.submitForm();
+}
+
+function settingsList() {
+    container.innerHTML = '';
+
+    const setting = new SettingsPage(container);
+    setting.data = {};
+    setting.render();
+    setting.submitForm();
 }
 
 function addPage() {
     container.innerHTML = '';
 
     const add = new AddPage(container);
-    add.data = "eeee";
+    add.data = {};
     add.render();
+    add.submitForm();
 }
 
 application.addEventListener('click', (evt) => {
@@ -102,8 +125,6 @@ application.addEventListener('click', (evt) => {
         config[target.dataset.section].open();
     }
 });
-
-
 
 headerView(header, config);
 mobileMenu();

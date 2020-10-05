@@ -1,7 +1,7 @@
 import Methods from "../../api/methods.js";
 import {profilePage} from "../../views/ProfilePage/profilePage.js";
 
-export class SignUpPage {
+export class SettingsPage {
     #parent
     #data
 
@@ -19,19 +19,19 @@ export class SignUpPage {
     }
 
     render() {
-        this.#parent.innerHTML = window.fest['js/components/SignUpPage/SignUpPage.tmpl'](this.#data);
+        this.#parent.innerHTML = window.fest['js/components/SettingsPage/SettingsPage.tmpl'](this.#data);
     }
 
     submitForm() {
-        const form = document.querySelector('form#form-sing-up');
-        const loginInput = form.querySelector('input#inputLogin');
-        const emailInput = form.querySelector('input#inputEmail');
-        const avatarInput = form.querySelector('input#inputAvatar');
-        const quoteInput = form.querySelector('textarea#inputQuote');
-        const quoteAuthorInput = form.querySelector('input#quoteAuthor');
-        const aboutInput = form.querySelector('textarea#aboutInput');
-        const passwordInput = form.querySelector('input#password');
-        const passwordRepeatInput = form.querySelector('input#passwordRepeat');
+        const form = document.querySelector('form#form-update');
+        const loginInput = form.querySelector('input#updateLogin');
+        const emailInput = form.querySelector('input#updateEmail');
+        const avatarInput = form.querySelector('input#updateAvatar');
+        const quoteInput = form.querySelector('textarea#updateQuote');
+        const quoteAuthorInput = form.querySelector('input#updateQuoteAuthor');
+        const aboutInput = form.querySelector('textarea#updateAboutInput');
+        const passwordInput = form.querySelector('input#updatePassword');
+        const passwordRepeatInput = form.querySelector('input#updatePasswordRepeat');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -45,7 +45,7 @@ export class SignUpPage {
             const password = passwordInput.value.trim();
             const passwordRepeat = passwordRepeatInput.value.trim();
 
-            Methods.makeSignUp({
+            Methods.updateUser({
                 login,
                 email,
                 avatar,
@@ -67,7 +67,7 @@ export class SignUpPage {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.sign = true;
+                    this.#data.success = true;
                     this.render();
                 });
         })

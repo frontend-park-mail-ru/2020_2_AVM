@@ -18,7 +18,7 @@ export default class Fetching {
     }
 
     static queryPost({
-                      host = SERVER_ADDRESS,
+                      host = serverAddress,
                       url = '/',
                       body = '',
                       headers = {},
@@ -37,7 +37,7 @@ export default class Fetching {
     }
 
     static queryUpdate({
-                     host = SERVER_ADDRESS,
+                     host = serverAddress,
                      url = '/',
                      body = {},
                      headers = {},
@@ -56,7 +56,7 @@ export default class Fetching {
     }
 
     static queryDelete({
-                        host = SERVER_ADDRESS,
+                        host = serverAddress,
                         url = '/',
                         headers = {},
                     } = {}) {
