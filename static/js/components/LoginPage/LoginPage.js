@@ -2,6 +2,8 @@ import Methods from '../../api/methods.js';
 
 import {profilePage} from '../../views/ProfilePage/profilePage.js';
 
+import Validation from '../../utils/validation.js';
+
 export class LoginPage {
     #parent
     #data
@@ -33,6 +35,18 @@ export class LoginPage {
 
             const login = loginInput.value.trim();
             const password = passwordInput.value.trim();
+
+            const loginCheck = Validation.validateLogin(login);
+            console.log("loginCheck ", loginCheck);
+            if (!loginCheck) {
+                const msgLabel = document.createElement("Label");
+                msgLabel.innerHTML = "Длина логина должна быть не менее 8 символов";
+                msgLabel.style.color = 'red';
+                const formParent = form.parentNode;
+                formParent.insertBefore(msgLabel, form);
+                return;
+            }
+            
 
             Methods.makeLogin({login, password})
                 .then(({statusCode, responseObject}) => {
