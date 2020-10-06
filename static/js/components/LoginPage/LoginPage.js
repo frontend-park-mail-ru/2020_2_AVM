@@ -36,6 +36,11 @@ export class LoginPage {
             const login = loginInput.value.trim();
             const password = passwordInput.value.trim();
 
+            /*
+            TODO:
+            вынести в отдельные функции (валидация, обновление вёрстки)
+            создать единый стиль ошибок при валидации (добавить в styles.css)
+            */
             const loginCheck = Validation.validateLogin(login);
             console.log("loginCheck ", loginCheck);
             if (!loginCheck) {
