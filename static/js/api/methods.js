@@ -1,16 +1,27 @@
 import Fetching from './fetch.js';
 
+const urls = {
+    getUserDataUrl : '/user',
+    getUserArticles : 'user/${id}/article',
+    makeLogin: '/login',
+    makeSignUp: '/signup',
+    updateUser: '/user/update',
+    makeLogout: '/logout',
+    makeArticle: '/add',
+}
+
+
 export default class Methods {
 
     static getUserData() {
         return Fetching.queryGet({
-            url: '/user',
+            url: urls.getUserDataUrl,
         });
     }
 
     static getUserArticles(id) {
         return Fetching.queryGet({
-            url: 'user/${id}/article',
+            url: urls.getUserArticles,
         });
     }
 
@@ -19,7 +30,7 @@ export default class Methods {
                          password = '',
                      }) {
         return Fetching.queryPost({
-            url: '/login',
+            url: urls.makeLogin,
             body: JSON.stringify({
                 'username': login,
                 'password': password,
@@ -42,7 +53,7 @@ export default class Methods {
                           passwordRepeat = '',
                       }) {
         return Fetching.queryPost({
-            url: '/signup',
+            url: urls.makeSignUp,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
@@ -71,7 +82,7 @@ export default class Methods {
                           passwordRepeat = '',
                       } = {}) {
         return Fetching.queryUpdate({
-            url: '/user/update',
+            url: urls.updateUser,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
@@ -92,7 +103,7 @@ export default class Methods {
 
     static makeLogout() {
         return Fetching.queryDelete({
-            url: '/logout',
+            url: urls.makeLogout,
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
             },
@@ -104,7 +115,7 @@ export default class Methods {
                           text = '',
                       }) {
         return Fetching.queryPost({
-            url: '/add',
+            url: urls.makeArticle,
             body: JSON.stringify({
                 'title': title,
                 'text': text,

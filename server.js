@@ -1,7 +1,8 @@
-const http = require('http') // To use the HTTP interfaces in Node.js
-const fs = require('fs') // For interacting with the file system
-const path = require('path') // For working with file and directory paths
-const url = require('url') // For URL resolution and parsing
+const http = require('http')
+const fs = require('fs')
+const path = require('path')
+
+const port = process.env.PORT || 3000;
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -59,6 +60,6 @@ server.on('request', (req, res) => {
   })
 })
 
-server.listen(3000)
+server.listen(port);
 
-console.log('Server listening on ' + 3000);
+console.log(`Server listening on ${port}`);

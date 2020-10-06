@@ -1,0 +1,89 @@
+.alert-box {
+    padding: var(--vspace-0_75) 4rem var(--vspace-0_75) 3.2rem;
+    margin-bottom: var(--vspace-1);
+    border-radius: 4px;
+    font-family: var(--font-1);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    line-height: var(--vspace-0_75);
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.alert-box__close {
+    position: absolute;
+    display: block;
+    right: 1.6rem;
+    top: 1.6rem;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+}
+
+.alert-box__close::before, .alert-box__close::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 2px;
+    height: 12px;
+    top: 0;
+    left: 5px;
+}
+
+.alert-box__close::before {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.alert-box__close::after {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.alert-box--error {
+    background-color: var(--color-error);
+    color: var(--color-error-content);
+}
+
+.alert-box--error .alert-box__close::before,
+.alert-box--error .alert-box__close::after {
+    background-color: var(--color-error-content);
+}
+
+.alert-box--success {
+    background-color: var(--color-success);
+    color: var(--color-success-content);
+}
+
+.alert-box--success .alert-box__close::before,
+.alert-box--success .alert-box__close::after {
+    background-color: var(--color-success-content);
+}
+
+.alert-box--info {
+    background-color: var(--color-info);
+    color: var(--color-info-content);
+}
+
+.alert-box--info .alert-box__close::before,
+.alert-box--info .alert-box__close::after {
+    background-color: var(--color-info-content);
+}
+
+.alert-box--notice {
+    background-color: var(--color-notice);
+    color: var(--color-notice-content);
+}
+
+.alert-box--notice .alert-box__close::before,
+.alert-box--notice .alert-box__close::after {
+    background-color: var(--color-notice-content);
+}
+
+.alert-box.hideit {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
