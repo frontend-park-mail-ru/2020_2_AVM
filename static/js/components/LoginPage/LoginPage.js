@@ -25,20 +25,20 @@ export class LoginPage {
         this.#parent.innerHTML = window.fest['js/components/LoginPage/LoginPage.tmpl'](this.#data);
     }
 
-    addErrorMsg(form) {
+    addErrorMsg(divMsgError) {
         const msgLabel = document.createElement("Label");
         msgLabel.innerHTML = 'Длина логина должна быть не менее 8 символов';
         msgLabel.style.color = 'red';
-        form.parentNode.insertBefore(msgLabel, form);
+        divMsgError.appendChild(msgLabel);
     }
 
-    checkLogin(loginInput, passwordInput, form) {
+    checkLogin(divMsgError, loginInput, passwordInput) {
         const login = loginInput.value.trim();
         const password = passwordInput.value.trim();
 
         const checkLoginLength = Validation.validateLoginLength(login);
             if (!checkLoginLength) {
-                this.addErrorMsg(form);
+                this.addErrorMsg(divMsgError);
                 return void 0;
             }
 
@@ -50,29 +50,22 @@ export class LoginPage {
         const loginInput = form.querySelector('input[type="email"]');
         const passwordInput = form.querySelector('input[type="password"]');
 
-        /*
-        TODO:
-        Добавить в форме обработку события blur (когда пользователь теряет фокус с какого-то поля, должна пройти валидация)
-        */
+        const divMsgError = document.createElement('div');
+        form.parentNode.insertBefore(divMsgError, form);
+
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
 
-            // const login = loginInput.value.trim();
-            // const password = passwordInput.value.trim();
-            const authData = this.checkLogin(loginInput, passwordInput, form);
-            if (authData !== undefined) {
-                const login = authData.login;
-                const password = authData.password;
+            while (divMsgError.firstChild) {
+                divMsgError.removeChild(divMsgError.lastChild);
             }
 
-            /*
-            TODO:
-            вынести в отдельные функции (валидация, обновление вёрстки)
-            создать единый стиль ошибок при валидации (добавить в styles.css)
-            */
-            
+            const authData = this.checkLogin(divMsgError, loginInput, passwordInput);
+            if (authData !== undefined) {
+                return;
+            }            
 
-            Methods.makeLogin({login, password})
+            Methods.makeLogin(authData)
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
                         profilePage(this.#parent);
@@ -88,6 +81,24 @@ export class LoginPage {
                     this.#data.login = true;
                     this.render();
                 });
+        })
+
+        loginInput.addEventListener('blur', (evt) => {
+            evt.preventDefault();
+
+            while (divMsgError.firstChild) {
+                divMsgError.removeChild(divMsgError.lastChild);
+            }
+            this.checkLogin(divMsgError, loginInput, passwordInput);
+        })
+
+        passwordInput.addEventListener('blur', (evt) => {
+            evt.preventDefault();
+
+            while (divMsgError.firstChild) {
+                divMsgError.removeChild(divMsgError.lastChild);
+            }
+            this.checkLogin(divMsgError, loginInput, passwordInput);
         })
     }
 
