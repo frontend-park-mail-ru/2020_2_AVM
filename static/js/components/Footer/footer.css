@@ -1,0 +1,121 @@
+.s-footer {
+    padding-top: var(--vspace-2_5);
+    padding-bottom: var(--vspace-2);
+    font-size: 1.6rem;
+    line-height: 2.8rem;
+    color: var(--color-text-light);
+}
+
+.s-footer .row {
+    max-width: 1240px;
+}
+
+.s-footer [class*="column"] {
+    margin-bottom: var(--vspace-0_5);
+}
+
+.s-footer a {
+    color: black;
+}
+
+.s-footer h5 {
+    font-size: var(--text-size);
+    font-weight: 500;
+    padding-bottom: var(--vspace-0_75);
+    margin-bottom: var(--vspace-0_75);
+    margin-top: 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.s-footer ul {
+    margin-left: 0;
+}
+
+.s-footer li {
+    padding-left: 0;
+}
+
+.s-footer__main {
+    padding-bottom: var(--vspace-0_5);
+}
+
+.s-footer__main ul li {
+    list-style: none;
+}
+
+.s-footer__main ul a {
+    color: var(--color-text-light);
+}
+
+.s-footer__main ul a:hover, .s-footer__main ul a:focus {
+    color: black;
+}
+
+.s-footer__subscribe p {
+    margin-bottom: var(--vspace-0_5);
+}
+
+.s-footer__subscribe .subscribe-form #mc-form {
+    padding: 0;
+}
+
+.s-footer__subscribe .subscribe-form input[type="email"] {
+    padding: .8rem 2rem;
+    border: none;
+    width: 100%;
+    margin-bottom: var(--vspace-0_5);
+}
+
+.s-footer__subscribe .subscribe-form input[type="submit"] {
+    display: none;
+}
+
+.s-footer__subscribe .subscribe-form .subscribe-message {
+    font-family: var(--font-1);
+    font-size: var(--text-sm);
+    color: black;
+}
+
+.s-footer__subscribe .subscribe-form .subscribe-message i {
+    color: black;
+    margin-right: .4rem;
+}
+
+.s-footer__bottom {
+    margin-top: var(--vspace-0_5);
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+    .s-footer {
+        padding-bottom: var(--vspace-1_5);
+    }
+    .ss-go-top {
+        right: 3.6rem;
+        bottom: 4.8rem;
+    }
+    .ss-go-top a {
+        height: 5.2rem;
+        width: 5.2rem;
+    }
+    .ss-go-top svg {
+        height: 2rem;
+        width: 2rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .s-footer__bottom {
+        padding-bottom: .8rem;
+    }
+    .ss-copyright span {
+        display: block;
+    }
+    .ss-copyright span::after {
+        display: none;
+    }
+    .ss-go-top {
+        right: 2.4rem;
+        bottom: 4rem;
+    }
+}

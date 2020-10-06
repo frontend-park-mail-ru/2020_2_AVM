@@ -1,0 +1,74 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section class="s-content s-styles">
+
+        <fest:if test = "data.sign">
+            <div class="row">
+                <div class="column large-12">
+                    <div class="alert-box alert-box--error">
+                        <p>Неверно введены данные</p>
+                    </div>
+                </div>
+            </div>
+        </fest:if>
+
+    <section class="s-content s-content--single">
+        <div class="row">
+            <div class="column large-12">
+
+                <div class="entry__text">
+
+                    <div class="column">
+
+                        <h2 class="s-content__title s-content__title--post">Регистрация</h2>
+
+                        <form id="form-sing-up">
+                            <div>
+                                <label for="inputName">Ваш логин</label>
+                                <input class="h-full-width" type="name" placeholder="Иван" id="inputLogin" required="required" />
+                            </div>
+                            <div>
+                                <label for="inputEmail">Ваш email</label>
+                                <input class="h-full-width" type="email" placeholder="test@mail.ru" id="inputEmail" required="required" />
+                            </div>
+                            <div>
+                                <label for="inputAvatar">Аватар</label>
+                                <input class="h-full-width" type="file" accept=".jpg, .jpeg, .png" id="inputAvatar" required="required"/>
+                            </div>
+                            <div>
+                                <label for="inputQuote">Любимая цитата</label>
+                                <textarea class="h-full-width" type="text" placeholder="Цитата..." id="inputQuote" required="required"></textarea>
+                            </div>
+                            <div>
+                                <label for="quoteAuthor">Автор цитаты</label>
+                                <input class="h-full-width"  type="name" placeholder="Автор..." id="quoteAuthor" required="required" />
+                            </div>
+                            <div>
+                                <label for="aboutInput">О себе</label>
+                                <textarea class="h-full-width" placeholder="Хороший фуллстэк-программист..." id="aboutInput" required="required"></textarea>
+                            </div>
+                            <div>
+                                <label for="password">Пароль</label>
+                                <input class="h-full-width" type="password" placeholder="********" id="password" required="required" />
+                            </div>
+                            <div>
+                                <label for="passwordRepeat">Пароль ещё раз</label>
+                                <input class="h-full-width" type="password" placeholder="********" id="passwordRepeat" required="required" />
+                            </div>
+
+                            <input class="btn--primary h-full-width" type="submit" value="Зарегистрироваться" />
+
+                        </form>
+
+                    </div>
+                </div> <!-- end entry__thumb -->
+
+                <div>
+                    Уже есть аккаунт? Тогда <a href="#">войдите</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section> <!-- end s-content -->
+</fest:template>

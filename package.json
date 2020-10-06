@@ -1,0 +1,28 @@
+{
+  "name": "2020_2_AVM",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "DEBUG=http node server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tmpl": "./node_modules/.bin/fest-build --dir=static",
+    "prestart": "npm run tmpl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2020_2_AVM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-park-mail-ru/2020_2_AVM/issues"
+  },
+  "homepage": "https://github.com/frontend-park-mail-ru/2020_2_AVM#readme",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "fest": "^0.12.1"
+  }
+}

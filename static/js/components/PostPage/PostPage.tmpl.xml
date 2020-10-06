@@ -1,0 +1,33 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+
+    <section class="s-content s-content--single">
+        <div class="row">
+            <div class="column large-12">
+
+                <article class="entry">
+
+                    <div class="s-content__media">
+                        <div class="s-content__post-thumb">
+                            <img src="images/thumbs/single/standard/standard-1050.jpg"
+                                 sizes="(max-width: 2100px) 100vw, 2100px" alt="" />
+                        </div>
+                    </div> <!-- end s-content__media -->
+
+                    <div class="s-content__primary">
+
+                        <h2 class="s-content__title s-content__title--post">Съешь ещё этих мягких французских булок, да выпей чаю</h2>
+
+                        <ul class="s-content__post-meta">
+                            <li class="date">September 05, 2020</li>
+                        </ul>
+
+                        <p class="lead">
+                            Съешь ещё этих мягких французских булок, да выпей чаю.
+                        </p>
+                    </div> <!-- end s-content__primary -->
+                </article>
+            </div> <!-- end column -->
+        </div> <!-- end row -->
+    </section> <!-- end s-content -->
+
+</fest:template>
