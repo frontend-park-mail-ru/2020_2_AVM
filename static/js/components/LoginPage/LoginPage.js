@@ -25,32 +25,51 @@ export class LoginPage {
         this.#parent.innerHTML = window.fest['js/components/LoginPage/LoginPage.tmpl'](this.#data);
     }
 
+    addErrorMsg(form) {
+        const msgLabel = document.createElement("Label");
+        msgLabel.innerHTML = 'Длина логина должна быть не менее 8 символов';
+        msgLabel.style.color = 'red';
+        form.parentNode.insertBefore(msgLabel, form);
+    }
+
+    checkLogin(loginInput, passwordInput, form) {
+        const login = loginInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        const checkLoginLength = Validation.validateLoginLength(login);
+            if (!checkLoginLength) {
+                this.addErrorMsg(form);
+                return void 0;
+            }
+
+        return {login, password};
+    }
+
     submitForm() {
         const form = document.querySelector('form#form-login');
         const loginInput = form.querySelector('input[type="email"]');
         const passwordInput = form.querySelector('input[type="password"]');
 
+        /*
+        TODO:
+        Добавить в форме обработку события blur (когда пользователь теряет фокус с какого-то поля, должна пройти валидация)
+        */
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
 
-            const login = loginInput.value.trim();
-            const password = passwordInput.value.trim();
+            // const login = loginInput.value.trim();
+            // const password = passwordInput.value.trim();
+            const authData = this.checkLogin(loginInput, passwordInput, form);
+            if (authData !== undefined) {
+                const login = authData.login;
+                const password = authData.password;
+            }
 
             /*
             TODO:
             вынести в отдельные функции (валидация, обновление вёрстки)
             создать единый стиль ошибок при валидации (добавить в styles.css)
             */
-            const loginCheck = Validation.validateLogin(login);
-            console.log("loginCheck ", loginCheck);
-            if (!loginCheck) {
-                const msgLabel = document.createElement("Label");
-                msgLabel.innerHTML = "Длина логина должна быть не менее 8 символов";
-                msgLabel.style.color = 'red';
-                const formParent = form.parentNode;
-                formParent.insertBefore(msgLabel, form);
-                return;
-            }
             
 
             Methods.makeLogin({login, password})
