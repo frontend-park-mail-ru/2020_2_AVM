@@ -1,15 +1,23 @@
 import Fetching from './fetch.js';
 
 const urls = {
-    getUserDataUrl : '/user',
-    getUserArticles : 'user/${id}/article',
-    makeLogin: '/login',
+    getUserDataUrl : '/profile',
+    getUserArticles : '/article/',
+    makeLogin: '/signin',
     makeSignUp: '/signup',
-    updateUser: '/user/update',
+    updateUser: '/setting',
     makeLogout: '/logout',
-    makeArticle: '/add',
+    makeArticle: '/article',
 }
 
+
+let headers = new Headers();
+
+headers.append('Content-Type', 'application/json');
+headers.append('Accept', 'application/json');
+
+headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+headers.append('Access-Control-Allow-Credentials', 'true');
 
 export default class Methods {
 
@@ -19,9 +27,9 @@ export default class Methods {
         });
     }
 
-    static getUserArticles(id) {
+    static getUserArticles(author) {
         return Fetching.queryGet({
-            url: urls.getUserArticles,
+            url: urls.getUserArticles + author,
         });
     }
 
@@ -32,8 +40,8 @@ export default class Methods {
         return Fetching.queryPost({
             url: urls.makeLogin,
             body: JSON.stringify({
-                'username': login,
-                'password': password,
+                'Login': login,
+                'Password': password,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
@@ -45,24 +53,14 @@ export default class Methods {
     static makeSignUp({
                           login = '',
                           email = '',
-                          avatar = '',
-                          quote = '',
-                          quoteAuthor = '',
-                          about = '',
                           password = '',
-                          passwordRepeat = '',
                       }) {
         return Fetching.queryPost({
             url: urls.makeSignUp,
             body: JSON.stringify({
-                'login': login,
-                'email': email,
-                'avatar': avatar,
-                'quote': quote,
-                'quoteAuthor': quoteAuthor,
-                'about': about,
-                'password': password,
-                'passwordRepeat': passwordRepeat,
+                'Login': login,
+                'Email': email,
+                'Password': password,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
@@ -74,24 +72,14 @@ export default class Methods {
     static updateUser({
                           login = '',
                           email = '',
-                          avatar = '',
-                          quote = '',
-                          quoteAuthor = '',
-                          about = '',
                           password = '',
-                          passwordRepeat = '',
                       } = {}) {
-        return Fetching.queryUpdate({
+        return Fetching.queryPost({
             url: urls.updateUser,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
-                'avatar': avatar,
-                'quote': quote,
-                'quoteAuthor': quoteAuthor,
-                'about': about,
                 'password': password,
-                'passwordRepeat': passwordRepeat,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
@@ -102,7 +90,7 @@ export default class Methods {
 
 
     static makeLogout() {
-        return Fetching.queryDelete({
+        return Fetching.queryPost({
             url: urls.makeLogout,
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
@@ -112,13 +100,15 @@ export default class Methods {
 
     static makeArticle({
                           title = '',
-                          text = '',
+                           desc = '',
+                           content = '',
                       }) {
         return Fetching.queryPost({
             url: urls.makeArticle,
             body: JSON.stringify({
                 'title': title,
-                'text': text,
+                'desc': desc,
+                'content': content,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),

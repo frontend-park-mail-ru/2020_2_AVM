@@ -25,7 +25,7 @@ export class LoginPage {
 
     submitForm() {
         const form = document.querySelector('form#form-login');
-        const loginInput = form.querySelector('input[type="email"]');
+        const loginInput = form.querySelector('input[type="text"]');
         const passwordInput = form.querySelector('input[type="password"]');
 
         form.addEventListener('submit', (evt) => {
@@ -35,20 +35,22 @@ export class LoginPage {
             const password = passwordInput.value.trim();
 
             Methods.makeLogin({login, password})
-                .then(({statusCode, responseObject}) => {
-                    if (statusCode === 200) {
+                .then(({status}) => {
+                    if (status === 200) {
                         profilePage(this.#parent);
-                    } else {
-                        const {error} = JSON.parse(responseObject);
-                        console.log(error);
+                    }
+                    if (status === 400) {
+                        this.#data.login = true;
+                        this.render();
+                        this.submitForm();
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.login = true;
-                    this.render();
+                    // this.#data.login = true;
+                    // this.render();
                 });
         })
     }

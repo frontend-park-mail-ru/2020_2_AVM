@@ -24,6 +24,10 @@
                             </div>
 
                             <div class="form-field">
+                                <input name="postName" type="text" id="articleDesc" class="h-full-width" placeholder="Описание" value="" required="required" />
+                            </div>
+
+                            <div class="form-field">
                                 <textarea name="postBody" type="text" id="articleText" class="h-full-width" placeholder="О чём хотите рассказать?"  value="" required="required"></textarea>
                             </div>
 

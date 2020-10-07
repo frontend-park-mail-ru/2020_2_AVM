@@ -18,14 +18,18 @@ export class LogoutPage {
     }
 
     render() {
+        this.#parent.innerHTML = window.fest['js/components/LogoutPage/LogoutPage.tmpl'](this.#data);
+    }
 
+    submitForm() {
         Methods.makeLogout()
-            .then(({statusCode, responseObject}) => {
-                if (statusCode === 200) {
+            .then(({status}) => {
+                if (status === 200) {
                     this.#data.success = true;
+                    this.render();
+                    this.submitForm();
                 } else {
-                    const {error} = JSON.parse(responseObject);
-                    console.log(error);
+                    console.log('no logout');
                 }
             })
             .catch((err) => {
@@ -33,7 +37,5 @@ export class LogoutPage {
                     console.log(err);
                 }
             });
-
-        this.#parent.innerHTML = window.fest['js/components/LogoutPage/LogoutPage.tmpl'](this.#data);
     }
 }

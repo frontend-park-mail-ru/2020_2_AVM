@@ -4,7 +4,6 @@ export function profilePage(container) {
     container.innerHTML = '';
 
     const profile = new ProfilePage(container);
-    profile.data = {};
     profile.render();
 
 }

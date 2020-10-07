@@ -25,24 +25,27 @@ export class AddPage {
     submitForm() {
         const form = document.querySelector('form#form-add-article');
         const articleTitleInput = form.querySelector('input#articleTitle');
+        const articleDescInput = form.querySelector('input#articleDesc');
         const articleTextInput = form.querySelector('textarea#articleText');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
 
             const title = articleTitleInput.value.trim();
-            const text = articleTextInput.value.trim();
+            const desc = articleDescInput.value.trim();
+            const content = articleTextInput.value.trim();
 
             Methods.makeArticle({
                 title,
-                text,
+                desc,
+                content,
             })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
                         profilePage(this.#parent);
                     } else {
-                        const {error} = JSON.parse(responseObject);
-                        console.log(error);
+                        // const {error} = JSON.parse(responseObject);
+                        // console.log(error);
                     }
                 })
                 .catch((err) => {

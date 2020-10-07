@@ -1,4 +1,4 @@
-let serverAddress = 'http://example.com/api'
+let serverAddress = 'http://localhost:1323'
 
 export default class Fetching {
 
@@ -11,9 +11,7 @@ export default class Fetching {
             credentials: 'include',
         })
             .catch((err) => {
-                if (!navigator.onLine) {
-                    location.reload();
-                }
+                console.log('get error');
             });
     }
 
@@ -30,9 +28,7 @@ export default class Fetching {
             body: body,
         })
             .catch((err) => {
-                if (!navigator.onLine) {
-                    location.reload();
-                }
+                console.log('post error');
             });
     }
 

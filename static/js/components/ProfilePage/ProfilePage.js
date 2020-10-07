@@ -1,14 +1,12 @@
 import Methods from '../../api/methods.js';
 
-let serverAddress = 'http://example.com/api'
-
 export class ProfilePage {
     #parent
     #data
 
     constructor(parent) {
         this.#parent = parent;
-        this.#data = {};
+        this.#data = {login: 'Вы не вошли'};
     }
 
     get data() {
@@ -20,48 +18,61 @@ export class ProfilePage {
     }
 
     render() {
-
-
-        Methods.getUserData().then((res) => {
-            if (res.status !== 200) {
+        Methods.getUserData()
+            .then((res) => {
+            if (res.status !== 201) {
                 return Promise.reject(res);
             }
 
+
             res.json().then((res) => {
-                const profileData = {
-                    id: res.body.id,
-                    login: res.body.login,
-                    avatar: res.body.avatar,
-                    quote: res.body.quote,
-                    quoteAuthor: res.body.quoteAuthor,
-                    about: res.body.about,
-                    }
-                this.#data = profileData;
+                    this.#data = {
+                        id: res.id,
+                        login: res.login,
+                        email: res.email,
+                    };
 
-                Methods.getUserArticles(this.#data.id)
-                    .then((res) => {
-                        if (res.status === 200) {
-                            res.json().then((res) => {
-                                this.#data.articles = res.body.articles;
-                            });
-                        }
-                    })
-                    .catch((err) => {
-                        if (err.status === 500) {
-                            console.error('failed to fetch articles');
-                        }
-                    });
-
-                })
+                    Methods.getUserArticles(this.#data.login)
+                        .then((res) => {
+                            if (res.status === 200) {
+                                res.json().then((res) => {
+                                    this.#data.articles = res;
+                                    console.log(this.#data.articles);
+                                    this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            if (err.status === 500) {
+                                console.error('failed to fetch articles');
+                            }
+                        });
+                }
+            )
+                // console.log(profileData);
+                // Methods.getUserArticles(this.#data.id)
+                //     .then((res) => {
+                //         if (res.status === 200) {
+                //             res.json().then((res) => {
+                //                 // this.#data.articles = res.body.articles;
+                //             });
+                //         }
+                //     })
+                //     .catch((err) => {
+                //         if (err.status === 500) {
+                //             console.error('failed to fetch articles');
+                //         }
+                //     });
+                //
+                // })
             .catch((err) => {
                     if (err.status === 500) {
+                        this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
                         console.error('fail to fetch profile');
                     }
                 });
 
             })
-
-        this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
     }
 
 }

@@ -76,6 +76,7 @@ function logoutList() {
     const logout = new LogoutPage(container);
     logout.data = {};
     logout.render();
+    logout.submitForm();
 }
 
 function profileList() {
