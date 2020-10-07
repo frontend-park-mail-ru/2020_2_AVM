@@ -1,6 +1,6 @@
-import Methods from '../api/methods.js';
 import Controller from '../api/controller.js';
 import ProfileView from '../views/profile-view.js';
+import UserModel from '../models/user-model.js';
 
 let serverAddress = 'http://example.com/api'
 
@@ -26,7 +26,7 @@ export default class ProfilePageController extends Controller {
     }
 
     action() {
-        Methods.getUserData().then((res) => {
+        UserModel.getUserData().then((res) => {
             if (res.status !== 200) {
                 return Promise.reject(res);
             }
@@ -42,7 +42,7 @@ export default class ProfilePageController extends Controller {
                     }
                 this.#data = profileData;
 
-                Methods.getUserArticles(this.#data.id)
+                UserModel.getUserArticles(this.#data.id)
                     .then((res) => {
                         if (res.status === 200) {
                             res.json().then((res) => {

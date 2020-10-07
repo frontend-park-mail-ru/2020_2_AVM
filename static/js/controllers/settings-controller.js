@@ -1,7 +1,7 @@
-import Methods from "../api/methods.js";
 import Controller from "../api/controller.js";
 import SettingsView from "../views/settings-view.js";
 import Router from "../api/router.js";
+import UserModel from "../models/user-model.js";
 
 export default class SettingsPageController extends Controller {
     #parent
@@ -49,7 +49,7 @@ export default class SettingsPageController extends Controller {
             const password = passwordInput.value.trim();
             const passwordRepeat = passwordRepeatInput.value.trim();
 
-            Methods.updateUser({
+            UserModel.updateUser({
                 login,
                 email,
                 avatar,

@@ -1,7 +1,7 @@
-import Methods from '../api/methods.js';
 import Controller from '../api/controller.js';
 import AddPageView from '../views/addpage-view.js';
 import Router from '../api/router.js';
+import ArticleModel from '../models/article-model.js';
 
 export default class AddPageController extends Controller {
     #parent
@@ -37,7 +37,7 @@ export default class AddPageController extends Controller {
             const title = articleTitleInput.value.trim();
             const text = articleTextInput.value.trim();
 
-            Methods.makeArticle({
+            ArticleModel.makeArticle({
                 title,
                 text,
             })
