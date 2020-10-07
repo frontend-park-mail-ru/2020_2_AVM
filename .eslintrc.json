@@ -1,0 +1,40 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "classPrivateMethods": true,
+            "arrowFunctions": true
+        },
+        "babelOptions": {
+            "configFile": "./babel.config.json"
+        }
+    },
+    "rules": {
+        "no-mixed-spaces-and-tabs": 0,
+        "indent": [
+            "warn",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-unused-vars": "error",
+        "no-undef": "error"
+    },
+    "parser": "babel-eslint"
+}
