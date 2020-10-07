@@ -138,8 +138,15 @@ footerView(footer, config);
 import Router from '../js/api/router.js'
 import LoginController from '../js/controllers/login-controller.js'
 import SignUpController from '../js/controllers/signup-controller.js'
+import AddPageController from './controllers/addpage-controller.js';
+import SettingsPageController from './controllers/settings-controller.js';
+import ProfilePageController from './controllers/profile-controller.js';
 
 const router = new Router();
+router.addRoute('/', new LoginController(container));
 router.addRoute('/login', new LoginController(container));
 router.addRoute('/signup', new SignUpController(container));
+router.addRoute('/profile', new ProfilePageController(container));
+router.addRoute('/settings', new SettingsPageController(container));
+router.addRoute('/add', new AddPageController(container));
 router.route();
