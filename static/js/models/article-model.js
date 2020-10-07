@@ -12,7 +12,7 @@ export default class ArticleModel extends Model {
 		super();
 	}
     
-	static getUserArticles(id) {
+	static getUserArticles() {
 		return Fetching.queryGet({
 			url: URLS.getUserArticles,
 		});

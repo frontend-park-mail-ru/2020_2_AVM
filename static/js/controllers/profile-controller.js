@@ -2,8 +2,6 @@ import Controller from '../api/controller.js';
 import ProfileView from '../views/profile-view.js';
 import UserModel from '../models/user-model.js';
 
-let serverAddress = 'http://example.com/api';
-
 export default class ProfilePageController extends Controller {
     #parent
     #data

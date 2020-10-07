@@ -138,16 +138,7 @@ export default class SignUpController extends Controller {
     			return;
     		}
 
-    		UserModel.makeSignUp({
-    			login,
-    			email,
-    			avatar,
-    			quote,
-    			quoteAuthor,
-    			about,
-    			password,
-    			passwordRepeat,
-    		})
+    		UserModel.makeSignUp(regData)
     			.then(({statusCode, responseObject}) => {
     				if (statusCode === 200) {
     					Router.redirect('/profile');

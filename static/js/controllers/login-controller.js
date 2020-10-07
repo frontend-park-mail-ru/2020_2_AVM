@@ -68,7 +68,7 @@ export default class LoginController extends Controller {
     		}
 
     		// TODO: вынести часть логики в модель
-    		UserModel.makeLogin({login, password})
+    		UserModel.makeLogin(authData)
     			.then(({statusCode, responseObject}) => {
     				if (statusCode === 200) {
     					Router.redirect('/profile');

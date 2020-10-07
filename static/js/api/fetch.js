@@ -10,7 +10,7 @@ export default class Fetching {
 			method: 'GET',
 			credentials: 'include',
 		})
-			.catch((err) => {
+			.catch(() => {
 				if (!navigator.onLine) {
 					location.reload();
 				}
@@ -29,7 +29,7 @@ export default class Fetching {
 			headers: headers,
 			body: body,
 		})
-			.catch((err) => {
+			.catch(() => {
 				if (!navigator.onLine) {
 					location.reload();
 				}
@@ -48,7 +48,7 @@ export default class Fetching {
 			headers: headers,
 			body: body,
 		})
-			.catch((err) => {
+			.catch(() => {
 				if (!navigator.onLine) {
 					location.reload();
 				}
@@ -65,7 +65,7 @@ export default class Fetching {
 			credentials: 'include',
 			headers: headers,
 		})
-			.catch((err) => {
+			.catch(() => {
 				if (!navigator.onLine) {
 					location.reload();
 				}
