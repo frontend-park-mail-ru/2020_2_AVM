@@ -1,7 +1,7 @@
-import Controller from "../api/controller.js";
-import SettingsView from "../views/settings-view.js";
-import Router from "../api/router.js";
-import UserModel from "../models/user-model.js";
+import Controller from '../api/controller.js';
+import SettingsView from '../views/settings-view.js';
+import Router from '../api/router.js';
+import UserModel from '../models/user-model.js';
 
 export default class SettingsPageController extends Controller {
     #parent

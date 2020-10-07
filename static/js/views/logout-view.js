@@ -1,4 +1,4 @@
-import View from "../api/view.js"
+import View from '../api/view.js';
 
 export default class SettingsView extends View { 
     #parent

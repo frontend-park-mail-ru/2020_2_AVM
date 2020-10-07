@@ -1,6 +1,6 @@
-import Controller from "../api/controller.js";
-import LogoutView from "../views/logout-view.js";
-import UserModel from "../models/user-model.js";
+import Controller from '../api/controller.js';
+import LogoutView from '../views/logout-view.js';
+import UserModel from '../models/user-model.js';
 
 export default class LogOutController extends Controller {
     #parent
