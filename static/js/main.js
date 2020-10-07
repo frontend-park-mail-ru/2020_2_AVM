@@ -117,17 +117,29 @@ function addPage() {
     add.submitForm();
 }
 
-application.addEventListener('click', (evt) => {
-    const {target} = evt;
-
-    if (target instanceof HTMLAnchorElement) {
-        evt.preventDefault();
-        config[target.dataset.section].open();
-    }
-});
+// старый роутер
+// application.addEventListener('click', (evt) => {
+//     const {target} = evt;
+//     if (target instanceof HTMLAnchorElement) {
+//         evt.preventDefault();
+//         config[target.dataset.section].open();
+//     }
+// });
 
 headerView(header, config);
 mobileMenu();
 loginPage();
 search();
 footerView(footer, config);
+
+/************* Router */
+// TODO: избавиться от относительных путей во всём проекте
+// доделать остальные контроллеры, модели, представления
+import Router from '../js/api/router.js'
+import LoginController from '../js/controllers/login-controller.js'
+import SignUpController from '../js/controllers/signup-controller.js'
+
+const router = new Router();
+router.addRoute('/login', new LoginController(container));
+router.addRoute('/signup', new SignUpController(container));
+router.route();
