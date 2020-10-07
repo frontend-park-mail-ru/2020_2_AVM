@@ -1,7 +1,8 @@
 import UserModel from '../models/user-model.js';
-import {profilePage} from "../views/ProfilePage/profilePage.js";
 import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
+import SignUpView from '../views/signup-view.js';
+import Router from '../api/router.js';
 
 export default class SignUpController extends Controller {
     #parent
@@ -12,6 +13,8 @@ export default class SignUpController extends Controller {
 
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new SignUpView(this.#parent);
     }
 
     get data() {
@@ -20,10 +23,6 @@ export default class SignUpController extends Controller {
 
     set data(data) {
         this.#data = data;
-    }
-
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/SignUpPage/SignUpPage.tmpl'](this.#data);
     }
 
     addErrorMsg(divMsgError, inputError) {
@@ -113,7 +112,7 @@ export default class SignUpController extends Controller {
     }
 
     action() {
-        this.render();
+        this.view.render(this.#data);
 
         const form = document.querySelector('form#form-sing-up');
         const loginInput = form.querySelector('input#inputLogin');
@@ -151,7 +150,7 @@ export default class SignUpController extends Controller {
             })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);

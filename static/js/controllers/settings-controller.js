@@ -1,6 +1,7 @@
 import Methods from "../api/methods.js";
-import {profilePage} from "../views/ProfilePage/profilePage.js";
 import Controller from "../api/controller.js";
+import SettingsView from "../views/settings-view.js";
+import Router from "../api/router.js";
 
 export default class SettingsPageController extends Controller {
     #parent
@@ -11,6 +12,8 @@ export default class SettingsPageController extends Controller {
 
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new SettingsView(parent);
     }
 
     get data() {
@@ -21,12 +24,8 @@ export default class SettingsPageController extends Controller {
         this.#data = data;
     }
 
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/SettingsPage/SettingsPage.tmpl'](this.#data);
-    }
-
     action() {
-        this.render();
+        this.view.render(this.#data);
 
         const form = document.querySelector('form#form-update');
         const loginInput = form.querySelector('input#updateLogin');
@@ -62,7 +61,7 @@ export default class SettingsPageController extends Controller {
             })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);

@@ -1,5 +1,6 @@
 import Methods from '../api/methods.js';
 import Controller from '../api/controller.js';
+import ProfileView from '../views/profile-view.js';
 
 let serverAddress = 'http://example.com/api'
 
@@ -12,6 +13,8 @@ export default class ProfilePageController extends Controller {
         
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new ProfileView(this.#parent);
     }
 
     get data() {
@@ -62,7 +65,7 @@ export default class ProfilePageController extends Controller {
 
             })
 
-        this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+        this.view.render(this.#data);
     }
 
 }

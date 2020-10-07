@@ -1,6 +1,7 @@
 import Methods from '../api/methods.js';
 import Controller from '../api/controller.js';
-import {profilePage} from "../views/ProfilePage/profilePage.js";
+import AddPageView from '../views/addpage-view.js';
+import Router from '../api/router.js';
 
 export default class AddPageController extends Controller {
     #parent
@@ -11,6 +12,8 @@ export default class AddPageController extends Controller {
 
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new AddPageView(this.#parent);
     }
 
     get data() {
@@ -21,13 +24,9 @@ export default class AddPageController extends Controller {
         this.#data = data;
     }
 
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/AddPage/AddPage.tmpl'](this.#data);
-    }
-
     action() {
-        this.render();
-        
+        this.view.render(this.#data);
+
         const form = document.querySelector('form#form-add-article');
         const articleTitleInput = form.querySelector('input#articleTitle');
         const articleTextInput = form.querySelector('textarea#articleText');
@@ -44,7 +43,7 @@ export default class AddPageController extends Controller {
             })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);

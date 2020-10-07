@@ -1,10 +1,8 @@
 import UserModel from '../../js/models/user-model.js'
-
-import {profilePage} from '../views/ProfilePage/profilePage.js';
-
 import Controller from '../api/controller.js'
-
 import Validation from '../utils/validation.js'
+import LoginView from '../views/login-view.js';
+import Router from '../api/router.js';
 
 export default class LoginController extends Controller {
     #parent
@@ -15,6 +13,8 @@ export default class LoginController extends Controller {
 
         this.#parent = parent;
         this.#data = {};
+        
+        this.view = new LoginView(this.#parent);
     }
 
     get data() {
@@ -23,11 +23,6 @@ export default class LoginController extends Controller {
 
     set data(data) {
         this.#data = data;
-    }
-
-    // TODO: вынести в LoginView
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/LoginPage/LoginPage.tmpl'](this.#data);
     }
 
     addErrorMsg(divMsgError) {
@@ -51,7 +46,7 @@ export default class LoginController extends Controller {
     }
 
     action() {
-        this.render();
+        this.view.render(this.#data);
 
         const form = document.querySelector('form#form-login');
         const loginInput = form.querySelector('input[type="email"]');
@@ -76,7 +71,7 @@ export default class LoginController extends Controller {
             UserModel.makeLogin({login, password})
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);
