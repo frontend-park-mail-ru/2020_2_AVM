@@ -1,12 +1,18 @@
-import Methods from '../../api/methods.js';
+import Controller from '../api/controller.js';
+import LogoutView from '../views/logout-view.js';
+import UserModel from '../models/user-model.js';
 
-export class LogoutPage {
+export default class LogOutController extends Controller {
     #parent
     #data
 
     constructor(parent) {
+        super();
+
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new LogoutView(parent);
     }
 
     get data() {
@@ -17,9 +23,8 @@ export class LogoutPage {
         this.#data = data;
     }
 
-    render() {
-
-        Methods.makeLogout()
+    action() {
+        UserModel.makeLogout()
             .then(({statusCode, responseObject}) => {
                 if (statusCode === 200) {
                     this.#data.success = true;
@@ -34,6 +39,8 @@ export class LogoutPage {
                 }
             });
 
-        this.#parent.innerHTML = window.fest['js/components/LogoutPage/LogoutPage.tmpl'](this.#data);
+        this.view.render(this.#data);
+
     }
+
 }

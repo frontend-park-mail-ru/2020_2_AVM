@@ -1,13 +1,19 @@
-import Methods from "../../api/methods.js";
-import {profilePage} from "../../views/ProfilePage/profilePage.js";
+import Controller from '../api/controller.js';
+import SettingsView from '../views/settings-view.js';
+import Router from '../api/router.js';
+import UserModel from '../models/user-model.js';
 
-export class SettingsPage {
+export default class SettingsPageController extends Controller {
     #parent
     #data
 
     constructor(parent) {
+        super();
+
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new SettingsView(parent);
     }
 
     get data() {
@@ -18,11 +24,9 @@ export class SettingsPage {
         this.#data = data;
     }
 
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/SettingsPage/SettingsPage.tmpl'](this.#data);
-    }
+    action() {
+        this.view.render(this.#data);
 
-    submitForm() {
         const form = document.querySelector('form#form-update');
         const loginInput = form.querySelector('input#updateLogin');
         const emailInput = form.querySelector('input#updateEmail');
@@ -45,7 +49,7 @@ export class SettingsPage {
             const password = passwordInput.value.trim();
             const passwordRepeat = passwordRepeatInput.value.trim();
 
-            Methods.updateUser({
+            UserModel.updateUser({
                 login,
                 email,
                 avatar,
@@ -57,7 +61,7 @@ export class SettingsPage {
             })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);

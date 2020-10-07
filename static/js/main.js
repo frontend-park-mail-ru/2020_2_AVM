@@ -5,13 +5,13 @@ import {footerView} from './components/Footer/footer.js';
 import {mobileMenu} from './components/MobileMenu/usingMobileMenu.js';
 import {search} from './components/Search/search.js';
 
-import {profilePage} from './views/ProfilePage/profilePage.js';
+// import {profilePage} from './views/ProfilePage/profilePage.js';
 
-import {SettingsPage} from './components/SettingsPage/SettingsPage.js';
-import {AddPage} from './components/AddPage/AddPage.js';
-import {SignUpPage} from './components/SignUpPage/SignUpPage.js';
-import {LoginPage} from './components/LoginPage/LoginPage.js';
-import {LogoutPage} from './components/LogoutPage/LogoutPage.js';
+// import {SettingsPage} from './components/SettingsPage/SettingsPage.js';
+// import {AddPage} from './components/AddPage/AddPage.js';
+// import {SignUpPage} from './components/SignUpPage/SignUpPage.js';
+// import {LoginPage} from './components/LoginPage/LoginPage.js';
+// import {LogoutPage} from './components/LogoutPage/LogoutPage.js';
 
 /* Base init */
 const application = document.getElementById('app');
@@ -27,22 +27,22 @@ const config = {
     profile: {
         href: '/profile',
         text: 'Профиль',
-        open: profileList,
+        // open: profileList,
     },
     settings: {
         href: '/settings',
         text: 'Настройки',
-        open: settingsList,
+        // open: settingsList,
     },
     signup: {
         href: '/signup',
         text: 'Зарегистрироваться',
-        open: signupPage,
+        // open: signupPage,
     },
     login: {
         href: '/login',
         text: 'Авторизоваться',
-        open: loginPage,
+        // open: loginPage,
     },
     // single: {
     //     href: '/single',
@@ -52,35 +52,35 @@ const config = {
     add: {
         href: '/add',
         text: 'Добавить',
-        open: addPage,
+        // open: addPage,
     },
     logout: {
         href: '/logout',
         text: 'Выйти',
-        open: logoutList,
+        // open: logoutList,
     },
 };
 
-function loginPage() {
-    container.innerHTML = '';
+// function loginPage() {
+//     container.innerHTML = '';
 
-    const login = new LoginPage(container);
-    login.data = {};
-    login.render();
-    login.submitForm();
-}
+//     const login = new LoginPage(container);
+//     login.data = {};
+//     login.render();
+//     login.submitForm();
+// }
 
-function logoutList() {
-    container.innerHTML = '';
+// function logoutList() {
+//     container.innerHTML = '';
 
-    const logout = new LogoutPage(container);
-    logout.data = {};
-    logout.render();
-}
+//     const logout = new LogoutPage(container);
+//     logout.data = {};
+//     logout.render();
+// }
 
-function profileList() {
-    profilePage(container);
-}
+// function profileList() {
+//     profilePage(container);
+// }
 
 // function singlePage() {
 //     container.innerHTML = '';
@@ -90,44 +90,65 @@ function profileList() {
 //     post.render();
 // }
 
-function signupPage() {
-    container.innerHTML = '';
+// function signupPage() {
+//     container.innerHTML = '';
 
-    const signup = new SignUpPage(container);
-    signup.data = {};
-    signup.render();
-    signup.submitForm();
-}
+//     const signup = new SignUpPage(container);
+//     signup.data = {};
+//     signup.render();
+//     signup.submitForm();
+// }
 
-function settingsList() {
-    container.innerHTML = '';
+// function settingsList() {
+//     container.innerHTML = '';
 
-    const setting = new SettingsPage(container);
-    setting.data = {};
-    setting.render();
-    setting.submitForm();
-}
+//     const setting = new SettingsPage(container);
+//     setting.data = {};
+//     setting.render();
+//     setting.submitForm();
+// }
 
-function addPage() {
-    container.innerHTML = '';
+// function addPage() {
+//     container.innerHTML = '';
 
-    const add = new AddPage(container);
-    add.data = {};
-    add.render();
-    add.submitForm();
-}
+//     const add = new AddPage(container);
+//     add.data = {};
+//     add.render();
+//     add.submitForm();
+// }
 
-application.addEventListener('click', (evt) => {
-    const {target} = evt;
-
-    if (target instanceof HTMLAnchorElement) {
-        evt.preventDefault();
-        config[target.dataset.section].open();
-    }
-});
+// старый роутер
+// application.addEventListener('click', (evt) => {
+//     const {target} = evt;
+//     if (target instanceof HTMLAnchorElement) {
+//         evt.preventDefault();
+//         config[target.dataset.section].open();
+//     }
+// });
 
 headerView(header, config);
 mobileMenu();
-loginPage();
+// loginPage();
 search();
 footerView(footer, config);
+
+/************* Router */
+// TODO: избавиться от относительных путей во всём проекте
+// доделать остальные контроллеры, модели, представления
+import Router from '../js/api/router.js'
+import LoginController from '../js/controllers/login-controller.js'
+import LogoutController from '../js/controllers/logout-controller.js'
+import SignUpController from '../js/controllers/signup-controller.js'
+import AddPageController from './controllers/addpage-controller.js';
+import SettingsPageController from './controllers/settings-controller.js';
+import ProfilePageController from './controllers/profile-controller.js';
+
+const router = new Router();
+router.addRoute('/', new LoginController(container));
+router.addRoute('/login', new LoginController(container));
+router.addRoute('/logout', new LogoutController(container));
+router.addRoute('/signup', new SignUpController(container));
+router.addRoute('/profile', new ProfilePageController(container));
+router.addRoute('/settings', new SettingsPageController(container));
+router.addRoute('/add', new AddPageController(container));
+router.route();

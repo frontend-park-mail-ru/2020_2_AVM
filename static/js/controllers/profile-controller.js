@@ -1,14 +1,20 @@
-import Methods from '../../api/methods.js';
+import Controller from '../api/controller.js';
+import ProfileView from '../views/profile-view.js';
+import UserModel from '../models/user-model.js';
 
 let serverAddress = 'http://example.com/api'
 
-export class ProfilePage {
+export default class ProfilePageController extends Controller {
     #parent
     #data
 
     constructor(parent) {
+        super();
+        
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new ProfileView(this.#parent);
     }
 
     get data() {
@@ -19,10 +25,8 @@ export class ProfilePage {
         this.#data = data;
     }
 
-    render() {
-
-
-        Methods.getUserData().then((res) => {
+    action() {
+        UserModel.getUserData().then((res) => {
             if (res.status !== 200) {
                 return Promise.reject(res);
             }
@@ -38,7 +42,7 @@ export class ProfilePage {
                     }
                 this.#data = profileData;
 
-                Methods.getUserArticles(this.#data.id)
+                UserModel.getUserArticles(this.#data.id)
                     .then((res) => {
                         if (res.status === 200) {
                             res.json().then((res) => {
@@ -61,7 +65,7 @@ export class ProfilePage {
 
             })
 
-        this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+        this.view.render(this.#data);
     }
 
 }

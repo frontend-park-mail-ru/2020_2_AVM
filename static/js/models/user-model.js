@@ -1,27 +1,22 @@
-import Fetching from './fetch.js';
+import Model from '../api/model.js';
+import Fetching from '../api/fetch.js';
+import {URLS} from '../settings/config.js'
 
-const urls = {
-    getUserDataUrl : '/user',
-    getUserArticles : 'user/${id}/article',
-    makeLogin: '/login',
-    makeSignUp: '/signup',
-    updateUser: '/user/update',
-    makeLogout: '/logout',
-    makeArticle: '/add',
-}
-
-
-export default class Methods {
-
+/**
+ * TODO:
+ * перенести часть логики обработки запросов
+ * из соответствубщих компонентов (контроллеров)
+ */
+export default class UserModel extends Model {
+    constructor() {
+        super();
+        
+        this.user = null;
+    }
+    
     static getUserData() {
         return Fetching.queryGet({
-            url: urls.getUserDataUrl,
-        });
-    }
-
-    static getUserArticles(id) {
-        return Fetching.queryGet({
-            url: urls.getUserArticles,
+            url: URLS.getUserDataUrl,
         });
     }
 
@@ -30,7 +25,7 @@ export default class Methods {
                          password = '',
                      }) {
         return Fetching.queryPost({
-            url: urls.makeLogin,
+            url: URLS.makeLogin,
             body: JSON.stringify({
                 'username': login,
                 'password': password,
@@ -53,7 +48,7 @@ export default class Methods {
                           passwordRepeat = '',
                       }) {
         return Fetching.queryPost({
-            url: urls.makeSignUp,
+            url: URLS.makeSignUp,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
@@ -82,7 +77,7 @@ export default class Methods {
                           passwordRepeat = '',
                       } = {}) {
         return Fetching.queryUpdate({
-            url: urls.updateUser,
+            url: URLS.updateUser,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
@@ -103,27 +98,11 @@ export default class Methods {
 
     static makeLogout() {
         return Fetching.queryDelete({
-            url: urls.makeLogout,
+            url: URLS.makeLogout,
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
             },
         });
     }
-
-    static makeArticle({
-                          title = '',
-                          text = '',
-                      }) {
-        return Fetching.queryPost({
-            url: urls.makeArticle,
-            body: JSON.stringify({
-                'title': title,
-                'text': text,
-            }),
-            headers: {
-                'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
-                'Content-Type': 'application/json',
-            },
-        });
-    }
+    
 }

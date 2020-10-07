@@ -1,16 +1,20 @@
-import Methods from '../../api/methods.js';
+import UserModel from '../../js/models/user-model.js'
+import Controller from '../api/controller.js'
+import Validation from '../utils/validation.js'
+import LoginView from '../views/login-view.js';
+import Router from '../api/router.js';
 
-import {profilePage} from '../../views/ProfilePage/profilePage.js';
-
-import Validation from '../../utils/validation.js';
-
-export class LoginPage {
+export default class LoginController extends Controller {
     #parent
     #data
 
     constructor(parent) {
+        super();
+
         this.#parent = parent;
         this.#data = {};
+        
+        this.view = new LoginView(this.#parent);
     }
 
     get data() {
@@ -19,10 +23,6 @@ export class LoginPage {
 
     set data(data) {
         this.#data = data;
-    }
-
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/LoginPage/LoginPage.tmpl'](this.#data);
     }
 
     addErrorMsg(divMsgError) {
@@ -45,7 +45,9 @@ export class LoginPage {
         return {login, password};
     }
 
-    submitForm() {
+    action() {
+        this.view.render(this.#data);
+
         const form = document.querySelector('form#form-login');
         const loginInput = form.querySelector('input[type="email"]');
         const passwordInput = form.querySelector('input[type="password"]');
@@ -63,12 +65,13 @@ export class LoginPage {
             const authData = this.checkLogin(divMsgError, loginInput, passwordInput);
             if (authData !== undefined) {
                 return;
-            }            
+            }
 
-            Methods.makeLogin(authData)
+            // TODO: вынести часть логики в модель
+            UserModel.makeLogin({login, password})
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);
@@ -81,7 +84,7 @@ export class LoginPage {
                     this.#data.login = true;
                     this.render();
                 });
-        })
+        });
 
         loginInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -90,7 +93,7 @@ export class LoginPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkLogin(divMsgError, loginInput, passwordInput);
-        })
+        });
 
         passwordInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -99,7 +102,7 @@ export class LoginPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkLogin(divMsgError, loginInput, passwordInput);
-        })
+        });
     }
 
 }

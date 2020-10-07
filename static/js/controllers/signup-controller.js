@@ -1,15 +1,20 @@
-import Methods from "../../api/methods.js";
-import {profilePage} from "../../views/ProfilePage/profilePage.js";
+import UserModel from '../models/user-model.js';
+import Controller from '../api/controller.js'
+import Validation from '../utils/validation.js'
+import SignUpView from '../views/signup-view.js';
+import Router from '../api/router.js';
 
-import Validation from '../../utils/validation.js';
-
-export class SignUpPage {
+export default class SignUpController extends Controller {
     #parent
     #data
 
     constructor(parent) {
+        super();
+
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new SignUpView(this.#parent);
     }
 
     get data() {
@@ -18,10 +23,6 @@ export class SignUpPage {
 
     set data(data) {
         this.#data = data;
-    }
-
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/SignUpPage/SignUpPage.tmpl'](this.#data);
     }
 
     addErrorMsg(divMsgError, inputError) {
@@ -110,7 +111,9 @@ export class SignUpPage {
         return {login, email, avatar, quote, quoteAuthor, about, password, passwordRepeat};
     }
 
-    submitForm() {
+    action() {
+        this.view.render(this.#data);
+
         const form = document.querySelector('form#form-sing-up');
         const loginInput = form.querySelector('input#inputLogin');
         const emailInput = form.querySelector('input#inputEmail');
@@ -135,10 +138,19 @@ export class SignUpPage {
                 return;
             }
 
-            Methods.makeSignUp(regData)
+            UserModel.makeSignUp({
+                login,
+                email,
+                avatar,
+                quote,
+                quoteAuthor,
+                about,
+                password,
+                passwordRepeat,
+            })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);
@@ -151,22 +163,7 @@ export class SignUpPage {
                     this.#data.sign = true;
                     this.render();
                 });
-        })
-
-        const formInputs = form.children;
-
-        // formInputs.forEach(input => {
-        //     input.addEventListener('blur', (evt) => {
-        //         evt.preventDefault();
-    
-        //         console.log("BLUR");
-    
-        //         while (divMsgError.firstChild) {
-        //             divMsgError.removeChild(divMsgError.lastChild);
-        //         }
-        //         this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        //     })
-        // })
+        });
 
         loginInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -175,7 +172,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         emailInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -184,7 +181,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         avatarInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -193,7 +190,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         quoteInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -202,7 +199,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         quoteAuthorInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -211,7 +208,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         aboutInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -220,7 +217,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         passwordInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -229,7 +226,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         passwordRepeatInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -238,7 +235,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
     }
 
 }

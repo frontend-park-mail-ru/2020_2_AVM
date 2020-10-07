@@ -1,13 +1,19 @@
-import Methods from '../../api/methods.js';
-import {profilePage} from "../../views/ProfilePage/profilePage.js";
+import Controller from '../api/controller.js';
+import AddPageView from '../views/addpage-view.js';
+import Router from '../api/router.js';
+import ArticleModel from '../models/article-model.js';
 
-export class AddPage {
+export default class AddPageController extends Controller {
     #parent
     #data
 
     constructor(parent) {
+        super();
+
         this.#parent = parent;
         this.#data = {};
+
+        this.view = new AddPageView(this.#parent);
     }
 
     get data() {
@@ -18,11 +24,9 @@ export class AddPage {
         this.#data = data;
     }
 
-    render() {
-        this.#parent.innerHTML = window.fest['js/components/AddPage/AddPage.tmpl'](this.#data);
-    }
+    action() {
+        this.view.render(this.#data);
 
-    submitForm() {
         const form = document.querySelector('form#form-add-article');
         const articleTitleInput = form.querySelector('input#articleTitle');
         const articleTextInput = form.querySelector('textarea#articleText');
@@ -33,13 +37,13 @@ export class AddPage {
             const title = articleTitleInput.value.trim();
             const text = articleTextInput.value.trim();
 
-            Methods.makeArticle({
+            ArticleModel.makeArticle({
                 title,
                 text,
             })
                 .then(({statusCode, responseObject}) => {
                     if (statusCode === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
                     } else {
                         const {error} = JSON.parse(responseObject);
                         console.log(error);
