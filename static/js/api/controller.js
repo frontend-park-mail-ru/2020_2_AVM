@@ -1,13 +1,13 @@
 export default class Controller {
-    constructor() {
+	constructor() {
 
-    }
+	}
 
-    destructor() {
+	destructor() {
 
-    }
+	}
 
-    action() {
+	action() {
 
-    }
+	}
 }

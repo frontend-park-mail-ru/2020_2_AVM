@@ -4,12 +4,12 @@ export default class LoginView extends View {
     #parent
 
     constructor(parent) {
-        super();
+    	super();
 
-        this.#parent = parent;
+    	this.#parent = parent;
     }
 
     render(data) {
-        this.#parent.innerHTML = window.fest['js/components/LoginPage/LoginPage.tmpl'](data);
+    	this.#parent.innerHTML = window.fest['js/components/LoginPage/LoginPage.tmpl'](data);
     }
 }

@@ -4,12 +4,12 @@ export default class SettingsView extends View {
     #parent
 
     constructor(parent) {
-        super();
+    	super();
 
-        this.#parent = parent;
+    	this.#parent = parent;
     }
 
     render(data) {
-        this.#parent.innerHTML = window.fest['js/components/SettingsPage/SettingsPage.tmpl'](data);
+    	this.#parent.innerHTML = window.fest['js/components/SettingsPage/SettingsPage.tmpl'](data);
     }
 }

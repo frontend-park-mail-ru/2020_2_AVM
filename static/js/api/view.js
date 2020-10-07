@@ -1,13 +1,13 @@
 export default class View {
-    constructor() {
+	constructor() {
 
-    }
+	}
 
-    destructor() {
+	destructor() {
 
-    }
+	}
 
-    render() {
+	render() {
 
-    }
+	}
 }
