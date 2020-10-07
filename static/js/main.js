@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import {headerView} from './components/Header/header.js';
 import {footerView} from './components/Footer/footer.js';
@@ -24,41 +24,41 @@ application.appendChild(container);
 application.appendChild(footer);
 
 const config = {
-    profile: {
-        href: '/profile',
-        text: 'Профиль',
-        // open: profileList,
-    },
-    settings: {
-        href: '/settings',
-        text: 'Настройки',
-        // open: settingsList,
-    },
-    signup: {
-        href: '/signup',
-        text: 'Зарегистрироваться',
-        // open: signupPage,
-    },
-    login: {
-        href: '/login',
-        text: 'Авторизоваться',
-        // open: loginPage,
-    },
-    // single: {
-    //     href: '/single',
-    //     text: 'Статья',
-    //     open: singlePage,
-    // },
-    add: {
-        href: '/add',
-        text: 'Добавить',
-        // open: addPage,
-    },
-    logout: {
-        href: '/logout',
-        text: 'Выйти',
-        // open: logoutList,
-    },
+	profile: {
+		href: '/profile',
+		text: 'Профиль',
+		// open: profileList,
+	},
+	settings: {
+		href: '/settings',
+		text: 'Настройки',
+		// open: settingsList,
+	},
+	signup: {
+		href: '/signup',
+		text: 'Зарегистрироваться',
+		// open: signupPage,
+	},
+	login: {
+		href: '/login',
+		text: 'Авторизоваться',
+		// open: loginPage,
+	},
+	// single: {
+	//     href: '/single',
+	//     text: 'Статья',
+	//     open: singlePage,
+	// },
+	add: {
+		href: '/add',
+		text: 'Добавить',
+		// open: addPage,
+	},
+	logout: {
+		href: '/logout',
+		text: 'Выйти',
+		// open: logoutList,
+	},
 };
 
 // function loginPage() {
@@ -135,10 +135,10 @@ footerView(footer, config);
 /************* Router */
 // TODO: избавиться от относительных путей во всём проекте
 // доделать остальные контроллеры, модели, представления
-import Router from '../js/api/router.js'
-import LoginController from '../js/controllers/login-controller.js'
-import LogoutController from '../js/controllers/logout-controller.js'
-import SignUpController from '../js/controllers/signup-controller.js'
+import Router from '../js/api/router.js';
+import LoginController from '../js/controllers/login-controller.js';
+import LogoutController from '../js/controllers/logout-controller.js';
+import SignUpController from '../js/controllers/signup-controller.js';
 import AddPageController from './controllers/addpage-controller.js';
 import SettingsPageController from './controllers/settings-controller.js';
 import ProfilePageController from './controllers/profile-controller.js';

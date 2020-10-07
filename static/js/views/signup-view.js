@@ -1,15 +1,15 @@
 import View from '../api/view.js';
 
 export default class SignUpView extends View { 
-    #parent
+	#parent
 
-    constructor(parent) {
-        super();
+	constructor(parent) {
+		super();
 
-        this.#parent = parent;
-    }
+		this.#parent = parent;
+	}
 
-    render(data) {
-        this.#parent.innerHTML = window.fest['js/components/SignUpPage/SignUpPage.tmpl'](data);
-    }
+	render(data) {
+		this.#parent.innerHTML = window.fest['js/components/SignUpPage/SignUpPage.tmpl'](data);
+	}
 }

@@ -7,39 +7,39 @@ export default class LogOutController extends Controller {
     #data
 
     constructor(parent) {
-        super();
+    	super();
 
-        this.#parent = parent;
-        this.#data = {};
+    	this.#parent = parent;
+    	this.#data = {};
 
-        this.view = new LogoutView(parent);
+    	this.view = new LogoutView(parent);
     }
 
     get data() {
-        return this.#data;
+    	return this.#data;
     }
 
     set data(data) {
-        this.#data = data;
+    	this.#data = data;
     }
 
     action() {
-        UserModel.makeLogout()
-            .then(({statusCode, responseObject}) => {
-                if (statusCode === 200) {
-                    this.#data.success = true;
-                } else {
-                    const {error} = JSON.parse(responseObject);
-                    console.log(error);
-                }
-            })
-            .catch((err) => {
-                if (err instanceof Error) {
-                    console.log(err);
-                }
-            });
+    	UserModel.makeLogout()
+    		.then(({statusCode, responseObject}) => {
+    			if (statusCode === 200) {
+    				this.#data.success = true;
+    			} else {
+    				const {error} = JSON.parse(responseObject);
+    				console.log(error);
+    			}
+    		})
+    		.catch((err) => {
+    			if (err instanceof Error) {
+    				console.log(err);
+    			}
+    		});
 
-        this.view.render(this.#data);
+    	this.view.render(this.#data);
 
     }
 
