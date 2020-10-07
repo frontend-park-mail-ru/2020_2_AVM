@@ -1,5 +1,6 @@
 import Model from '../api/model.js';
 import Fetching from '../api/fetch.js';
+import {URLS} from '../settings/config.js'
 
 /**
  * TODO:
@@ -13,7 +14,7 @@ export default class ArticleModel extends Model {
     
     static getUserArticles(id) {
         return Fetching.queryGet({
-            url: urls.getUserArticles,
+            url: URLS.getUserArticles,
         });
     }
 
@@ -22,7 +23,7 @@ export default class ArticleModel extends Model {
                           text = '',
                       }) {
         return Fetching.queryPost({
-            url: urls.makeArticle,
+            url: URLS.makeArticle,
             body: JSON.stringify({
                 'title': title,
                 'text': text,

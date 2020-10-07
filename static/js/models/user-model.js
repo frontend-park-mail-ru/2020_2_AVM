@@ -1,5 +1,6 @@
 import Model from '../api/model.js';
 import Fetching from '../api/fetch.js';
+import {URLS} from '../settings/config.js'
 
 /**
  * TODO:
@@ -15,7 +16,7 @@ export default class UserModel extends Model {
     
     static getUserData() {
         return Fetching.queryGet({
-            url: urls.getUserDataUrl,
+            url: URLS.getUserDataUrl,
         });
     }
 
@@ -24,7 +25,7 @@ export default class UserModel extends Model {
                          password = '',
                      }) {
         return Fetching.queryPost({
-            url: urls.makeLogin,
+            url: URLS.makeLogin,
             body: JSON.stringify({
                 'username': login,
                 'password': password,
@@ -47,7 +48,7 @@ export default class UserModel extends Model {
                           passwordRepeat = '',
                       }) {
         return Fetching.queryPost({
-            url: urls.makeSignUp,
+            url: URLS.makeSignUp,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
@@ -76,7 +77,7 @@ export default class UserModel extends Model {
                           passwordRepeat = '',
                       } = {}) {
         return Fetching.queryUpdate({
-            url: urls.updateUser,
+            url: URLS.updateUser,
             body: JSON.stringify({
                 'login': login,
                 'email': email,
@@ -97,7 +98,7 @@ export default class UserModel extends Model {
 
     static makeLogout() {
         return Fetching.queryDelete({
-            url: urls.makeLogout,
+            url: URLS.makeLogout,
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
             },
