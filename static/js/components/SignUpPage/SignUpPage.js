@@ -151,22 +151,7 @@ export class SignUpPage {
                     this.#data.sign = true;
                     this.render();
                 });
-        })
-
-        const formInputs = form.children;
-
-        // formInputs.forEach(input => {
-        //     input.addEventListener('blur', (evt) => {
-        //         evt.preventDefault();
-    
-        //         console.log("BLUR");
-    
-        //         while (divMsgError.firstChild) {
-        //             divMsgError.removeChild(divMsgError.lastChild);
-        //         }
-        //         this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        //     })
-        // })
+        });
 
         loginInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -175,7 +160,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         emailInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -184,7 +169,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         avatarInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -193,7 +178,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         quoteInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -202,7 +187,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         quoteAuthorInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -211,7 +196,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         aboutInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -220,7 +205,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         passwordInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -229,7 +214,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
 
         passwordRepeatInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -238,7 +223,7 @@ export class SignUpPage {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
             this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-        })
+        });
     }
 
 }
