@@ -1,4 +1,5 @@
 import Model from "../api/model.js"
+import Fetching from '../api/fetch.js';
 
 /**
  * TODO:
