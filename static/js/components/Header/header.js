@@ -1,3 +1,5 @@
+import Router from '../../api/router.js'
+
 export function headerView(header, config) {
 
     header.innerHTML = '';
@@ -54,6 +56,12 @@ export function headerView(header, config) {
             menuLink.href = href;
             menuLink.textContent = text;
             menuLink.dataset.section = menuKey;
+
+            menuLink.addEventListener('click', (evt) => {
+                evt.preventDefault();
+
+                Router.redirect(href);
+            })
 
             return menuItem;
         })
