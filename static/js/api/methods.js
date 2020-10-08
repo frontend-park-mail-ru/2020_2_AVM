@@ -74,7 +74,7 @@ export default class Methods {
                           email = '',
                           password = '',
                       } = {}) {
-        return Fetching.queryPost({
+        return Fetching.queryUpdate({
             url: urls.updateUser,
             body: JSON.stringify({
                 'login': login,
