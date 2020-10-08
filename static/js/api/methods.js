@@ -8,7 +8,11 @@ const urls = {
     updateUser: '/setting',
     makeLogout: '/logout',
     makeArticle: '/article',
+
+    getAvatar: '/avatar/',
+    upAvatar: '/setting/avatar',
 }
+
 
 
 let headers = new Headers();
@@ -20,6 +24,12 @@ headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
 headers.append('Access-Control-Allow-Credentials', 'true');
 
 export default class Methods {
+
+    static getUserAvatar(author = '') {
+        return Fetching.queryGet({
+            url: urls.getAvatar + author,
+        });
+    }
 
     static getUserData() {
         return Fetching.queryGet({
@@ -74,7 +84,7 @@ export default class Methods {
                           email = '',
                           password = '',
                       } = {}) {
-        return Fetching.queryPost({
+        return Fetching.queryUpdate({
             url: urls.updateUser,
             body: JSON.stringify({
                 'login': login,
@@ -84,6 +94,17 @@ export default class Methods {
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
                 'Content-Type': 'application/json',
+            },
+        });
+    }
+
+    static updateUserAvatar(data) {
+        return Fetching.queryUpdate({
+            url: urls.upAvatar,
+            body: data,
+            headers: {
+                'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
+                'Content-Type': 'multipart/form-data'
             },
         });
     }

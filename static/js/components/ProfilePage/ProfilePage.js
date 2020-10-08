@@ -30,23 +30,51 @@ export class ProfilePage {
                         id: res.id,
                         login: res.login,
                         email: res.email,
+                        avatar: res.avatar,
                     };
 
-                    Methods.getUserArticles(this.#data.login)
-                        .then((res) => {
-                            if (res.status === 200) {
-                                res.json().then((res) => {
-                                    this.#data.articles = res;
-                                    console.log(this.#data.articles);
-                                    this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+                    Methods.getUserAvatar(this.#data.avatar)
+                        .then((res) =>{
+                            this.#data.image = res.url
+
+                            Methods.getUserArticles(this.#data.id)
+                                .then((res) => {
+                                    if (res.status === 200) {
+                                        res.json().then((res) => {
+                                            this.#data.articles = res;
+                                            console.log(this.#data.articles);
+                                            this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+                                        });
+                                    }
+                                })
+                                .catch((err) => {
+                                    if (err.status === 500) {
+                                        console.error('failed to fetch articles');
+                                    }
                                 });
-                            }
                         })
                         .catch((err) => {
                             if (err.status === 500) {
-                                console.error('failed to fetch articles');
+                                console.error('failed to fetch avatar');
                             }
                         });
+
+
+                    // Methods.getUserArticles(this.#data.login)
+                    //     .then((res) => {
+                    //         if (res.status === 200) {
+                    //             res.json().then((res) => {
+                    //                 this.#data.articles = res;
+                    //                 console.log(this.#data.articles);
+                    //                 this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+                    //             });
+                    //         }
+                    //     })
+                    //     .catch((err) => {
+                    //         if (err.status === 500) {
+                    //             console.error('failed to fetch articles');
+                    //         }
+                    //     });
                 }
             )
                 // console.log(profileData);
