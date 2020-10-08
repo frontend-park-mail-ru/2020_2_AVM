@@ -27,7 +27,6 @@ export class LogoutPage {
                 if (status === 200) {
                     this.#data.success = true;
                     this.render();
-                    this.submitForm();
                 } else {
                     console.log('no logout');
                 }

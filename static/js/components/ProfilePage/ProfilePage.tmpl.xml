@@ -10,7 +10,7 @@
                 <div class="column large-6 tab-12">
                     <h3 class="h-add-bottom">Аватар</h3>
                     <figure>
-                         <img src="images/sample-525.jpg" sizes="(max-width: 1050px) 100vw, 1050px" alt="" />
+                         <img src="{data.image}" sizes="(max-width: 1050px) 100vw, 1050px" alt="" />
                     </figure>
                 </div>
                 <div class="column large-6 tab-12">

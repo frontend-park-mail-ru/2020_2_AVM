@@ -32,7 +32,7 @@
                             </div>
                             <div>
                                 <label for="inputAvatar">Аватар</label>
-                                <input class="h-full-width" type="file" accept=".jpg, .jpeg, .png" id="updateAvatar" required="required"/>
+                                <input class="h-full-width" type="file" accept=".jpg, .jpeg, .png" id="updateAvatar"/>
                             </div>
 
                             <div>
