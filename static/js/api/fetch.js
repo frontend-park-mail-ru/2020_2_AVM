@@ -1,4 +1,6 @@
-let serverAddress = 'http://localhost:1323'
+// let serverAddress = 'http://localhost:1323'
+let serverAddress = 'https://vc-app-back.herokuapp.com/'
+
 
 export default class Fetching {
 
