@@ -1,13 +1,13 @@
 import Fetching from './fetch.js';
 
 const urls = {
-    getUserDataUrl : '/profile',
-    getUserArticles : '/article/',
-    makeLogin: '/signin',
-    makeSignUp: '/signup',
-    updateUser: '/setting',
-    makeLogout: '/logout',
-    makeArticle: '/article',
+    getUserDataUrl : '/api/profile',
+    getUserArticles : '/api/article/',
+    makeLogin: '/api/signin',
+    makeSignUp: '/api/signup',
+    updateUser: '/api/setting',
+    makeLogout: '/api/logout',
+    makeArticle: '/api/article',
 }
 
 
