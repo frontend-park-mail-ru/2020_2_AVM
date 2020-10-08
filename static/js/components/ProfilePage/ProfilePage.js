@@ -37,7 +37,7 @@ export class ProfilePage {
                         .then((res) =>{
                             this.#data.image = res.url
 
-                            Methods.getUserArticles(this.#data.id)
+                            Methods.getUserArticles(this.#data.login)
                                 .then((res) => {
                                     if (res.status === 200) {
                                         res.json().then((res) => {
