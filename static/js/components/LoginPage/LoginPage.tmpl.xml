@@ -24,8 +24,8 @@
 
                             <form id="form-login">
                                 <div>
-                                    <label for="sampleInput">Ваш email</label>
-                                    <input class="h-full-width" type="email" placeholder="test@mail.ru" id="sampleInput" />
+                                    <label for="sampleInput">Ваш логин</label>
+                                    <input class="h-full-width" type="text" placeholder="test" id="sampleInput" />
                                 </div>
                                 <div>
                                     <label for="password">Пароль</label>

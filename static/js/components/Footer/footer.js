@@ -1,5 +1,5 @@
 export function footerView(footer, config) {
-	footer.innerHTML =
+    footer.innerHTML =
         `
         <footer class="s-footer">
             <div class="s-footer__main">
@@ -49,25 +49,25 @@ export function footerView(footer, config) {
         </footer>
     `;
 
-	const menuFooter = document.getElementsByClassName('footer__menu')[0];
-	Object
-		.keys(config)
-		.map((menuKey) => {
-			const {href, text} = config[menuKey];
+    const menuFooter = document.getElementsByClassName('footer__menu')[0];
+    Object
+        .keys(config)
+        .map((menuKey) => {
+            const {href, text} = config[menuKey];
 
-			const menuItem = document.createElement('li');
-			const menuLink = document.createElement('a');
+            const menuItem = document.createElement('li');
+            const menuLink = document.createElement('a');
 
-			menuItem.appendChild(menuLink);
+            menuItem.appendChild(menuLink);
 
-			menuLink.href = href;
-			menuLink.textContent = text;
-			menuLink.dataset.section = menuKey;
+            menuLink.href = href;
+            menuLink.textContent = text;
+            menuLink.dataset.section = menuKey;
 
-			return menuItem;
-		})
-		.forEach((element) => {
-			menuFooter.appendChild(element);
-		})
-	;
+            return menuItem;
+        })
+        .forEach((element) => {
+            menuFooter.appendChild(element);
+        })
+    ;
 }

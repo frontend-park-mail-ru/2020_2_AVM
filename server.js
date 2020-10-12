@@ -21,6 +21,7 @@ const mimeTypes = {
 const server = http.createServer()
 
 server.on('request', (req, res) => {
+
   const parsedUrl = new URL(req.url, 'https://node-http.glitch.me/')
 
   let pathName = parsedUrl.pathname
