@@ -5,7 +5,7 @@
                 <div class="column large-12 intro">
                     <h1><fest:value>data.login</fest:value></h1>
                 </div>
-            </div>
+             </div>
              <div class="row">
                 <div class="column large-6 tab-12">
                     <h3 class="h-add-bottom">Аватар</h3>
@@ -19,7 +19,7 @@
                             email: <fest:value>data.email</fest:value>
                         </p>
                 </div>
-            </div>
+             </div>
              <div class="row">
                  <div class="column large-12">
                      <h3>Статьи</h3>

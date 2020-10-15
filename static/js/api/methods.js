@@ -104,11 +104,9 @@ export default class Methods {
             body: data,
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
-                'Content-Type': 'multipart/form-data'
             },
         });
     }
-
 
     static makeLogout() {
         return Fetching.queryPost({

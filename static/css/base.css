@@ -24,8 +24,6 @@ body {
     font-family: var(--font-1);
     font-size: var(--text-size);
     font-style: normal;
-    font-weight: normal;
-    line-height: var(--vspace-1);
     color: var(--color-text);
     padding: 0;
 }
