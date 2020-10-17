@@ -3,50 +3,46 @@ let serverAddress = 'http://example.com/api'
 export default class Fetching {
 
     static queryGet({
-                     host = serverAddress,
-                     url = '/',
-                 } = {}) {
+                    host = serverAddress,
+                    url = '/',
+                } = {}) {
         return fetch(host + url, {
             method: 'GET',
             credentials: 'include',
         })
-            .catch((err) => {
-                if (!navigator.onLine) {
-                    location.reload();
-                }
-            });
+        .catch((err) => {
+            console.log('get error');
+        });
     }
 
     static queryPost({
-                      host = serverAddress,
-                      url = '/',
-                      body = '',
-                      headers = {},
-                  } = {}) {
+                host = serverAddress,
+                url = '/',
+                body = '',
+                headers = {},
+            } = {}) {
         return fetch(host + url, {
             method: 'POST',
             credentials: 'include',
             headers: headers,
             body: body,
         })
-            .catch((err) => {
-                if (!navigator.onLine) {
-                    location.reload();
-                }
-            });
+        .catch((err) => {
+            console.log('post error');
+        });
     }
 
     static queryUpdate({
-                     host = serverAddress,
-                     url = '/',
-                     body = {},
-                     headers = {},
-                 } = {}) {
-        return fetch(host + url, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: headers,
-            body: body,
+                    host = serverAddress,
+                    url = '/',
+                    body = {},
+                    headers = {},
+                } = {}) {
+            return fetch(host + url, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: headers,
+                body: body,
         })
             .catch((err) => {
                 if (!navigator.onLine) {
@@ -61,15 +57,15 @@ export default class Fetching {
                         headers = {},
                     } = {}) {
         return fetch(host + url, {
-            method: 'DELETE',
-            credentials: 'include',
-            headers: headers,
+                method: 'DELETE',
+                credentials: 'include',
+                headers: headers,
         })
-            .catch((err) => {
-                if (!navigator.onLine) {
-                    location.reload();
-                }
-            });
+        .catch((err) => {
+            if (!navigator.onLine) {
+                location.reload();
+            }
+        });
     }
 
     static getCookie(name) {

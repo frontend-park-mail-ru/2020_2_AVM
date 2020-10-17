@@ -1,69 +1,38 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
 
          <section class="s-content s-styles">
-
              <div class="row">
                 <div class="column large-12 intro">
                     <h1><fest:value>data.login</fest:value></h1>
                 </div>
-            </div>
-
+             </div>
              <div class="row">
                 <div class="column large-6 tab-12">
                     <h3 class="h-add-bottom">Аватар</h3>
                     <figure>
-                         <img src="images/sample-525.jpg" sizes="(max-width: 1050px) 100vw, 1050px" alt="" />
+                         <img src="{data.image}" sizes="(max-width: 1050px) 100vw, 1050px" alt="" />
                     </figure>
                 </div>
-
                 <div class="column large-6 tab-12">
                     <h3>О себе</h3>
                         <p class="drop-cap">
-                            <fest:value>data.about</fest:value>
+                            email: <fest:value>data.email</fest:value>
                         </p>
                 </div>
-            </div>
-
+             </div>
              <div class="row">
                  <div class="column large-12">
-                    <h3 class="h-add-bottom">Любимая цитата</h3>
-
-                        <figure class="pull-quote">
-                            <blockquote>
-                                <p>
-                                    <fest:value>data.quote</fest:value>
-                                </p>
-
-                                <footer>
-                                    <cite><fest:value>data.quoteAuthor</fest:value></cite>
-                                </footer>
-                            </blockquote>
-                        </figure>
-                </div>
-
-            </div>
-
-             <div class="row">
-
-                 <div class="column large-12">
-
                      <h3>Статьи</h3>
-
-
                      <div class="row half-bottom">
 
-<!--                         блок кода в цикле-->
-                         <div class="column large-6 tab-12">
-                             <h4>Название статьи</h4>
-                             <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
-                         </div>
-<!--                         блок кода в цикле-->
-
+                        <fest:for iterate="data.articles" index="i">
+                             <div class="column large-6 tab-12">
+                                 <h4><fest:value>data.articles[i].Title</fest:value></h4>
+                                 <p><fest:value>data.articles[i].desc</fest:value></p>
+                             </div>
+                        </fest:for>
                      </div>
-
                  </div>
-
              </div>
          </section>
-
 </fest:template>
