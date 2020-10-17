@@ -67,15 +67,15 @@ export default class SignUpController extends Controller {
         
     }
 
-    checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput) {
+    checkSignup(divMsgError, loginInput, emailInput, passwordInput) {
         const login = loginInput.value.trim();
         const email = emailInput.value.trim();
-        const avatar = avatarInput.value.trim();
-        const quote = quoteInput.value.trim();
-        const quoteAuthor = quoteAuthorInput.value.trim();
-        const about = aboutInput.value.trim();
+        // const avatar = avatarInput.value.trim();
+        // const quote = quoteInput.value.trim();
+        // const quoteAuthor = quoteAuthorInput.value.trim();
+        // const about = aboutInput.value.trim();
         const password = passwordInput.value.trim();
-        const passwordRepeat = passwordRepeatInput.value.trim();
+        // const passwordRepeat = passwordRepeatInput.value.trim();
 
         const checkLogin = Validation.validateLogin(login);
         var notValidated = false;
@@ -98,17 +98,18 @@ export default class SignUpController extends Controller {
             notValidated = true;
         }
 
-        const checkPassRepeat = Validation.validatePasswordRepeat(password, passwordRepeat);
-        if (!checkPassRepeat) {
-            this.addErrorMsg(divMsgError, 'PassRep');
-            notValidated = true;
-        }
+        // const checkPassRepeat = Validation.validatePasswordRepeat(password, passwordRepeat);
+        // if (!checkPassRepeat) {
+        //     this.addErrorMsg(divMsgError, 'PassRep');
+        //     notValidated = true;
+        // }
 
         if (notValidated) {
             return void 0;
         }
 
-        return {login, email, avatar, quote, quoteAuthor, about, password, passwordRepeat};
+        // return {login, email, avatar, quote, quoteAuthor, about, password, passwordRepeat};
+        return {login, email, password};
     }
 
     action() {
@@ -117,12 +118,12 @@ export default class SignUpController extends Controller {
         const form = document.querySelector('form#form-sing-up');
         const loginInput = form.querySelector('input#inputLogin');
         const emailInput = form.querySelector('input#inputEmail');
-        const avatarInput = form.querySelector('input#inputAvatar');
-        const quoteInput = form.querySelector('textarea#inputQuote');
-        const quoteAuthorInput = form.querySelector('input#quoteAuthor');
-        const aboutInput = form.querySelector('textarea#aboutInput');
+        // const avatarInput = form.querySelector('input#inputAvatar');
+        // const quoteInput = form.querySelector('textarea#inputQuote');
+        // const quoteAuthorInput = form.querySelector('input#quoteAuthor');
+        // const aboutInput = form.querySelector('textarea#aboutInput');
         const passwordInput = form.querySelector('input#password');
-        const passwordRepeatInput = form.querySelector('input#passwordRepeat');
+        // const passwordRepeatInput = form.querySelector('input#passwordRepeat');
 
         const divMsgError = document.createElement('div');
         form.parentNode.insertBefore(divMsgError, form);
@@ -133,7 +134,7 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            const regData = this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput);
+            const regData = this.checkSignup(divMsgError, loginInput, emailInput, passwordInput);
             if (!regData) {
                 return;
             }
@@ -141,27 +142,33 @@ export default class SignUpController extends Controller {
             UserModel.makeSignUp({
                 login,
                 email,
-                avatar,
-                quote,
-                quoteAuthor,
-                about,
+                // avatar,
+                // quote,
+                // quoteAuthor,
+                // about,
                 password,
-                passwordRepeat,
+                // passwordRepeat,
             })
-                .then(({statusCode, responseObject}) => {
-                    if (statusCode === 200) {
-                        Router.redirect('/profile');
+                .then(({status}) => {
+                    if (status === 201) {
+                        // profilePage(this.#parent);
+                        this.#data.sign = true;
+                        this.view.render(this.#data);
+                        // this.submitForm();
+                        //////////////////////////////////
+                        // Router.redirect('/profile');
                     } else {
-                        const {error} = JSON.parse(responseObject);
-                        console.log(error);
+                        // const {error} = JSON.parse(responseObject);
+                        // console.log(error);
+                        console.log('no sign');
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.sign = true;
-                    this.render();
+                    // this.#data.sign = true;
+                    // this.render();
                 });
         });
 
@@ -171,7 +178,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         emailInput.addEventListener('blur', (evt) => {
@@ -180,7 +188,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         avatarInput.addEventListener('blur', (evt) => {
@@ -189,7 +198,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         quoteInput.addEventListener('blur', (evt) => {
@@ -198,7 +208,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         quoteAuthorInput.addEventListener('blur', (evt) => {
@@ -207,7 +218,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         aboutInput.addEventListener('blur', (evt) => {
@@ -216,7 +228,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         passwordInput.addEventListener('blur', (evt) => {
@@ -225,7 +238,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
         passwordRepeatInput.addEventListener('blur', (evt) => {
@@ -234,7 +248,8 @@ export default class SignUpController extends Controller {
             while (divMsgError.firstChild) {
                 divMsgError.removeChild(divMsgError.lastChild);
             }
-            this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
     }
 

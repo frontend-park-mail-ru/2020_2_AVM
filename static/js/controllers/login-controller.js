@@ -49,7 +49,8 @@ export default class LoginController extends Controller {
         this.view.render(this.#data);
 
         const form = document.querySelector('form#form-login');
-        const loginInput = form.querySelector('input[type="email"]');
+        const loginInput = form.querySelector('input[type="text"]');
+        console.log("LI: ", loginInput)
         const passwordInput = form.querySelector('input[type="password"]');
 
         const divMsgError = document.createElement('div');
@@ -69,20 +70,22 @@ export default class LoginController extends Controller {
 
             // TODO: вынести часть логики в модель
             UserModel.makeLogin({login, password})
-                .then(({statusCode, responseObject}) => {
-                    if (statusCode === 200) {
-                        Router.redirect('/profile');
-                    } else {
-                        const {error} = JSON.parse(responseObject);
-                        console.log(error);
+                .then(({status}) => {
+                    if (status === 200) {
+                        profilePage(this.#parent);
+                    }
+                    if (status === 400) {
+                        this.#data.login = true;
+                        this.render();
+                        this.submitForm();
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.login = true;
-                    this.render();
+                    // this.#data.login = true;
+                    // this.render();
                 });
         });
 

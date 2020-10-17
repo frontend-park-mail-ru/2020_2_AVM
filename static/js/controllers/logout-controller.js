@@ -24,13 +24,14 @@ export default class LogOutController extends Controller {
     }
 
     action() {
+        this.view.render();
         UserModel.makeLogout()
-            .then(({statusCode, responseObject}) => {
-                if (statusCode === 200) {
+            .then(({status}) => {
+                if (status === 200) {
                     this.#data.success = true;
+                    this.render();
                 } else {
-                    const {error} = JSON.parse(responseObject);
-                    console.log(error);
+                    console.log('no logout');
                 }
             })
             .catch((err) => {
@@ -38,9 +39,6 @@ export default class LogOutController extends Controller {
                     console.log(err);
                 }
             });
-
-        this.view.render(this.#data);
-
     }
 
 }
