@@ -2,6 +2,14 @@ import Model from '../api/model.js';
 import Fetching from '../api/fetch.js';
 import {URLS} from '../settings/config.js'
 
+let headers = new Headers();
+
+headers.append('Content-Type', 'application/json');
+headers.append('Accept', 'application/json');
+
+headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+headers.append('Access-Control-Allow-Credentials', 'true')
+
 /**
  * TODO:
  * перенести часть логики обработки запросов
@@ -12,21 +20,23 @@ export default class ArticleModel extends Model {
         super();
     }
     
-    static getUserArticles(id) {
+    static getUserArticles(author) {
         return Fetching.queryGet({
-            url: URLS.getUserArticles,
+            url: urls.getUserArticles + author,
         });
     }
 
     static makeArticle({
-                          title = '',
-                          text = '',
-                      }) {
+                        title = '',
+                        desc = '',
+                        content = '',
+                    }) {
         return Fetching.queryPost({
-            url: URLS.makeArticle,
+            url: urls.makeArticle,
             body: JSON.stringify({
                 'title': title,
-                'text': text,
+                'desc': desc,
+                'content': content,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
