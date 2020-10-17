@@ -1,9 +1,12 @@
 export const URLS = {
-    getUserDataUrl : '/user',
-    getUserArticles : 'user/${id}/article',
-    makeLogin: '/login',
+    getUserDataUrl : '/profile',
+    getUserArticles : '/article/',
+    makeLogin: '/signin',
     makeSignUp: '/signup',
-    updateUser: '/user/update',
+    updateUser: '/setting',
     makeLogout: '/logout',
-    makeArticle: '/add',
+    makeArticle: '/article',
+
+    getAvatar: '/avatar/',
+    upAvatar: '/setting/avatar',
 }
