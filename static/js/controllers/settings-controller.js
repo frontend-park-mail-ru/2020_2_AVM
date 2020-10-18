@@ -1,12 +1,15 @@
 import Controller from '../api/controller.js';
 import SettingsView from '../views/settings-view.js';
-import Router from '../api/router.js';
 import UserModel from '../models/user-model.js';
 
 export default class SettingsPageController extends Controller {
     #parent
     #data
 
+    /**
+     * constructor of controller
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
         super();
 
@@ -16,14 +19,24 @@ export default class SettingsPageController extends Controller {
         this.view = new SettingsView(parent);
     }
 
+    /**
+     * get data of controller
+     */
     get data() {
         return this.#data;
     }
 
+    /**
+     * set data of controller
+     * @param  {object} data - object of data of controller
+     */
     set data(data) {
         this.#data = data;
     }
 
+    /**
+     * action of controller, logic of settings
+     */
     action() {
         this.view.render(this.#data);
 

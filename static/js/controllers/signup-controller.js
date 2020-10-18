@@ -7,6 +7,10 @@ export default class SignUpController extends Controller {
     #parent
     #data
 
+    /**
+     * constructor of controller
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
         super();
 
@@ -16,14 +20,26 @@ export default class SignUpController extends Controller {
         this.view = new SignUpView(this.#parent);
     }
 
+    /**
+     * get data of controller
+     */
     get data() {
         return this.#data;
     }
 
+    /**
+     * set data of controller
+     * @param  {object} data - object of data of controller
+     */
     set data(data) {
         this.#data = data;
     }
 
+    /**
+     * error processing
+     * @param  {HTMLElement} divMsgError - HTML container
+     * @param  {Object} inputError - input element
+     */
     addErrorMsg(divMsgError, inputError) {
         const msgLabel = document.createElement("Label");
         if (inputError === 'Login'){
@@ -66,6 +82,14 @@ export default class SignUpController extends Controller {
         
     }
 
+    /**
+     * check signup processing
+     * @param  {HTMLElement} divMsgError - HTML container
+     * @param  {object} loginInput - HTML input
+     * @param  {object} emailInput - HTML input
+     * @param  {object} passwordInput - HTML input
+     * @return {object} - login, email, password after checking
+     */
     checkSignup(divMsgError, loginInput, emailInput, passwordInput) {
         const login = loginInput.value.trim();
         const email = emailInput.value.trim();
@@ -111,6 +135,9 @@ export default class SignUpController extends Controller {
         return {login, email, password};
     }
 
+    /**
+     * action of controller, logic of signup
+     */
     action() {
         this.view.render(this.#data);
 

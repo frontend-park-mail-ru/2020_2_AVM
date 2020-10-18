@@ -19,13 +19,35 @@ export default class ArticleModel extends Model {
     constructor() {
         super();
     }
-    
+
+    /**
+     * This is a user articles request.
+     *
+     * @param {string} author - id of user
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     getUserArticles('1')
+     */
     static getUserArticles(author) {
         return Fetching.queryGet({
             url: URLS.getUserArticles + author,
         });
     }
 
+    /**
+     * This is a request to publish an article.
+     *
+     * @param {string} title - title of article
+     * @param {string} desc - desc of article
+     * @param {string} content - content of article
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     getUserArticles('hello', 'world', 'bro')
+     */
     static makeArticle({
                         title = '',
                         desc = '',

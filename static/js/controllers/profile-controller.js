@@ -7,6 +7,10 @@ export default class ProfilePageController extends Controller {
     #parent
     #data
 
+    /**
+     * constructor of controller
+     * @param {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
         super();
         
@@ -16,14 +20,24 @@ export default class ProfilePageController extends Controller {
         this.view = new ProfileView(this.#parent);
     }
 
+    /**
+     * get data of controller
+     */
     get data() {
         return this.#data;
     }
 
+    /**
+     * set data of controller
+     * @param  {object} data - object of data of controller
+     */
     set data(data) {
         this.#data = data;
     }
 
+    /**
+     * action of controller, logic of profile
+     */
     action() {
 
         UserModel.getUserData()

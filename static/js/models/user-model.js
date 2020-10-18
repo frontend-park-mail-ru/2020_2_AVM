@@ -21,19 +21,49 @@ export default class UserModel extends Model {
         
         this.user = null;
     }
-    
+
+    /**
+     * This is a request to get user avatar.
+     *
+     * @param {string} author - name of user
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     getUserAvatar('mark')
+     */
     static getUserAvatar(author = '') {
         return Fetching.queryGet({
             url: URLS.getAvatar + author,
         });
     }
 
+    /**
+     * This is a request to get user data.
+     *
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     getUserAvatar()
+     */
     static getUserData() {
         return Fetching.queryGet({
             url: URLS.getUserDataUrl,
         });
     }
 
+    /**
+     * This is a authorization request.
+     *
+     * @param {string} login - login  of user
+     * @param {string} password - password of user
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     makeLogin('mark', 'secret')
+     */
     static makeLogin({
                          login = '',
                          password = '',
@@ -51,6 +81,18 @@ export default class UserModel extends Model {
         });
     }
 
+    /**
+     * This is a registration request.
+     *
+     * @param {string} login - login  of user
+     * @param {string} email - email  of user
+     * @param {string} password - password of user
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     makeSignUp('mark', 'email@mail.ru', 'secret')
+     */
     static makeSignUp({
                           login = '',
                           email = '',
@@ -70,6 +112,18 @@ export default class UserModel extends Model {
         });
     }
 
+    /**
+     * This is a profile data update request.
+     *
+     * @param {string} login - login  of user
+     * @param {string} email - email  of user
+     * @param {string} password - password of user
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     updateUser('mark', 'email@mail.ru', 'secret')
+     */
     static updateUser({
                           login = '',
                           email = '',
@@ -89,6 +143,16 @@ export default class UserModel extends Model {
         });
     }
 
+    /**
+     * This is a request to update user avatar.
+     *
+     * @param {FormData} data - FormData with image of user
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     updateUserAvatar(new FormData(form))
+     */
     static updateUserAvatar(data) {
         return Fetching.queryUpdate({
             url: URLS.upAvatar,
@@ -100,6 +164,15 @@ export default class UserModel extends Model {
     }
 
 
+    /**
+     * This is a request to leave.
+     *
+     * @return {function} - call of fetch method
+     *
+     * @example
+     *
+     *     makeLogout()
+     */
     static makeLogout() {
         return Fetching.queryPost({
             url: URLS.makeLogout,

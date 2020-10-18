@@ -6,6 +6,10 @@ export default class AddPageController extends Controller {
     #parent
     #data
 
+    /**
+     * constructor of controller
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
         super();
 
@@ -15,14 +19,24 @@ export default class AddPageController extends Controller {
         this.view = new AddPageView(this.#parent);
     }
 
+    /**
+     * get of controller
+     */
     get data() {
         return this.#data;
     }
 
+    /**
+     * set of controller
+     * @param  {object} data - object of data of controller
+     */
     set data(data) {
         this.#data = data;
     }
 
+    /**
+     * action of controller, logic of add
+     */
     action() {
         this.view.render(this.#data);
 

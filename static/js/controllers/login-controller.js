@@ -7,6 +7,10 @@ export default class LoginController extends Controller {
     #parent
     #data
 
+    /**
+     * constructor of controller
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
         super();
 
@@ -16,14 +20,25 @@ export default class LoginController extends Controller {
         this.view = new LoginView(this.#parent);
     }
 
+    /**
+     * get data of controller
+     */
     get data() {
         return this.#data;
     }
 
+    /**
+     * set data of controller
+     * @param  {object} data - object of data of controller
+     */
     set data(data) {
         this.#data = data;
     }
 
+    /**
+     * error processing
+     * @param  {HTMLElement} divMsgError - HTML container
+     */
     addErrorMsg(divMsgError) {
         const msgLabel = document.createElement("Label");
         msgLabel.innerHTML = 'Длина логина должна быть не менее 8 символов';
@@ -31,6 +46,13 @@ export default class LoginController extends Controller {
         divMsgError.appendChild(msgLabel);
     }
 
+    /**
+     * check login processing
+     * @param  {HTMLElement} divMsgError - HTML container
+     * @param  {object} loginInput - HTML input
+     * @param  {object} passwordInput - HTML input
+     * @return {object} - login, password after checking
+     */
     checkLogin(divMsgError, loginInput, passwordInput) {
         const login = loginInput.value.trim();
         const password = passwordInput.value.trim();
@@ -44,6 +66,9 @@ export default class LoginController extends Controller {
         return {login, password};
     }
 
+    /**
+     * action of controller, logic of login
+     */
     action() {
         this.view.render(this.#data);
 
@@ -109,5 +134,4 @@ export default class LoginController extends Controller {
             this.checkLogin(divMsgError, loginInput, passwordInput);
         });
     }
-
 }
