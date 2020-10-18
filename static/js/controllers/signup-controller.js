@@ -2,7 +2,6 @@ import UserModel from '../models/user-model.js';
 import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import SignUpView from '../views/signup-view.js';
-import Router from '../api/router.js';
 
 export default class SignUpController extends Controller {
     #parent
@@ -27,39 +26,39 @@ export default class SignUpController extends Controller {
 
     addErrorMsg(divMsgError, inputError) {
         const msgLabel = document.createElement("Label");
-        if (inputError == 'Login'){
+        if (inputError === 'Login'){
             msgLabel.innerHTML = 'Длина логина должна быть не менее 8 символов, логин не может содержать специальные символы';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'Email'){
+        if (inputError === 'Email'){
             msgLabel.innerHTML = 'Неверно введена почта';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'empty or invalid'){
+        if (inputError === 'empty or invalid'){
             msgLabel.innerHTML = 'Пароль не может быть пустым';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'short'){
+        if (inputError === 'short'){
             msgLabel.innerHTML = 'Длина пароля должна быть не менее 8 символов';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'no nums'){
+        if (inputError === 'no nums'){
             msgLabel.innerHTML = 'В пароле должны содержаться десятичные цифры';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'few nums'){
+        if (inputError === 'few nums'){
             msgLabel.innerHTML = 'В пароле должно содержаться более двух десятичных цифр';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'no latin'){
+        if (inputError === 'no latin'){
             msgLabel.innerHTML = 'В пароле должны содержатся латинские буквы';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'nums and latin'){
+        if (inputError === 'nums and latin'){
             msgLabel.innerHTML = 'В пароле должны содержатся латинские буквы и десятичные цифры';
             msgLabel.style.color = 'red';            
         }
-        if (inputError == 'PassRep'){
+        if (inputError === 'PassRep'){
             msgLabel.innerHTML = 'Пароли не совпадают';
             msgLabel.style.color = 'red';            
         }
@@ -138,6 +137,8 @@ export default class SignUpController extends Controller {
             if (!regData) {
                 return;
             }
+
+            const {login, email, password} = regData;
 
             UserModel.makeSignUp({
                 login,

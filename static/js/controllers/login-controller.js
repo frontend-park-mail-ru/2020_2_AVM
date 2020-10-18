@@ -2,7 +2,6 @@ import UserModel from '../../js/models/user-model.js'
 import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import LoginView from '../views/login-view.js';
-import Router from '../api/router.js';
 
 export default class LoginController extends Controller {
     #parent
@@ -64,9 +63,12 @@ export default class LoginController extends Controller {
             }
 
             const authData = this.checkLogin(divMsgError, loginInput, passwordInput);
-            if (authData !== undefined) {
+
+            if (authData === undefined) {
                 return;
             }
+
+            const {login, password} = authData;
 
             // TODO: вынести часть логики в модель
             UserModel.makeLogin({login, password})

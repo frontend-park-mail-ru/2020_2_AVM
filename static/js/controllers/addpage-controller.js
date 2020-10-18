@@ -1,6 +1,5 @@
 import Controller from '../api/controller.js';
 import AddPageView from '../views/addpage-view.js';
-import Router from '../api/router.js';
 import ArticleModel from '../models/article-model.js';
 
 export default class AddPageController extends Controller {
@@ -44,12 +43,11 @@ export default class AddPageController extends Controller {
                 desc,
                 content,
             })
-                .then(({statusCode, responseObject}) => {
-                    if (statusCode === 200) {
-                        profilePage(this.#parent);
+                .then(({status}) => {
+                    if (status === 201) {
+                        //TODO: перенаправление в профиль
                     } else {
-                        // const {error} = JSON.parse(responseObject);
-                        // console.log(error);
+                        console.log("error add");
                     }
                 })
                 .catch((err) => {
