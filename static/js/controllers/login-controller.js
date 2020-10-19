@@ -3,6 +3,9 @@ import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import LoginView from '../views/login-view.js';
 
+import Router from "../api/router.js";
+import {headerView} from "../components/Header/header.js";
+
 export default class LoginController extends Controller {
     #parent
     #data
@@ -11,12 +14,33 @@ export default class LoginController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent) {
+    constructor(parent, header, config) {
         super();
 
         this.#parent = parent;
         this.#data = {};
-        
+
+        this.headerContainer = header;
+
+        this.config = {
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
+
         this.view = new LoginView(this.#parent);
     }
 
@@ -99,12 +123,12 @@ export default class LoginController extends Controller {
             UserModel.makeLogin({login, password})
                 .then(({status}) => {
                     if (status === 200) {
-                        profilePage(this.#parent);
+                        Router.redirect('/profile');
+                        headerView(this.headerContainer, this.config);
                     }
                     if (status === 400) {
                         this.#data.login = true;
                         this.render();
-                        this.submitForm();
                     }
                 })
                 .catch((err) => {

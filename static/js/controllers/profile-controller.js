@@ -2,6 +2,7 @@ import Controller from '../api/controller.js';
 import ProfileView from '../views/profile-view.js';
 import UserModel from '../models/user-model.js';
 import ArticleModel from '../models/article-model.js';
+import {headerView} from "../components/Header/header.js";
 
 export default class ProfilePageController extends Controller {
     #parent
@@ -10,12 +11,35 @@ export default class ProfilePageController extends Controller {
     /**
      * constructor of controller
      * @param {HTMLElement} parent - HTML container
+     * @param {HTMLElement} header - HTML container
+     * @param {Object} config - list menu
      */
-    constructor(parent) {
+    constructor(parent, header, config) {
         super();
         
         this.#parent = parent;
         this.#data = {login: 'Вы не вошли'};
+
+        this.headerContainer = header;
+
+        this.config = {
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
 
         this.view = new ProfileView(this.#parent);
     }
@@ -68,6 +92,7 @@ export default class ProfilePageController extends Controller {
                                         res.json().then((res) => {
                                             this.#data.articles = res;
                                             this.view.render(this.#data);
+                                            headerView(this.headerContainer, this.config);
                                         });
                                     }
                                 })

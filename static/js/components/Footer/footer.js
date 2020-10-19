@@ -7,7 +7,7 @@ export function footerView(footer, config) {
                     <div class="column large-4 medium-6 tab-12 s-footer__info">
                         <h5>О проекте</h5>
                         <p>
-                            Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
+                           Untitled is copy of vc.ru
                         </p>
                     </div> 
                     <div class="column large-2 medium-3 tab-6 s-footer__site-links">

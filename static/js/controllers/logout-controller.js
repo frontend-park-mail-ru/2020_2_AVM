@@ -2,6 +2,9 @@ import Controller from '../api/controller.js';
 import LogoutView from '../views/logout-view.js';
 import UserModel from '../models/user-model.js';
 
+import Router from "../api/router.js";
+import {headerView} from "../components/Header/header.js";
+
 export default class LogOutController extends Controller {
     #parent
     #data
@@ -10,11 +13,24 @@ export default class LogOutController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent) {
+    constructor(parent, header, config) {
         super();
 
         this.#parent = parent;
         this.#data = {};
+
+        this.headerContainer = header;
+
+        this.config = {
+            signup: {
+                href: '/signup',
+                text: 'Зарегистрироваться',
+            },
+            login: {
+                href: '/login',
+                text: 'Авторизоваться',
+            },
+        };
 
         this.view = new LogoutView(parent);
     }
@@ -42,8 +58,8 @@ export default class LogOutController extends Controller {
         UserModel.makeLogout()
             .then(({status}) => {
                 if (status === 200) {
-                    this.#data.success = true;
-                    this.render();
+                    Router.redirect('/login');
+                    headerView(this.headerContainer, this.config);
                 } else {
                     console.log('no logout');
                 }

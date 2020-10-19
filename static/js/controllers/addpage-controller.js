@@ -2,6 +2,9 @@ import Controller from '../api/controller.js';
 import AddPageView from '../views/addpage-view.js';
 import ArticleModel from '../models/article-model.js';
 
+import Router from "../api/router.js";
+import {headerView} from "../components/Header/header.js";
+
 export default class AddPageController extends Controller {
     #parent
     #data
@@ -10,11 +13,32 @@ export default class AddPageController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent) {
+    constructor(parent,header, config) {
         super();
 
         this.#parent = parent;
         this.#data = {};
+
+        this.headerContainer = header;
+
+        this.config = {
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
 
         this.view = new AddPageView(this.#parent);
     }
@@ -59,7 +83,8 @@ export default class AddPageController extends Controller {
             })
                 .then(({status}) => {
                     if (status === 201) {
-                        //TODO: перенаправление в профиль
+                        Router.redirect('/profile');
+                        headerView(this.headerContainer, this.config);
                     } else {
                         console.log("error add");
                     }

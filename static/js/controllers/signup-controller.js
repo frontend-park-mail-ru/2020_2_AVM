@@ -2,6 +2,7 @@ import UserModel from '../models/user-model.js';
 import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import SignUpView from '../views/signup-view.js';
+import {headerView} from "../components/Header/header.js";
 
 export default class SignUpController extends Controller {
     #parent

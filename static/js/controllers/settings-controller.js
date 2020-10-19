@@ -2,6 +2,9 @@ import Controller from '../api/controller.js';
 import SettingsView from '../views/settings-view.js';
 import UserModel from '../models/user-model.js';
 
+import Router from "../api/router.js";
+import {headerView} from "../components/Header/header.js";
+
 export default class SettingsPageController extends Controller {
     #parent
     #data
@@ -10,11 +13,32 @@ export default class SettingsPageController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent) {
+    constructor(parent, header, config) {
         super();
 
         this.#parent = parent;
         this.#data = {};
+
+        this.headerContainer = header;
+
+        this.config = {
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
 
         this.view = new SettingsView(parent);
     }
@@ -83,7 +107,8 @@ export default class SettingsPageController extends Controller {
                         .then(({status}) => {
                             console.log(status);
                                     if (status === 200) {
-                                        profilePage(this.#parent);
+                                        Router.redirect('/profile');
+                                        headerView(this.headerContainer, this.config);
                                     } else {
                                         console.log('error');
                                     }
