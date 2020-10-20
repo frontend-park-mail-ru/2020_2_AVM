@@ -34,7 +34,7 @@
                         <form id="form-sing-up">
                             <div>
                                 <label for="inputLogin">Ваш логин</label>
-                                <input class="h-full-width" type="name" placeholder="Иван" id="inputLogin" required="required" />
+                                <input class="h-full-width" type="name" placeholder="login" id="inputLogin" required="required" />
                             </div>
                             <div>
                                 <label for="inputEmail">Ваш email</label>

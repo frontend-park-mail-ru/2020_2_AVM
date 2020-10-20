@@ -499,6 +499,7 @@ img,
 }
 
 /* forms */
+input[type="name"],
 input[type="email"],
 input[type="number"],
 input[type="search"],
@@ -636,9 +637,6 @@ label>input[type="checkbox"], label>input[type="radio"] {
     color: var(--color-placeholder) !important;
 }
 
-/* -------------------------------------------------------------------
- * ## change autocomplete styles in Chrome
- * ------------------------------------------------------------------- */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus input:-webkit-autofill,
@@ -652,12 +650,6 @@ select:-webkit-autofill:focus {
     transition: background-color 5000s ease-in-out 0s;
 }
 
-
-
-/* ===================================================================
- * # buttons
- *
- * ------------------------------------------------------------------- */
 .btn,
 button,
 input[type="submit"],
