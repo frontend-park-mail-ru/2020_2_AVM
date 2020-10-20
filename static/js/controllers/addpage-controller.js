@@ -87,6 +87,8 @@ export default class AddPageController extends Controller {
                         headerView(this.headerContainer, this.config);
                     } else {
                         console.log("error add");
+                        this.#data.success = true;
+                        this.view.render(this.#data);
                     }
                 })
                 .catch((err) => {
@@ -94,7 +96,7 @@ export default class AddPageController extends Controller {
                         console.log(err);
                     }
                     this.#data.success = true;
-                    this.view.render();
+                    this.view.render(this.#data);
                 });
         })
     }

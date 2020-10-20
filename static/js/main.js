@@ -36,7 +36,6 @@ import AddPageController from './controllers/addpage-controller.js';
 import SettingsPageController from './controllers/settings-controller.js';
 import ProfilePageController from './controllers/profile-controller.js';
 
-//TODO: вызвать запрос на профиль
 import UserModel from './models/user-model.js';
 UserModel.getUserData().then((res) => {
     if (res.status !== 201) {
@@ -86,4 +85,18 @@ UserModel.getUserData().then((res) => {
     router.addRoute('/settings', new SettingsPageController(container, header, config));
     router.addRoute('/add', new AddPageController(container, header, config));
     router.route();
+})
+    .catch((err) => {
+        if (err instanceof Error) {
+            console.log(err);
+            console.log("no internet");
+        }
+        container.innerHTML = `
+        <section class="s-content s-styles">
+         <div class="row">
+            <div class="column large-12 intro">
+                <h1>У вас нет интернета!</h1>
+            </div>
+     </section>
+    `;
 });

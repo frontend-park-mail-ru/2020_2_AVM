@@ -180,24 +180,20 @@ export default class SignUpController extends Controller {
             })
                 .then(({status}) => {
                     if (status === 201) {
-                        // profilePage(this.#parent);
                         this.#data.sign = true;
                         this.view.render(this.#data);
-                        // this.submitForm();
-                        //////////////////////////////////
-                        // Router.redirect('/profile');
                     } else {
-                        // const {error} = JSON.parse(responseObject);
-                        // console.log(error);
                         console.log('no sign');
+                        this.#data.success = true;
+                        this.view.render(this.#data);
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    // this.#data.sign = true;
-                    // this.render();
+                    this.#data.success = true;
+                    this.view.render(this.#data);
                 });
         });
 
@@ -221,45 +217,45 @@ export default class SignUpController extends Controller {
             this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
-        avatarInput.addEventListener('blur', (evt) => {
-            evt.preventDefault();
-
-            while (divMsgError.firstChild) {
-                divMsgError.removeChild(divMsgError.lastChild);
-            }
-            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
-        });
-
-        quoteInput.addEventListener('blur', (evt) => {
-            evt.preventDefault();
-
-            while (divMsgError.firstChild) {
-                divMsgError.removeChild(divMsgError.lastChild);
-            }
-            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
-        });
-
-        quoteAuthorInput.addEventListener('blur', (evt) => {
-            evt.preventDefault();
-
-            while (divMsgError.firstChild) {
-                divMsgError.removeChild(divMsgError.lastChild);
-            }
-            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
-        });
-
-        aboutInput.addEventListener('blur', (evt) => {
-            evt.preventDefault();
-
-            while (divMsgError.firstChild) {
-                divMsgError.removeChild(divMsgError.lastChild);
-            }
-            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
-        });
+        // avatarInput.addEventListener('blur', (evt) => {
+        //     evt.preventDefault();
+        //
+        //     while (divMsgError.firstChild) {
+        //         divMsgError.removeChild(divMsgError.lastChild);
+        //     }
+        //     // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+        //     this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
+        // });
+        //
+        // quoteInput.addEventListener('blur', (evt) => {
+        //     evt.preventDefault();
+        //
+        //     while (divMsgError.firstChild) {
+        //         divMsgError.removeChild(divMsgError.lastChild);
+        //     }
+        //     // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+        //     this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
+        // });
+        //
+        // quoteAuthorInput.addEventListener('blur', (evt) => {
+        //     evt.preventDefault();
+        //
+        //     while (divMsgError.firstChild) {
+        //         divMsgError.removeChild(divMsgError.lastChild);
+        //     }
+        //     // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+        //     this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
+        // });
+        //
+        // aboutInput.addEventListener('blur', (evt) => {
+        //     evt.preventDefault();
+        //
+        //     while (divMsgError.firstChild) {
+        //         divMsgError.removeChild(divMsgError.lastChild);
+        //     }
+        //     // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+        //     this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
+        // });
 
         passwordInput.addEventListener('blur', (evt) => {
             evt.preventDefault();
@@ -271,15 +267,15 @@ export default class SignUpController extends Controller {
             this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
         });
 
-        passwordRepeatInput.addEventListener('blur', (evt) => {
-            evt.preventDefault();
-
-            while (divMsgError.firstChild) {
-                divMsgError.removeChild(divMsgError.lastChild);
-            }
-            // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
-            this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
-        });
+        // passwordRepeatInput.addEventListener('blur', (evt) => {
+        //     evt.preventDefault();
+        //
+        //     while (divMsgError.firstChild) {
+        //         divMsgError.removeChild(divMsgError.lastChild);
+        //     }
+        //     // this.checkSignup(divMsgError, loginInput, emailInput, avatarInput, quoteInput, quoteAuthorInput, aboutInput, passwordInput, passwordRepeatInput, form);
+        //     this.checkSignup(divMsgError, loginInput, emailInput, passwordInput, form);
+        // });
     }
 
 }

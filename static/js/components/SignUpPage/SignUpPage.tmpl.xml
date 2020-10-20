@@ -11,6 +11,16 @@
             </div>
         </fest:if>
 
+        <fest:if test = "data.success">
+            <div class="row">
+                <div class="column large-12">
+                    <div class="alert-box alert-box--error">
+                        <p>Не удалось зарегистрироваться</p>
+                    </div>
+                </div>
+            </div>
+        </fest:if>
+
     <section class="s-content s-content--single">
         <div class="row">
             <div class="column large-12">

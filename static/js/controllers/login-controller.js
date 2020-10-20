@@ -128,15 +128,15 @@ export default class LoginController extends Controller {
                     }
                     if (status === 400) {
                         this.#data.login = true;
-                        this.render();
+                        this.view.render(this.#data);
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    // this.#data.login = true;
-                    // this.render();
+                    this.#data.login = true;
+                    this.view.render(this.#data);
                 });
         });
 
