@@ -1,4 +1,4 @@
-let serverAddress = 'http://localhost:1323'
+let serverAddress = 'http://95.163.250.127:1323'
 
 export default class Fetching {
 
