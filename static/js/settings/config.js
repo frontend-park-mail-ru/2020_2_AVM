@@ -1,12 +1,12 @@
 export const URLS = {
-    getUserDataUrl : '/profile',
-    getUserArticles : '/article/',
-    makeLogin: '/signin',
-    makeSignUp: '/signup',
-    updateUser: '/setting',
-    makeLogout: '/logout',
-    makeArticle: '/article',
+    getUserDataUrl : '/api/profile',
+    getUserArticles : '/api/article/author/',
+    makeLogin: '/api/signin',
+    makeSignUp: '/api/signup',
+    updateUser: '/api/setting',
+    makeLogout: '/api/logout',
+    makeArticle: '/api/article',
 
-    getAvatar: '/avatar/',
-    upAvatar: '/setting/avatar',
+    getAvatar: '/api/avatar/title/',
+    upAvatar: '/api/setting/avatar',
 }
