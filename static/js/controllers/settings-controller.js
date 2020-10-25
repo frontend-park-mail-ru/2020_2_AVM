@@ -22,6 +22,10 @@ export default class SettingsPageController extends Controller {
         this.headerContainer = header;
 
         this.config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
@@ -67,70 +71,95 @@ export default class SettingsPageController extends Controller {
         const form = document.querySelector('form#form-update');
         const loginInput = form.querySelector('input#updateLogin');
         const emailInput = form.querySelector('input#updateEmail');
-        // const avatarInput = form.querySelector('input#updateAvatar');
-        // const quoteInput = form.querySelector('textarea#updateQuote');
-        // const quoteAuthorInput = form.querySelector('input#updateQuoteAuthor');
-        // const aboutInput = form.querySelector('textarea#updateAboutInput');
         const passwordInput = form.querySelector('input#updatePassword');
-        // const passwordRepeatInput = form.querySelector('input#updatePasswordRepeat');
 
-        const fileInput = form.querySelector('input#updateAvatar') ;
+        const fileInput = form.querySelector('input#updateAvatar');
         const imageData = new FormData();
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
 
-            const login = loginInput.value.trim();
-            const email = emailInput.value.trim();
-            // const avatar = avatarInput.value.trim();
-            // const quote = quoteInput.value.trim();
-            // const quoteAuthor = quoteAuthorInput.value.trim();
-            // const about = aboutInput.value.trim();
-            const password = passwordInput.value.trim();
-            // const passwordRepeat = passwordRepeatInput.value.trim();
-            imageData.append("avatar", fileInput.files[0], fileInput.files[0].name);
+            let login = loginInput.value.trim();
+            let email = emailInput.value.trim();
+            let password = passwordInput.value.trim();
 
-            UserModel.updateUser({
-                login,
-                email,
-                // avatar,
-                // quote,
-                // quoteAuthor,
-                // about,
-                password,
-                // passwordRepeat,
-            })
+            UserModel.getUserData()
+                .then((res) => {
+                    if (res.status !== 201) {
+                        return Promise.reject(res);
+                    }
+                    res.json().then((res) => {
+                        const currentProfileData = {
+                            login: res.login,
+                            email: res.email,
+                            password: res.password,
+                        }
+                        if (login === '') {
+                            login = currentProfileData.login
+                        }
+                        if (email === '') {
+                            email = currentProfileData.email
+                        }
+                        if (password === '') {
+                            password = currentProfileData.password
+                        }
+
+                        UserModel.updateUser({
+                            login,
+                            email,
+                            password,
+                        })
+                            .then(({status}) => {
+                                console.log(status);
+                                if (status === 200) {
+                                    this.#data.settings = true;
+                                    this.action();
+                                } else {
+                                    console.log('error');
+                                    this.#data.success = true;
+                                    this.action();
+                                }
+                            })
+                            .catch((err) => {
+                                if (err instanceof Error) {
+                                    console.log(err);
+                                }
+                                this.#data.success = true;
+                                this.action();
+                            });
+
+
+                    }).catch((err) => {
+                        if (err.status === 500) {
+                            console.error('fail to fetch profile');
+                            this.#data.success = true;
+                            this.view.render(this.#data);
+                        }
+                    });
+                });
+        });
+
+        fileInput.addEventListener('change', (evt) => {
+
+            imageData.append("avatar", fileInput.files[0], fileInput.files[0].name);
+            UserModel.updateUserAvatar(imageData)
                 .then(({status}) => {
                     console.log(status);
                     if (status === 200) {
-                        UserModel.updateUserAvatar(imageData)
-                        .then(({status}) => {
-                            console.log(status);
-                                    if (status === 200) {
-                                        Router.redirect('/profile');
-                                        headerView(this.headerContainer, this.config);
-                                    } else {
-                                        console.log('error');
-                                    }
-                        })
-                        .catch((err) => {
-                            if (err instanceof Error) {
-                                console.log(err);
-                            }
-                            this.#data.success = true;
-                            this.view.render();
-                        });
-                        // profilePage(this.#parent);
+                        this.#data.settingsPhoto = true;
+                        this.action();
                     } else {
                         console.log('error');
+                        this.#data.successPhoto = true;
+                        this.action();
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.success = true;
-                    this.view.render();
+                    this.#data.successPhoto = true;
+                    this.action();
                 });
         })
     }

@@ -30,28 +30,32 @@
                             <form id="form-sing-up">
                                 <div>
                                     <label for="inputLogin">Ваш логин</label>
+                                    <label id="errorLogin"></label>
                                     <input class="h-full-width" type="name" placeholder="login" id="inputLogin" required="required" />
                                 </div>
                                 <div>
                                     <label for="inputEmail">Ваш email</label>
+                                    <label id="errorEmail"></label>
                                     <input class="h-full-width" type="email" placeholder="test@mail.ru" id="inputEmail" required="required" />
                                 </div>
                                 <div>
                                     <label for="password">Пароль</label>
-                                    <input class="h-full-width" type="password" placeholder="********" id="password" required="required" />
+                                    <label id="errorPassword"></label>
+                                    <input class="h-full-width" type="password" placeholder="********" id="inputPassword" required="required" />
                                 </div>
                                 <input class="btn--primary h-full-width" type="submit" value="Зарегистрироваться" />
                             </form>
+
+
+                            <div>
+                                Уже есть аккаунт? Тогда<code><a href="/login">войдите</a></code>
+                            </div>
+
                         </div>
-                    </div> <!-- end entry__thumb -->
-
-                    <div>
-                        Уже есть аккаунт? Тогда<code><a href="/login">войдите</a></code>
                     </div>
-
                 </div>
             </div>
         </section>
 
-    </section> <!-- end s-content -->
+    </section>
 </fest:template>

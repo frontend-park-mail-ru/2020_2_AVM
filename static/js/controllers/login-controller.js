@@ -5,7 +5,6 @@ import LoginView from '../views/login-view.js';
 
 import Router from "../api/router.js";
 import {headerView} from "../components/Header/header.js";
-import ProfilePageController from "./profile-controller";
 
 export default class LoginController extends Controller {
     #parent
@@ -24,6 +23,10 @@ export default class LoginController extends Controller {
         this.headerContainer = header;
 
         this.config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',

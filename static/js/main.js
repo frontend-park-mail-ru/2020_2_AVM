@@ -35,11 +35,16 @@ import SignUpController from '../js/controllers/signup-controller.js'
 import AddPageController from './controllers/addpage-controller.js';
 import SettingsPageController from './controllers/settings-controller.js';
 import ProfilePageController from './controllers/profile-controller.js';
+import MainPageController from './controllers/main-controller.js';
 
 import UserModel from './models/user-model.js';
 UserModel.getUserData().then((res) => {
     if (res.status !== 201) {
         config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
             signup: {
                 href: '/signup',
                 text: 'Зарегистрироваться',
@@ -51,6 +56,10 @@ UserModel.getUserData().then((res) => {
         }
     } else {
         config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
@@ -76,7 +85,7 @@ UserModel.getUserData().then((res) => {
     footerView(footer, config);
 
     const router = new Router();
-    router.addRoute('/', new LoginController(container, header, config));
+    router.addRoute('/', new MainPageController(container, header, config));
     router.addRoute('/login', new LoginController(container, header, config));
     router.addRoute('/logout', new LogoutController(container, header, config));
     router.addRoute('/signup', new SignUpController(container));

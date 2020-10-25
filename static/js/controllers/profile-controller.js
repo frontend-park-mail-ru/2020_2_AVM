@@ -23,6 +23,10 @@ export default class ProfilePageController extends Controller {
         this.headerContainer = header;
 
         this.config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
@@ -64,6 +68,8 @@ export default class ProfilePageController extends Controller {
      */
     action() {
 
+        this.view.render(this.#data);
+
         UserModel.getUserData()
             .then((res) => {
                 if (res.status !== 201) {
@@ -75,9 +81,6 @@ export default class ProfilePageController extends Controller {
                         login: res.login,
                         email: res.email,
                         avatar: res.avatar,
-                        // quote: res.body.quote,
-                        // quoteAuthor: res.body.quoteAuthor,
-                        // about: res.body.about,
                     }
                     this.#data = profileData;
 

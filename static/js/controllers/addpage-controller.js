@@ -22,6 +22,10 @@ export default class AddPageController extends Controller {
         this.headerContainer = header;
 
         this.config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
