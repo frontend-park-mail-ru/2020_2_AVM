@@ -13,7 +13,7 @@ export function headerView(header, config) {
                     <h2 class="s-header__nav-heading h6">Навигация</h2>
                     <ul class="s-header__nav">
                     </ul>
-                    <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Закрыть</a>
+                    <a href="#" title="Close Menu" class="s-header__overlay-close close-mobile-menu"></a>
                 </nav>
                 <a class="s-header__toggle-menu" href="#" title="Menu"><span>Навигация</span></a>
                 <div class="s-header__search">

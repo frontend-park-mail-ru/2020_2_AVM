@@ -1,14 +1,18 @@
+const loginUrls = ['/', '/category', '/logout', '/profile', '/settings', '/add'];
+const NotLoginUrls = ['/', '/category', '/login', '/signup'];
+
 export default class Router {
 
     /**
      * constructor of router
      */
-    constructor() {
+    constructor(login) {
         this.currentController = null;
 
         this.controllersMap = new Map();
-    }
 
+        this.login = login;
+    }
     /**
      * adding route of controller
      * @param  {string} url - url of route
@@ -35,9 +39,22 @@ export default class Router {
      */
     handleRoute(url) {
         console.log(url);
-        const activeController = this.controllersMap.get(url);
-        this.currentController = activeController;
-        this.currentController.action();
+        // const activeController = this.controllersMap.get(url);
+        // this.currentController = activeController;
+        // this.currentController.action();
+
+        if (this.login && loginUrls.includes(url, 0)
+            || !this.login  && NotLoginUrls.includes(url, 0)) {
+
+            const activeController = this.controllersMap.get(url);
+            this.currentController = activeController;
+            this.currentController.action();
+
+        } else {
+            window.history.pushState({}, '', '/');
+            window.history.pushState({}, '', '/');
+            window.history.back();
+        }
     }
 
     /**
@@ -53,9 +70,27 @@ export default class Router {
      * redirect of route
      * @param  {string} url - url of route
      */
-    static redirect(url) {
-        window.history.pushState({}, '', url);
-        window.history.pushState({}, '', url);
-        window.history.back();
+    redirect(url) {
+        // window.history.pushState({}, '', url);
+        // window.history.pushState({}, '', url);
+        // window.history.back();
+
+
+        if (this.login && loginUrls.includes(url, 0)
+            || !this.login  && NotLoginUrls.includes(url, 0)) {
+
+            window.history.pushState({}, '', url);
+            window.history.pushState({}, '', url);
+            window.history.back();
+
+        } else {
+            window.history.pushState({}, '', '/');
+            window.history.pushState({}, '', '/');
+            window.history.back();
+        }
+    }
+
+    isLogin(state) {
+        this.login = state;
     }
 }

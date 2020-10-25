@@ -5,14 +5,6 @@ import {footerView} from './components/Footer/footer.js';
 import {mobileMenu} from './components/MobileMenu/usingMobileMenu.js';
 import {search} from './components/Search/search.js';
 
-// import {profilePage} from './views/ProfilePage/profilePage.js';
-
-// import {SettingsPage} from './components/SettingsPage/SettingsPage.js';
-// import {AddPage} from './components/AddPage/AddPage.js';
-// import {SignUpPage} from './components/SignUpPage/SignUpPage.js';
-// import {LoginPage} from './components/LoginPage/LoginPage.js';
-// import {LogoutPage} from './components/LogoutPage/LogoutPage.js';
-
 /* Base init */
 const application = document.getElementById('app');
 const header = document.createElement('div');
@@ -24,6 +16,8 @@ application.appendChild(container);
 application.appendChild(footer);
 
 let config = {};
+
+let stateLogin = false;
 
 /************* Router */
 // TODO: избавиться от относительных путей во всём проекте
@@ -41,6 +35,7 @@ import CategoryPageController from './controllers/category-controller.js';
 import UserModel from './models/user-model.js';
 UserModel.getUserData().then((res) => {
     if (res.status !== 201) {
+        stateLogin = false;
         config = {
             main: {
                 href: '/',
@@ -60,6 +55,7 @@ UserModel.getUserData().then((res) => {
             },
         }
     } else {
+        stateLogin = true;
         config = {
             main: {
                 href: '/',
@@ -93,15 +89,15 @@ UserModel.getUserData().then((res) => {
     search();
     footerView(footer, config);
 
-    const router = new Router();
+    const router = new Router(stateLogin);
     router.addRoute('/', new MainPageController(container, header, config));
     router.addRoute('/category', new CategoryPageController(container, header, config));
-    router.addRoute('/login', new LoginController(container, header, config));
-    router.addRoute('/logout', new LogoutController(container, header, config));
-    router.addRoute('/signup', new SignUpController(container, header));
+    router.addRoute('/login', new LoginController(container, header, config, router));
+    router.addRoute('/logout', new LogoutController(container, header, config, router));
+    router.addRoute('/signup', new SignUpController(container, header, router));
     router.addRoute('/profile', new ProfilePageController(container, header, config));
-    router.addRoute('/settings', new SettingsPageController(container, header, config));
-    router.addRoute('/add', new AddPageController(container, header, config));
+    router.addRoute('/settings', new SettingsPageController(container, header, config, router));
+    router.addRoute('/add', new AddPageController(container, header, config, router));
     router.route();
 })
     .catch((err) => {

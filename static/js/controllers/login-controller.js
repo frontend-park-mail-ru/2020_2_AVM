@@ -3,7 +3,6 @@ import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import LoginView from '../views/login-view.js';
 
-import Router from "../api/router.js";
 import {headerView} from "../components/Header/header.js";
 
 export default class LoginController extends Controller {
@@ -14,13 +13,15 @@ export default class LoginController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, config) {
+    constructor(parent, header, config, router) {
         super();
 
         this.#parent = parent;
         this.#data = {};
 
         this.headerContainer = header;
+
+        this.router = router;
 
         this.config = {
             main: {
@@ -131,7 +132,8 @@ export default class LoginController extends Controller {
             UserModel.makeLogin({login, password})
                 .then(({status}) => {
                     if (status === 200) {
-                        Router.redirect('/profile');
+                        this.router.isLogin(true);
+                        this.router.redirect('/profile');
                         headerView(this.headerContainer, this.config);
                     }
                     if (status === 400) {

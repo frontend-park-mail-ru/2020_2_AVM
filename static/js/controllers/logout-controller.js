@@ -13,13 +13,15 @@ export default class LogOutController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, config) {
+    constructor(parent, header, config, router) {
         super();
 
         this.#parent = parent;
         this.#data = {};
 
         this.headerContainer = header;
+
+        this.router = router;
 
         this.config = {
             main: {
@@ -66,7 +68,7 @@ export default class LogOutController extends Controller {
         UserModel.makeLogout()
             .then(({status}) => {
                 if (status === 200) {
-                    Router.redirect('/login');
+                    this.router.redirect('/');
                     headerView(this.headerContainer, this.config);
                 } else {
                     console.log('no logout');

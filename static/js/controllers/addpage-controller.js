@@ -1,8 +1,6 @@
 import Controller from '../api/controller.js';
 import AddPageView from '../views/addpage-view.js';
 import ArticleModel from '../models/article-model.js';
-
-import Router from "../api/router.js";
 import {headerView} from "../components/Header/header.js";
 
 export default class AddPageController extends Controller {
@@ -13,13 +11,15 @@ export default class AddPageController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent,header, config) {
+    constructor(parent,header, config, router) {
         super();
 
         this.#parent = parent;
         this.#data = {};
 
         this.headerContainer = header;
+
+        this.router = router;
 
         this.config = {
             main: {
@@ -91,7 +91,7 @@ export default class AddPageController extends Controller {
             })
                 .then(({status}) => {
                     if (status === 201) {
-                        Router.redirect('/profile');
+                        this.router.redirect('/profile');
                         headerView(this.headerContainer, this.config);
                     } else {
                         console.log("error add");

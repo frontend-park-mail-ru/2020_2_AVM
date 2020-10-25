@@ -3,7 +3,6 @@ import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import SignUpView from '../views/signup-view.js';
 import {headerView} from "../components/Header/header.js";
-import Router from "../api/router.js";
 
 export default class SignUpController extends Controller {
     #parent
@@ -13,13 +12,15 @@ export default class SignUpController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header) {
+    constructor(parent, header, router) {
         super();
 
         this.#parent = parent;
         this.#data = {};
 
         this.headerContainer = header;
+
+        this.router = router;
 
         this.config = {
             main: {
@@ -172,7 +173,8 @@ export default class SignUpController extends Controller {
                         UserModel.makeLogin({login, password})
                             .then(({status}) => {
                                 if (status === 200) {
-                                    Router.redirect('/profile');
+                                    this.router.isLogin(true);
+                                    this.router.redirect('/profile');
                                     headerView(this.headerContainer, this.config);
                                 }
                                 if (status === 400) {
