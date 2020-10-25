@@ -1374,3 +1374,19 @@ pre[class*="language-"] {
         padding: 0;
     }
 }
+
+
+/* page header*/
+.s-pageheader {
+    padding: var(--vspace-1_5) 0 0 0;
+    text-align: center;
+}
+
+.s-pageheader .row {
+    max-width: 900px;
+}
+
+.s-pageheader h1 {
+    margin-top: 0;
+    margin-bottom: var(--vspace-1);
+}

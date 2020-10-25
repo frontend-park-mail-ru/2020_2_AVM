@@ -22,6 +22,14 @@ export default class LogOutController extends Controller {
         this.headerContainer = header;
 
         this.config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
             signup: {
                 href: '/signup',
                 text: 'Зарегистрироваться',

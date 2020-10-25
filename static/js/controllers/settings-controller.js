@@ -26,6 +26,10 @@ export default class SettingsPageController extends Controller {
                 href: '/',
                 text: 'Главная',
             },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
@@ -113,9 +117,11 @@ export default class SettingsPageController extends Controller {
                                 console.log(status);
                                 if (status === 200) {
                                     this.#data.settings = true;
+                                    this.#data.success = false;
                                     this.action();
                                 } else {
                                     console.log('error');
+                                    this.#data.settings = false;
                                     this.#data.success = true;
                                     this.action();
                                 }
@@ -125,6 +131,7 @@ export default class SettingsPageController extends Controller {
                                     console.log(err);
                                 }
                                 this.#data.success = true;
+                                this.#data.settings = false;
                                 this.action();
                             });
 
@@ -133,6 +140,7 @@ export default class SettingsPageController extends Controller {
                         if (err.status === 500) {
                             console.error('fail to fetch profile');
                             this.#data.success = true;
+                            this.#data.settings = false;
                             this.view.render(this.#data);
                         }
                     });
@@ -147,10 +155,12 @@ export default class SettingsPageController extends Controller {
                     console.log(status);
                     if (status === 200) {
                         this.#data.settingsPhoto = true;
+                        this.#data.successPhoto = false;
                         this.action();
                     } else {
                         console.log('error');
                         this.#data.successPhoto = true;
+                        this.#data.settingsPhoto = false;
                         this.action();
                     }
                 })
@@ -159,6 +169,7 @@ export default class SettingsPageController extends Controller {
                         console.log(err);
                     }
                     this.#data.successPhoto = true;
+                    this.#data.settingsPhoto = false;
                     this.action();
                 });
         })

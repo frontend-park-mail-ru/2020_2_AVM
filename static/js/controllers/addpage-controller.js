@@ -26,6 +26,10 @@ export default class AddPageController extends Controller {
                 href: '/',
                 text: 'Главная',
             },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',

@@ -137,9 +137,11 @@ export default class SignUpController extends Controller {
                 .then(({status}) => {
                     if (status === 201) {
                         this.#data.sign = true;
+                        this.#data.success = false;
                         this.action()
                     } else {
                         console.log('no sign');
+                        this.#data.sign = false;
                         this.#data.success = true;
                         this.action()
                     }
@@ -148,6 +150,7 @@ export default class SignUpController extends Controller {
                     if (err instanceof Error) {
                         console.log(err);
                     }
+                    this.#data.sign = false;
                     this.#data.success = true;
                     this.action()
                 });

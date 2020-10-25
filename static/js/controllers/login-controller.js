@@ -27,6 +27,10 @@ export default class LoginController extends Controller {
                 href: '/',
                 text: 'Главная',
             },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
