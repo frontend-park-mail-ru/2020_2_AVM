@@ -36,9 +36,9 @@ import AddPageController from './controllers/addpage-controller.js';
 import SettingsPageController from './controllers/settings-controller.js';
 import ProfilePageController from './controllers/profile-controller.js';
 
-// import UserModel from './models/user-model.js';
-// UserModel.getUserData().then((res) => {
-//     if (res.status !== 201) {
+import UserModel from './models/user-model.js';
+UserModel.getUserData().then((res) => {
+    if (res.status !== 201) {
         config = {
             signup: {
                 href: '/signup',
@@ -48,33 +48,32 @@ import ProfilePageController from './controllers/profile-controller.js';
                 href: '/login',
                 text: 'Авторизоваться',
             },
-        };
-    // } else {
-    //     config = {
-    //         profile: {
-    //             href: '/profile',
-    //             text: 'Профиль',
-    //         },
-    //         settings: {
-    //             href: '/settings',
-    //             text: 'Настройки',
-    //         },
-    //         add: {
-    //             href: '/add',
-    //             text: 'Добавить',
-    //         },
-    //         logout: {
-    //             href: '/logout',
-    //             text: 'Выйти',
-    //         },
-    //     }
-    // }
+        }
+    } else {
+        config = {
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
+    }
 
     headerView(header, config);
     mobileMenu();
     search();
     footerView(footer, config);
-
 
     const router = new Router();
     router.addRoute('/', new LoginController(container, header, config));
@@ -85,18 +84,18 @@ import ProfilePageController from './controllers/profile-controller.js';
     router.addRoute('/settings', new SettingsPageController(container, header, config));
     router.addRoute('/add', new AddPageController(container, header, config));
     router.route();
-// })
-//     .catch((err) => {
-//         if (err instanceof Error) {
-//             console.log(err);
-//             console.log("no internet");
-//         }
-//         container.innerHTML = `
-//         <section class="s-content s-styles">
-//          <div class="row">
-//             <div class="column large-12 intro">
-//                 <h1>У вас нет интернета!</h1>
-//             </div>
-//      </section>
-//     `;
-// });
+})
+    .catch((err) => {
+        if (err instanceof Error) {
+            console.log(err);
+            console.log("no internet");
+        }
+        container.innerHTML = `
+        <section class="s-content s-styles">
+         <div class="row">
+            <div class="column large-12 intro">
+                <h1>Сервис недоступен</h1>
+            </div>
+     </section>
+    `;
+});

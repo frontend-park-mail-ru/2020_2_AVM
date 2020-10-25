@@ -7,6 +7,6 @@ export const URLS = {
     makeLogout: '/api/logout',
     makeArticle: '/api/article',
 
-    getAvatar: '/api/avatar/title/',
+    getAvatar: '/api/avatar',
     upAvatar: '/api/setting/avatar',
 }

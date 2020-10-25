@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <section class="s-content s-styles">
+    <section class="s-content site-page">
 
         <fest:if test = "data.sign">
             <div class="row">
@@ -21,45 +21,37 @@
             </div>
         </fest:if>
 
-    <section class="s-content s-content--single">
-        <div class="row">
-            <div class="column large-12">
+        <section class="s-content s-content__primary">
+            <div class="row">
+                <div class="column large-12">
+                    <div class="entry__text">
+                        <div class="column">
+                            <h2 class="s-content__title s-content__title--post">Регистрация</h2>
+                            <form id="form-sing-up">
+                                <div>
+                                    <label for="inputLogin">Ваш логин</label>
+                                    <input class="h-full-width" type="name" placeholder="login" id="inputLogin" required="required" />
+                                </div>
+                                <div>
+                                    <label for="inputEmail">Ваш email</label>
+                                    <input class="h-full-width" type="email" placeholder="test@mail.ru" id="inputEmail" required="required" />
+                                </div>
+                                <div>
+                                    <label for="password">Пароль</label>
+                                    <input class="h-full-width" type="password" placeholder="********" id="password" required="required" />
+                                </div>
+                                <input class="btn--primary h-full-width" type="submit" value="Зарегистрироваться" />
+                            </form>
+                        </div>
+                    </div> <!-- end entry__thumb -->
 
-                <div class="entry__text">
-
-                    <div class="column">
-
-                        <h2 class="s-content__title s-content__title--post">Регистрация</h2>
-
-                        <form id="form-sing-up">
-                            <div>
-                                <label for="inputLogin">Ваш логин</label>
-                                <input class="h-full-width" type="name" placeholder="login" id="inputLogin" required="required" />
-                            </div>
-                            <div>
-                                <label for="inputEmail">Ваш email</label>
-                                <input class="h-full-width" type="email" placeholder="test@mail.ru" id="inputEmail" required="required" />
-                            </div>
-                            
-                            <div>
-                                <label for="password">Пароль</label>
-                                <input class="h-full-width" type="password" placeholder="********" id="password" required="required" />
-                            </div>
-                            
-                            <input class="btn--primary h-full-width" type="submit" value="Зарегистрироваться" />
-
-                        </form>
-
+                    <div>
+                        Уже есть аккаунт? Тогда<code><a href="/login">войдите</a></code>
                     </div>
-                </div> <!-- end entry__thumb -->
 
-                <div>
-                    Уже есть аккаунт? Тогда <a href="#">войдите</a>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
     </section> <!-- end s-content -->
 </fest:template>
