@@ -98,7 +98,7 @@ UserModel.getUserData().then((res) => {
     router.addRoute('/category', new CategoryPageController(container, header, config));
     router.addRoute('/login', new LoginController(container, header, config));
     router.addRoute('/logout', new LogoutController(container, header, config));
-    router.addRoute('/signup', new SignUpController(container));
+    router.addRoute('/signup', new SignUpController(container, header));
     router.addRoute('/profile', new ProfilePageController(container, header, config));
     router.addRoute('/settings', new SettingsPageController(container, header, config));
     router.addRoute('/add', new AddPageController(container, header, config));

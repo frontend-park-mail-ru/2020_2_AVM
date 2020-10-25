@@ -3,6 +3,7 @@ import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import SignUpView from '../views/signup-view.js';
 import {headerView} from "../components/Header/header.js";
+import Router from "../api/router.js";
 
 export default class SignUpController extends Controller {
     #parent
@@ -12,11 +13,40 @@ export default class SignUpController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent) {
+    constructor(parent, header) {
         super();
 
         this.#parent = parent;
         this.#data = {};
+
+        this.headerContainer = header;
+
+        this.config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
 
         this.view = new SignUpView(this.#parent);
     }
@@ -139,6 +169,26 @@ export default class SignUpController extends Controller {
                         this.#data.sign = true;
                         this.#data.success = false;
                         this.action()
+                        UserModel.makeLogin({login, password})
+                            .then(({status}) => {
+                                if (status === 200) {
+                                    Router.redirect('/profile');
+                                    headerView(this.headerContainer, this.config);
+                                }
+                                if (status === 400) {
+                                    this.#data.sign = false;
+                                    this.#data.success = true;
+                                    this.action()
+                                }
+                            })
+                            .catch((err) => {
+                                if (err instanceof Error) {
+                                    console.log(err);
+                                }
+                                this.#data.sign = false;
+                                this.#data.success = true;
+                                this.action()
+                            });
                     } else {
                         console.log('no sign');
                         this.#data.sign = false;
