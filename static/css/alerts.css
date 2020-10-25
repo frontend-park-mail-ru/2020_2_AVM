@@ -21,7 +21,8 @@
     height: 12px;
 }
 
-.alert-box__close::before, .alert-box__close::after {
+.alert-box__close::before,
+.alert-box__close::after {
     content: '';
     position: absolute;
     display: inline-block;
@@ -84,6 +85,6 @@
 .alert-box.hideit {
     opacity: 0;
     visibility: hidden;
-    -webkit-transition: all .5s;
-    transition: all .5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
