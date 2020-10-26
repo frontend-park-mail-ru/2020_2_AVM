@@ -1,6 +1,8 @@
 import Model from '../api/model.js';
 import Fetching from '../api/fetch.js';
-import {URLS} from '../settings/config.js'
+import {URLS} from '../settings/config.js';
+
+import Xss from '../utils/xss.js';
 
 let headers = new Headers();
 
@@ -33,6 +35,9 @@ export default class UserModel extends Model {
      *     getUserAvatar('mark')
      */
     static getUserAvatar(author = '') {
+
+        author = Xss.removeScript(author);
+
         return Fetching.queryGet({
             url: URLS.getAvatar + author,
         });
@@ -68,6 +73,10 @@ export default class UserModel extends Model {
                          login = '',
                          password = '',
                      }) {
+
+        login = Xss.removeScript(login);
+        password = Xss.removeScript(password);
+
         return Fetching.queryPost({
             url: URLS.makeLogin,
             body: JSON.stringify({
@@ -98,6 +107,11 @@ export default class UserModel extends Model {
                           email = '',
                           password = '',
                       }) {
+
+        login = Xss.removeScript(login);
+        email = Xss.removeScript(email);
+        password = Xss.removeScript(password);
+
         return Fetching.queryPost({
             url: URLS.makeSignUp,
             body: JSON.stringify({
@@ -129,6 +143,11 @@ export default class UserModel extends Model {
                           email = '',
                           password = '',
                       } = {}) {
+
+        login = Xss.removeScript(login);
+        email = Xss.removeScript(email);
+        password = Xss.removeScript(password);
+
         return Fetching.queryUpdate({
             url: URLS.updateUser,
             body: JSON.stringify({
