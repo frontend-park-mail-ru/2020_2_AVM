@@ -11,7 +11,8 @@
     "stylelint": "stylelint \"**/*.css\"",
     "precommit": "lint",
     "eslint": "lint-staged",
-    "lint": "eslint --fix --ext .js ."
+    "lint": "eslint --fix --ext .js .",
+    "build-css": "node-sass static/scss/ -o static/css"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2020_2_AVM#readme",
   "dependencies": {
+    "concurrently": "^5.3.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "fest": "^0.12.1"
@@ -35,6 +37,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
