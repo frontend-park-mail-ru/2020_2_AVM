@@ -9,9 +9,9 @@
              <div class="row">
                 <div class="column large-6 tab-12">
                     <h3 class="h-add-bottom">Аватар</h3>
-                    <figure>
-                         <img src="{data.image}" sizes="(max-width: 400px)" alt="" />
-                    </figure>
+                    <div style="background: url({data.image}) no-repeat center center;
+                    background-size: cover;
+                    max-height: 400px"></div>
                 </div>
                 <div class="column large-6 tab-12">
                     <h3>О себе</h3>
@@ -27,7 +27,7 @@
 
                         <fest:for iterate="data.articles" index="i">
                              <div class="column large-6 tab-12">
-                                 <h4><fest:value>data.articles[i].Title</fest:value></h4>
+                                 <h4><fest:value>data.articles[i].title</fest:value></h4>
                                  <p><fest:value>data.articles[i].desc</fest:value></p>
                              </div>
                         </fest:for>

@@ -90,7 +90,6 @@ export default class ProfilePageController extends Controller {
 
                     UserModel.getUserAvatar(this.#data.avatar)
                         .then((res) => {
-                            console.log(res);
                             res.json().then((res) => {console.log(res);});
                             this.#data.image = res.url;
                             this.view.render(this.#data);
