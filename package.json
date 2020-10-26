@@ -9,7 +9,8 @@
     "tmpl": "./node_modules/.bin/fest-build --dir=static",
     "prestart": "npm run tmpl",
     "lint": "stylelint \"**/*.css\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "eslint": "node_modules/.bin/eslint src/"
   },
   "repository": {
     "type": "git",
@@ -36,10 +37,12 @@
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "**/*.js": "eslint --fix"
   }
 }
