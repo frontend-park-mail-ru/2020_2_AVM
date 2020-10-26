@@ -9,7 +9,6 @@
     "tmpl": "./node_modules/.bin/fest-build --dir=static",
     "prestart": "npm run tmpl",
     "lint": "stylelint \"**/*.css\"",
-    "eject": "react-scripts eject",
     "precommit": "lint-staged"
   },
   "repository": {
@@ -38,7 +37,7 @@
     "stylelint-config-standard": "^20.0.0"
   },
   "lint-staged": {
-    "*.{js, jsx}": [
+    "*.js": [
       "prettier --write",
       "git add"
     ]
