@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae3e7f62-2c08-43df-bf6f-de69e2a1af8a" name="Default Changelist" comment="fix-lint">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +40,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettier.import.notification.dismissed" value="true" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="npm.eslint">
+  <component name="RunManager" selected="npm.lint">
     <configuration name="eject" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -96,11 +97,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.lint" />
         <item itemvalue="npm.eslint" />
         <item itemvalue="npm.precommit" />
         <item itemvalue="npm.eject" />
         <item itemvalue="npm.tmpl" />
-        <item itemvalue="npm.lint" />
       </list>
     </recent_temporary>
   </component>
@@ -123,7 +124,7 @@
       <workItem from="1603554866428" duration="14098000" />
       <workItem from="1603617863339" duration="37882000" />
       <workItem from="1603702151776" duration="5720000" />
-      <workItem from="1603714694032" duration="1739000" />
+      <workItem from="1603714694032" duration="3501000" />
     </task>
     <task id="LOCAL-00001" summary="change-list-menu">
       <created>1603148851027</created>
@@ -209,7 +210,21 @@
       <option name="project" value="LOCAL" />
       <updated>1603716033353</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fix-lint">
+      <created>1603716459112</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1603716459112</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix-lint">
+      <created>1603718177604</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1603718177604</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,26 +261,30 @@
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
     <state x="591" y="328" width="798" height="469" key="#com.intellij.fileTypes.FileTypeChooser/70.38.1850.1042@70.38.1850.1042" timestamp="1603638619471" />
-    <state width="1819" height="359" key="GridCell.Tab.0.bottom" timestamp="1603716304852">
+    <state x="245" y="131" width="1480" height="870" key="DiffContextDialog" timestamp="1603718183324">
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
-    <state width="1819" height="359" key="GridCell.Tab.0.bottom/70.38.1850.1042@70.38.1850.1042" timestamp="1603716304852" />
-    <state width="1819" height="359" key="GridCell.Tab.0.center" timestamp="1603716304852">
+    <state x="245" y="131" width="1480" height="870" key="DiffContextDialog/70.38.1850.1042@70.38.1850.1042" timestamp="1603718183324" />
+    <state width="1819" height="151" key="GridCell.Tab.0.bottom" timestamp="1603718150231">
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
-    <state width="1819" height="359" key="GridCell.Tab.0.center/70.38.1850.1042@70.38.1850.1042" timestamp="1603716304852" />
-    <state width="1819" height="359" key="GridCell.Tab.0.left" timestamp="1603716304852">
+    <state width="1819" height="151" key="GridCell.Tab.0.bottom/70.38.1850.1042@70.38.1850.1042" timestamp="1603718150231" />
+    <state width="1819" height="151" key="GridCell.Tab.0.center" timestamp="1603718150230">
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
-    <state width="1819" height="359" key="GridCell.Tab.0.left/70.38.1850.1042@70.38.1850.1042" timestamp="1603716304852" />
-    <state width="1819" height="359" key="GridCell.Tab.0.right" timestamp="1603716304852">
+    <state width="1819" height="151" key="GridCell.Tab.0.center/70.38.1850.1042@70.38.1850.1042" timestamp="1603718150230" />
+    <state width="1819" height="151" key="GridCell.Tab.0.left" timestamp="1603718150230">
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
-    <state width="1819" height="359" key="GridCell.Tab.0.right/70.38.1850.1042@70.38.1850.1042" timestamp="1603716304852" />
-    <state x="390" y="150" width="1200" height="825" key="Vcs.Push.Dialog.v2" timestamp="1603716035375">
+    <state width="1819" height="151" key="GridCell.Tab.0.left/70.38.1850.1042@70.38.1850.1042" timestamp="1603718150230" />
+    <state width="1819" height="151" key="GridCell.Tab.0.right" timestamp="1603718150230">
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
-    <state x="390" y="150" width="1200" height="825" key="Vcs.Push.Dialog.v2/70.38.1850.1042@70.38.1850.1042" timestamp="1603716035375" />
+    <state width="1819" height="151" key="GridCell.Tab.0.right/70.38.1850.1042@70.38.1850.1042" timestamp="1603718150230" />
+    <state x="390" y="150" width="1200" height="825" key="Vcs.Push.Dialog.v2" timestamp="1603718184901">
+      <screen x="70" y="38" width="1850" height="1042" />
+    </state>
+    <state x="390" y="150" width="1200" height="825" key="Vcs.Push.Dialog.v2/70.38.1850.1042@70.38.1850.1042" timestamp="1603718184901" />
     <state x="412" y="38" width="1156" height="1042" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1603634386171">
       <screen x="70" y="38" width="1850" height="1042" />
     </state>
