@@ -6,71 +6,22 @@ import Router from "../api/router.js";
 import {headerView} from "../components/Header/header.js";
 
 export default class SettingsPageController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
     constructor(parent, header, config) {
         super();
-
-        this.#parent = parent;
-        this.#data = {};
-
+        this.parent = parent;
         this.headerContainer = header;
-
-        this.config = {
-            main: {
-                href: '/',
-                text: 'Главная',
-            },
-            category: {
-                href: '/category',
-                text: 'Категории',
-            },
-            profile: {
-                href: '/profile',
-                text: 'Профиль',
-            },
-            settings: {
-                href: '/settings',
-                text: 'Настройки',
-            },
-            add: {
-                href: '/add',
-                text: 'Добавить',
-            },
-            logout: {
-                href: '/logout',
-                text: 'Выйти',
-            },
-        }
-
         this.view = new SettingsView(parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
     }
 
     /**
      * action of controller, logic of settings
      */
     action() {
-        this.view.render(this.#data);
+        this.view.render(this.data);
 
         const form = document.querySelector('form#form-update');
         const loginInput = form.querySelector('input#updateLogin');
@@ -116,13 +67,13 @@ export default class SettingsPageController extends Controller {
                             .then(({status}) => {
                                 console.log(status);
                                 if (status === 200) {
-                                    this.#data.settings = true;
-                                    this.#data.success = false;
+                                    this.data.settings = true;
+                                    this.data.success = false;
                                     this.action();
                                 } else {
                                     console.log('error');
-                                    this.#data.settings = false;
-                                    this.#data.success = true;
+                                    this.data.settings = false;
+                                    this.data.success = true;
                                     this.action();
                                 }
                             })
@@ -130,8 +81,8 @@ export default class SettingsPageController extends Controller {
                                 if (err instanceof Error) {
                                     console.log(err);
                                 }
-                                this.#data.success = true;
-                                this.#data.settings = false;
+                                this.data.success = true;
+                                this.data.settings = false;
                                 this.action();
                             });
 
@@ -139,9 +90,9 @@ export default class SettingsPageController extends Controller {
                     }).catch((err) => {
                         if (err.status === 500) {
                             console.error('fail to fetch profile');
-                            this.#data.success = true;
-                            this.#data.settings = false;
-                            this.view.render(this.#data);
+                            this.data.success = true;
+                            this.data.settings = false;
+                            this.view.render(this.data);
                         }
                     });
                 });
@@ -154,13 +105,13 @@ export default class SettingsPageController extends Controller {
                 .then(({status}) => {
                     console.log(status);
                     if (status === 200) {
-                        this.#data.settingsPhoto = true;
-                        this.#data.successPhoto = false;
+                        this.data.settingsPhoto = true;
+                        this.data.successPhoto = false;
                         this.action();
                     } else {
                         console.log('error');
-                        this.#data.successPhoto = true;
-                        this.#data.settingsPhoto = false;
+                        this.data.successPhoto = true;
+                        this.data.settingsPhoto = false;
                         this.action();
                     }
                 })
@@ -168,8 +119,8 @@ export default class SettingsPageController extends Controller {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.successPhoto = true;
-                    this.#data.settingsPhoto = false;
+                    this.data.successPhoto = true;
+                    this.data.settingsPhoto = false;
                     this.action();
                 });
         })

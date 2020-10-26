@@ -6,66 +6,16 @@ import LoginView from '../views/login-view.js';
 import {headerView} from "../components/Header/header.js";
 
 export default class LoginController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
     constructor(parent, header, config, router) {
         super();
-
-        this.#parent = parent;
-        this.#data = {};
-
+        this.parent = parent;
         this.headerContainer = header;
-
         this.router = router;
-
-        this.config = {
-            main: {
-                href: '/',
-                text: 'Главная',
-            },
-            category: {
-                href: '/category',
-                text: 'Категории',
-            },
-            profile: {
-                href: '/profile',
-                text: 'Профиль',
-            },
-            settings: {
-                href: '/settings',
-                text: 'Настройки',
-            },
-            add: {
-                href: '/add',
-                text: 'Добавить',
-            },
-            logout: {
-                href: '/logout',
-                text: 'Выйти',
-            },
-        }
-
-        this.view = new LoginView(this.#parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
+        this.view = new LoginView(this.parent);
     }
 
     /**
@@ -103,7 +53,7 @@ export default class LoginController extends Controller {
      * action of controller, logic of login
      */
     action() {
-        this.view.render(this.#data);
+        this.view.render(this.data);
 
         const form = document.querySelector('form#form-login');
         const loginInput = form.querySelector('input[type="text"]');
@@ -137,16 +87,16 @@ export default class LoginController extends Controller {
                         headerView(this.headerContainer, this.config);
                     }
                     if (status === 400) {
-                        this.#data.login = true;
-                        this.view.render(this.#data);
+                        this.data.login = true;
+                        this.view.render(this.data);
                     }
                 })
                 .catch((err) => {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.login = true;
-                    this.view.render(this.#data);
+                    this.data.login = true;
+                    this.view.render(this.data);
                 });
         });
 

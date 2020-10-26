@@ -3,9 +3,6 @@ import CategoryView from '../views/category-view.js';
 
 
 export default class CategoryPageController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param {HTMLElement} parent - HTML container
@@ -14,26 +11,9 @@ export default class CategoryPageController extends Controller {
      */
     constructor(parent, header, config) {
         super();
-
-        this.#parent = parent;
-        this.#data = {login: 'Вы не вошли'};
-
-        this.view = new CategoryView(this.#parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
+        this.parent = parent;
+        this.data = {login: 'Вы не вошли'};
+        this.view = new CategoryView(this.parent);
     }
 
     /**
@@ -128,11 +108,11 @@ export default class CategoryPageController extends Controller {
             },
         ];
 
-        this.#data.key = "Категория:";
-        this.#data.value = "Текущая категория";
-        this.#data.articles = articles;
+        this.data.key = "Категория:";
+        this.data.value = "Текущая категория";
+        this.data.articles = articles;
 
-        this.view.render(this.#data);
+        this.view.render(this.data);
 
     }
 

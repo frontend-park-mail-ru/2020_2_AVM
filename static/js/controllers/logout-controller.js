@@ -6,70 +6,28 @@ import Router from "../api/router.js";
 import {headerView} from "../components/Header/header.js";
 
 export default class LogOutController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
     constructor(parent, header, config, router) {
         super();
-
-        this.#parent = parent;
-        this.#data = {};
-
+        this.parent = parent;
         this.headerContainer = header;
-
         this.router = router;
-
-        this.config = {
-            main: {
-                href: '/',
-                text: 'Главная',
-            },
-            category: {
-                href: '/category',
-                text: 'Категории',
-            },
-            signup: {
-                href: '/signup',
-                text: 'Зарегистрироваться',
-            },
-            login: {
-                href: '/login',
-                text: 'Авторизоваться',
-            },
-        };
-
         this.view = new LogoutView(parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
     }
 
     /**
      * action of controller, logic of logout
      */
     action() {
-        this.view.render(this.#data);
+        this.view.render(this.data);
         UserModel.makeLogout()
             .then(({status}) => {
                 if (status === 200) {
                     this.router.redirect('/');
-                    headerView(this.headerContainer, this.config);
+                    headerView(this.headerContainer, this.configLogout);
                 } else {
                     console.log('no logout');
                 }

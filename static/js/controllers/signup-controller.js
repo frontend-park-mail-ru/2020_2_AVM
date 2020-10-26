@@ -5,66 +5,16 @@ import SignUpView from '../views/signup-view.js';
 import {headerView} from "../components/Header/header.js";
 
 export default class SignUpController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
     constructor(parent, header, router) {
         super();
-
-        this.#parent = parent;
-        this.#data = {};
-
+        this.parent = parent;
         this.headerContainer = header;
-
         this.router = router;
-
-        this.config = {
-            main: {
-                href: '/',
-                text: 'Главная',
-            },
-            category: {
-                href: '/category',
-                text: 'Категории',
-            },
-            profile: {
-                href: '/profile',
-                text: 'Профиль',
-            },
-            settings: {
-                href: '/settings',
-                text: 'Настройки',
-            },
-            add: {
-                href: '/add',
-                text: 'Добавить',
-            },
-            logout: {
-                href: '/logout',
-                text: 'Выйти',
-            },
-        }
-
-        this.view = new SignUpView(this.#parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
+        this.view = new SignUpView(this.parent);
     }
 
     /**
@@ -143,7 +93,7 @@ export default class SignUpController extends Controller {
      * action of controller, logic of signup
      */
     action() {
-        this.view.render(this.#data);
+        this.view.render(this.data);
 
         const form = document.querySelector('form#form-sing-up');
         const loginInput = form.querySelector('input#inputLogin');
@@ -167,8 +117,8 @@ export default class SignUpController extends Controller {
             })
                 .then(({status}) => {
                     if (status === 201) {
-                        this.#data.sign = true;
-                        this.#data.success = false;
+                        this.data.sign = true;
+                        this.data.success = false;
                         this.action()
                         UserModel.makeLogin({login, password})
                             .then(({status}) => {
@@ -178,8 +128,8 @@ export default class SignUpController extends Controller {
                                     headerView(this.headerContainer, this.config);
                                 }
                                 if (status === 400) {
-                                    this.#data.sign = false;
-                                    this.#data.success = true;
+                                    this.data.sign = false;
+                                    this.data.success = true;
                                     this.action()
                                 }
                             })
@@ -187,14 +137,14 @@ export default class SignUpController extends Controller {
                                 if (err instanceof Error) {
                                     console.log(err);
                                 }
-                                this.#data.sign = false;
-                                this.#data.success = true;
+                                this.data.sign = false;
+                                this.data.success = true;
                                 this.action()
                             });
                     } else {
                         console.log('no sign');
-                        this.#data.sign = false;
-                        this.#data.success = true;
+                        this.data.sign = false;
+                        this.data.success = true;
                         this.action()
                     }
                 })
@@ -202,8 +152,8 @@ export default class SignUpController extends Controller {
                     if (err instanceof Error) {
                         console.log(err);
                     }
-                    this.#data.sign = false;
-                    this.#data.success = true;
+                    this.data.sign = false;
+                    this.data.success = true;
                     this.action()
                 });
         });

@@ -1,12 +1,7 @@
 import Controller from '../api/controller.js';
 import MainView from '../views/main-view.js';
 
-import {headerView} from "../components/Header/header.js";
-
 export default class ProfilePageController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param {HTMLElement} parent - HTML container
@@ -15,26 +10,9 @@ export default class ProfilePageController extends Controller {
      */
     constructor(parent, header, config) {
         super();
-
-        this.#parent = parent;
-        this.#data = {login: 'Вы не вошли'};
-
-        this.view = new MainView(this.#parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
+        this.parent = parent;
+        this.data = {login: 'Вы не вошли'};
+        this.view = new MainView(this.parent);
     }
 
     /**
@@ -73,9 +51,9 @@ export default class ProfilePageController extends Controller {
             },
         ];
 
-        this.#data.articles = articles;
+        this.data.articles = articles;
 
-        this.view.render(this.#data);
+        this.view.render(this.data);
 
     }
 

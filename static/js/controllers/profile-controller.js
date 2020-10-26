@@ -5,9 +5,6 @@ import ArticleModel from '../models/article-model.js';
 import {headerView} from "../components/Header/header.js";
 
 export default class ProfilePageController extends Controller {
-    #parent
-    #data
-
     /**
      * constructor of controller
      * @param {HTMLElement} parent - HTML container
@@ -16,55 +13,10 @@ export default class ProfilePageController extends Controller {
      */
     constructor(parent, header, config) {
         super();
-        
-        this.#parent = parent;
-        this.#data = {login: 'Вы не вошли'};
-
+        this.parent = parent;
+        this.data = {login: 'Вы не вошли'};
         this.headerContainer = header;
-
-        this.config = {
-            main: {
-                href: '/',
-                text: 'Главная',
-            },
-            category: {
-                href: '/category',
-                text: 'Категории',
-            },
-            profile: {
-                href: '/profile',
-                text: 'Профиль',
-            },
-            settings: {
-                href: '/settings',
-                text: 'Настройки',
-            },
-            add: {
-                href: '/add',
-                text: 'Добавить',
-            },
-            logout: {
-                href: '/logout',
-                text: 'Выйти',
-            },
-        }
-
-        this.view = new ProfileView(this.#parent);
-    }
-
-    /**
-     * get data of controller
-     */
-    get data() {
-        return this.#data;
-    }
-
-    /**
-     * set data of controller
-     * @param  {object} data - object of data of controller
-     */
-    set data(data) {
-        this.#data = data;
+        this.view = new ProfileView(this.parent);
     }
 
     /**
@@ -72,7 +24,7 @@ export default class ProfilePageController extends Controller {
      */
     action() {
 
-        this.view.render(this.#data);
+        this.view.render(this.data);
 
         UserModel.getUserData()
             .then((res) => {
@@ -86,20 +38,20 @@ export default class ProfilePageController extends Controller {
                         email: res.email,
                         avatar: res.avatar,
                     }
-                    this.#data = profileData;
+                    this.data = profileData;
 
-                    UserModel.getUserAvatar(this.#data.avatar)
+                    UserModel.getUserAvatar(this.data.avatar)
                         .then((res) => {
                             res.json().then((res) => {console.log(res);});
-                            this.#data.image = res.url;
-                            this.view.render(this.#data);
+                            this.data.image = res.url;
+                            this.view.render(this.data);
 
-                            ArticleModel.getUserArticles(this.#data.id)
+                            ArticleModel.getUserArticles(this.data.id)
                                 .then((res) => {
                                     if (res.status === 200) {
                                         res.json().then((res) => {
-                                            this.#data.articles = res;
-                                            this.view.render(this.#data);
+                                            this.data.articles = res;
+                                            this.view.render(this.data);
                                             headerView(this.headerContainer, this.config);
                                         });
                                     }
@@ -119,7 +71,7 @@ export default class ProfilePageController extends Controller {
             })
             .catch((err) => {
                 if (err.status === 500) {
-                    this.#parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.#data);
+                    this.parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.data);
                     console.error('fail to fetch profile');
                 }
             });
