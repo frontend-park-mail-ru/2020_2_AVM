@@ -1,9 +1,7 @@
 :root {
-
     --color-1: hsla(222, 83%, 27%, 1);
     --color-2: hsla(356, 74%, 52%, 1);
     --color-3: hsla(170, 100%, 35%, 1);
-
     --color-1-lighter: hsla(222, 83%, 47%, 1);
     --color-1-light: hsla(222, 83%, 37%, 1);
     --color-1-dark: hsla(222, 83%, 17%, 1);
@@ -12,7 +10,6 @@
     --color-2-light: hsla(356, 74%, 62%, 1);
     --color-2-dark: hsla(356, 74%, 42%, 1);
     --color-2-darker: hsla(356, 74%, 32%, 1);
-
     --color-error: hsla(359, 100%, 91%, 1);
     --color-success: hsla(76, 69%, 68%, 1);
     --color-info: hsla(205, 82%, 91%, 1);
@@ -21,13 +18,12 @@
     --color-success-content: hsla(76, 29%, 28%, 1);
     --color-info-content: hsla(205, 32%, 31%, 1);
     --color-notice-content: hsla(51, 30%, 30%, 1);
-
-    --color-black: #000000;
+    --color-black: #000;
     --color-gray-19: #0a0a0a;
     --color-gray-18: #141414;
     --color-gray-17: #1e1e1e;
     --color-gray-16: #282828;
-    --color-gray-15: #333333;
+    --color-gray-15: #333;
     --color-gray-14: #3d3d3d;
     --color-gray-13: #474747;
     --color-gray-12: #515151;
@@ -42,13 +38,11 @@
     --color-gray-3: #d1d1d1;
     --color-gray-2: #e0e0e0;
     --color-gray-1: #f0f0f0;
-    --color-white: #ffffff;
-
+    --color-white: #fff;
     --color-text: var(--color-gray-18);
     --color-text-dark: var(--color-black);
     --color-text-light: var(--color-gray-8);
     --color-placeholder: var(--color-gray-8);
-
     --color-btn: var(--color-gray-3);
     --color-btn-text: var(--color-black);
     --color-btn-hover: var(--color-1);
@@ -61,7 +55,6 @@
     --color-btn-stroke-text: var(--color-black);
     --color-btn-stroke-hover: var(--color-1);
     --color-btn-stroke-hover-text: var(--color-white);
-
     --color-white-bg: white;
     --color-body: #f5f5f5;
     --color-border: var(--color-gray-2);
@@ -87,7 +80,6 @@
     --vspace-4: calc(4 * var(--space));
     --vspace-4_5: calc(4.5 * var(--space));
     --vspace-5: calc(5 * var(--space));
-
     --text-scale-ratio: 1.2;
     --text-size: var(--base-font-size);
     --text-xs: calc((var(--text-size) / var(--text-scale-ratio)) / var(--text-scale-ratio));
@@ -101,14 +93,13 @@
     --text-display-2: calc(var(--text-display-1) * var(--text-scale-ratio));
     --text-display-3: calc(var(--text-display-2) * var(--text-scale-ratio));
     --vspace-btn: var(--vspace-2);
-
 }
 
 @media screen and (max-width: 600px) {
-    :root {
-        --base-font-size: 1.6rem;
-        --space: 2.8rem;
-    }
+:root {
+    --base-font-size: 1.6rem;
+    --space: 2.8rem;
+}
 }
 
 :root {
@@ -120,7 +111,6 @@
     --width-narrow: 1000px;
     --width-narrower: 900px;
     --width-grid-max: var(--width-max);
-
     --gutter-lg: 2rem;
     --gutter-md: 1.8rem;
     --gutter-mob: 1rem;

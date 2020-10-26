@@ -3,5 +3,5 @@
 :root {
     --font-1: "Roboto", sans-serif;
     --font-2: "Inter", sans-serif;
-    --font-mono: Consolas, "Andale Mono", Courier, "Courier New", monospace;
+    --font-mono: consolas, "Andale Mono", courier, "Courier New", monospace;
 }

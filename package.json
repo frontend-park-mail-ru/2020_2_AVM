@@ -8,9 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=static",
     "prestart": "npm run tmpl",
-    "lint": "stylelint \"**/*.css\"",
-    "precommit": "lint-staged",
-    "eslint": "node_modules/.bin/eslint src/"
+    "stylelint": "stylelint \"**/*.css\"",
+    "precommit": "lint",
+    "eslint": "lint-staged",
+    "lint": "eslint --fix --ext .js ."
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "fest": "^0.12.1"
   },
   "devDependencies": {
+    "eslint": "^7.12.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
@@ -36,13 +38,5 @@
     "prettier": "^2.1.2",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": "eslint --fix"
   }
 }

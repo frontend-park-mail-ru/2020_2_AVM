@@ -47,7 +47,8 @@
     color: var(--color-text-light);
 }
 
-.s-footer__main ul a:hover, .s-footer__main ul a:focus {
+.s-footer__main ul a:hover,
+.s-footer__main ul a:focus {
     color: black;
 }
 
@@ -60,7 +61,7 @@
 }
 
 .s-footer__subscribe .subscribe-form input[type="email"] {
-    padding: .8rem 2rem;
+    padding: 0.8rem 2rem;
     border: none;
     width: 100%;
     margin-bottom: var(--vspace-0_5);
@@ -78,7 +79,7 @@
 
 .s-footer__subscribe .subscribe-form .subscribe-message i {
     color: black;
-    margin-right: .4rem;
+    margin-right: 0.4rem;
 }
 
 .s-footer__bottom {
@@ -87,35 +88,41 @@
 }
 
 @media screen and (max-width: 800px) {
-    .s-footer {
-        padding-bottom: var(--vspace-1_5);
-    }
-    .ss-go-top {
-        right: 3.6rem;
-        bottom: 4.8rem;
-    }
-    .ss-go-top a {
-        height: 5.2rem;
-        width: 5.2rem;
-    }
-    .ss-go-top svg {
-        height: 2rem;
-        width: 2rem;
-    }
+.s-footer {
+    padding-bottom: var(--vspace-1_5);
+}
+
+.ss-go-top {
+    right: 3.6rem;
+    bottom: 4.8rem;
+}
+
+.ss-go-top a {
+    height: 5.2rem;
+    width: 5.2rem;
+}
+
+.ss-go-top svg {
+    height: 2rem;
+    width: 2rem;
+}
 }
 
 @media screen and (max-width: 600px) {
-    .s-footer__bottom {
-        padding-bottom: .8rem;
-    }
-    .ss-copyright span {
-        display: block;
-    }
-    .ss-copyright span::after {
-        display: none;
-    }
-    .ss-go-top {
-        right: 2.4rem;
-        bottom: 4rem;
-    }
+.s-footer__bottom {
+    padding-bottom: 0.8rem;
+}
+
+.ss-copyright span {
+    display: block;
+}
+
+.ss-copyright span::after {
+    display: none;
+}
+
+.ss-go-top {
+    right: 2.4rem;
+    bottom: 4rem;
+}
 }
