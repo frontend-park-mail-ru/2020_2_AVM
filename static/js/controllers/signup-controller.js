@@ -3,16 +3,18 @@ import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import SignUpView from '../views/signup-view.js';
 import {headerView} from "../components/Header/header.js";
+import {footerView} from "../components/Footer/footer.js";
 
 export default class SignUpController extends Controller {
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, router) {
+    constructor(parent, header, footer, router) {
         super();
         this.parent = parent;
         this.headerContainer = header;
+        this.footerContainer = footer;
         this.router = router;
         this.view = new SignUpView(this.parent);
     }
@@ -126,6 +128,7 @@ export default class SignUpController extends Controller {
                                     this.router.isLogin(true);
                                     this.router.redirect('/profile');
                                     headerView(this.headerContainer, this.config);
+                                    footerView(this.footerContainer, this.config);
                                 }
                                 if (status === 400) {
                                     this.data.sign = false;

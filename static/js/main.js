@@ -8,7 +8,9 @@ import {search} from './components/Search/search.js';
 /* Base init */
 const application = document.getElementById('app');
 const header = document.createElement('div');
+header.id = 'header';
 const container = document.createElement('div');
+container.id = 'container';
 const footer = document.createElement('div');
 
 application.appendChild(header);
@@ -90,14 +92,14 @@ UserModel.getUserData().then((res) => {
     footerView(footer, config);
 
     const router = new Router(stateLogin);
-    router.addRoute('/', new MainPageController(container, header, config));
-    router.addRoute('/category', new CategoryPageController(container, header, config));
-    router.addRoute('/login', new LoginController(container, header, config, router));
-    router.addRoute('/logout', new LogoutController(container, header, config, router));
-    router.addRoute('/signup', new SignUpController(container, header, router));
-    router.addRoute('/profile', new ProfilePageController(container, header, config));
-    router.addRoute('/settings', new SettingsPageController(container, header, config, router));
-    router.addRoute('/add', new AddPageController(container, header, config, router));
+    router.addRoute('/', new MainPageController(container));
+    router.addRoute('/category', new CategoryPageController(container));
+    router.addRoute('/login', new LoginController(container, header, footer, router));
+    router.addRoute('/logout', new LogoutController(container, header, footer, router));
+    router.addRoute('/signup', new SignUpController(container, header, footer, router));
+    router.addRoute('/profile', new ProfilePageController(container, header, footer));
+    router.addRoute('/settings', new SettingsPageController(container));
+    router.addRoute('/add', new AddPageController(container, header, footer, router));
     router.route();
 })
     .catch((err) => {

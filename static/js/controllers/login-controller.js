@@ -2,18 +2,20 @@ import UserModel from '../../js/models/user-model.js'
 import Controller from '../api/controller.js'
 import Validation from '../utils/validation.js'
 import LoginView from '../views/login-view.js';
-
 import {headerView} from "../components/Header/header.js";
+import {footerView} from "../components/Footer/footer.js";
+
 
 export default class LoginController extends Controller {
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, config, router) {
+    constructor(parent, header, footer, router) {
         super();
         this.parent = parent;
         this.headerContainer = header;
+        this.footerContainer = footer;
         this.router = router;
         this.view = new LoginView(this.parent);
     }
@@ -85,6 +87,7 @@ export default class LoginController extends Controller {
                         this.router.isLogin(true);
                         this.router.redirect('/profile');
                         headerView(this.headerContainer, this.config);
+                        footerView(this.footerContainer, this.config);
                     }
                     if (status === 400) {
                         this.data.login = true;

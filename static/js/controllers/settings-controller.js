@@ -10,10 +10,9 @@ export default class SettingsPageController extends Controller {
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, config) {
+    constructor(parent) {
         super();
         this.parent = parent;
-        this.headerContainer = header;
         this.view = new SettingsView(parent);
     }
 

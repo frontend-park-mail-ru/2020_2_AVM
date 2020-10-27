@@ -2,16 +2,18 @@ import Controller from '../api/controller.js';
 import AddPageView from '../views/addpage-view.js';
 import ArticleModel from '../models/article-model.js';
 import {headerView} from "../components/Header/header.js";
+import {footerView} from "../components/Footer/footer.js";
 
 export default class AddPageController extends Controller {
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, config, router) {
+    constructor(parent, header, footer, router) {
         super();
         this.parent = parent;
         this.headerContainer = header;
+        this.footerContainer = footer;
         this.router = router;
         this.view = new AddPageView(this.parent);
     }
@@ -44,6 +46,7 @@ export default class AddPageController extends Controller {
                     if (status === 201) {
                         this.router.redirect('/profile');
                         headerView(this.headerContainer, this.config);
+                        footerView(this.footerContainer, this.config);
                     } else {
                         console.log("error add");
                         this.data.success = true;

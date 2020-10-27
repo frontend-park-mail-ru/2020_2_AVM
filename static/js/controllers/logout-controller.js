@@ -4,16 +4,18 @@ import UserModel from '../models/user-model.js';
 
 import Router from "../api/router.js";
 import {headerView} from "../components/Header/header.js";
+import {footerView} from "../components/Footer/footer.js";
 
 export default class LogOutController extends Controller {
     /**
      * constructor of controller
      * @param  {HTMLElement} parent - HTML container
      */
-    constructor(parent, header, config, router) {
+    constructor(parent, header, footer, router) {
         super();
         this.parent = parent;
         this.headerContainer = header;
+        this.footerContainer = footer;
         this.router = router;
         this.view = new LogoutView(parent);
     }
@@ -28,6 +30,7 @@ export default class LogOutController extends Controller {
                 if (status === 200) {
                     this.router.redirect('/');
                     headerView(this.headerContainer, this.configLogout);
+                    footerView(this.footerContainer, this.configLogout);
                 } else {
                     console.log('no logout');
                 }

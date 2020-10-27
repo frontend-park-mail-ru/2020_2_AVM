@@ -3,6 +3,30 @@
         <div class="row current-cat">
             <div class="column">
                 <h1 class="h2"><span style="margin-right: 6px;"><fest:value>data.key</fest:value></span><fest:value>data.value</fest:value></h1>
+
+                <div class="row">
+                    <div class="large-4 mob-12 column">
+                        <select class="select-category">
+                            <option>Категория 1</option>
+                            <option>Категория 2</option>
+                        </select>
+                    </div>
+
+                    <div class="large-4 mob-12 column">
+                        <select class="select-category">
+                            <option>Тэг 1</option>
+                            <option>Тэг 2</option>
+                        </select>
+                    </div>
+
+                    <div class="large-4 mob-12 column">
+                        <select class="select-category">
+                            <option>Сначала новые</option>
+                            <option>Сначала старые</option>
+                        </select>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>

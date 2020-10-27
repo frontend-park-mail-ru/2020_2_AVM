@@ -9,7 +9,7 @@ export default class CategoryPageController extends Controller {
      * @param {HTMLElement} header - HTML container
      * @param {Object} config - list menu
      */
-    constructor(parent, header, config) {
+    constructor(parent) {
         super();
         this.parent = parent;
         this.data = {login: 'Вы не вошли'};

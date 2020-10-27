@@ -3,6 +3,7 @@ import ProfileView from '../views/profile-view.js';
 import UserModel from '../models/user-model.js';
 import ArticleModel from '../models/article-model.js';
 import {headerView} from "../components/Header/header.js";
+import {footerView} from "../components/Footer/footer.js";
 
 export default class ProfilePageController extends Controller {
     /**
@@ -11,11 +12,12 @@ export default class ProfilePageController extends Controller {
      * @param {HTMLElement} header - HTML container
      * @param {Object} config - list menu
      */
-    constructor(parent, header, config) {
+    constructor(parent, header, footer) {
         super();
         this.parent = parent;
         this.data = {login: 'Вы не вошли'};
         this.headerContainer = header;
+        this.footerContainer = footer;
         this.view = new ProfileView(this.parent);
     }
 
@@ -53,6 +55,7 @@ export default class ProfilePageController extends Controller {
                                             this.data.articles = res;
                                             this.view.render(this.data);
                                             headerView(this.headerContainer, this.config);
+                                            footerView(this.footerContainer, this.config);
                                         });
                                     }
                                 })
