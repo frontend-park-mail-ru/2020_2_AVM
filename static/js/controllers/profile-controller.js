@@ -46,6 +46,7 @@ export default class ProfilePageController extends Controller {
                         .then((res) => {
                             res.json().then((res) => {console.log(res);});
                             this.data.image = res.url;
+                            console.log(this.data.image );
                             this.view.render(this.data);
 
                             ArticleModel.getUserArticles(this.data.id)

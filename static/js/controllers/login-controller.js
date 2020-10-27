@@ -91,7 +91,7 @@ export default class LoginController extends Controller {
                     }
                     if (status === 400) {
                         this.data.login = true;
-                        this.view.render(this.data);
+                        this.action();
                     }
                 })
                 .catch((err) => {
@@ -99,7 +99,7 @@ export default class LoginController extends Controller {
                         console.log(err);
                     }
                     this.data.login = true;
-                    this.view.render(this.data);
+                    this.action();
                 });
         });
 
