@@ -35,9 +35,10 @@ export default class UserModel extends Model {
      *     getUserAvatar('mark')
      */
     static getUserAvatar(author = '') {
-
         author = Xss.removeScript(author);
-
+        if (author !== '') {
+            author = '/title/' + author;
+        }
         return Fetching.queryGet({
             url: URLS.getAvatar + author,
         });
