@@ -1,4 +1,4 @@
-#static/js/components/*/*.tmpl.js
+static/js/components/*/*.tmpl.js
 
 node_modules/
 
