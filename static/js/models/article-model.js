@@ -52,18 +52,35 @@ export default class ArticleModel extends Model {
                         title = '',
                         desc = '',
                         content = '',
+                        category_name = '',
+                        tags = [],
                     }) {
         return Fetching.queryPost({
             url: URLS.makeArticle,
             body: JSON.stringify({
-                'title': title,
-                'desc': desc,
+                'article_title': title,
+                'description': desc,
                 'content': content,
+                // 'category_name': category_name,
+                // 'tags': tags,
             }),
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
                 'Content-Type': 'application/json',
             },
+        });
+    };
+
+
+    static getArticlesByCategory(category) {
+        return Fetching.queryGet({
+            url: URLS.getArticlesByCategory + Category,
+        });
+    }
+
+    static getArticlesBySubscribe() {
+        return Fetching.queryGet({
+            url: URLS.getArticlesBySubscribe,
         });
     }
     

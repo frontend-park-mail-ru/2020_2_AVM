@@ -13,7 +13,7 @@
                                     <div class="f-slide__overlay"></div>
                                     <div class="f-slide__content">
                                         <ul class="f-slide__meta">
-                                            <li><fest:value>data.articles[0].date</fest:value></li>
+<!--                                            <li><fest:value>data.articles[0].date</fest:value></li>-->
                                             <li><a href="#" ><fest:value>data.articles[0].author</fest:value></a></li>
                                         </ul>
                                         <h1 class="f-slide__title"><a href="#" title=""><fest:value>data.articles[0].title</fest:value></a></h1>
@@ -28,22 +28,44 @@
 
                     <div class="entry__thumb">
                         <blockquote>
-                            <p>Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.</p>
+                            <p>Бывает лед сильней огня, зима — порой длиннее лета, бывает ночь длиннее дня и тьма вдвойне сильнее света. Бывает сад громаден, густ, а вот плодов совсем не снимешь. Так берегись холодных чувств, не то, смотри, совсем застынешь.</p>
 
-                            <cite>Автор</cite>
+                            <cite>Иосиф Александрович Бродский</cite>
                         </blockquote>
                     </div>
-
                 </article>
+            </div>
+        </div>
+
+        <div class="masonry">
+            <div class="bricks-wrapper h-group">
+                <div class="grid-sizer"></div>
+
+                <div class="row">
+                    <div class="large-6 mob-12 column">
+                        <select id="select-choose-category-or-main" class="select-category">
+                            <option>Популярные</option>
+                            <option>Подписки</option>
+                        </select>
+                    </div>
+
+                    <div class="large-6 mob-12 column">
+                        <select id="select-choose-sort-main" class="select-category">
+                            <option>Сначала старые</option>
+                            <option>Сначала новые</option>
+                        </select>
+                    </div>
+
+                </div>
 
                 <fest:for iterate="data.articles" index="i">
                     <article class="brick entry format-standard animate-this">
-                        <div class="entry__thumb">
-                            <a href="#" class="thumb-link">
-                                <img src="images/thumbs/masonry/woodcraft-600.jpg"
-                                     srcset="images/thumbs/masonry/woodcraft-600.jpg 1x, images/thumbs/masonry/woodcraft-1200.jpg 2x" alt="" />
-                            </a>
-                        </div>
+                        <!--                        <div class="entry__thumb">-->
+                        <!--                            <a href="#" class="thumb-link">-->
+                        <!--&lt;!&ndash;                                <img src="images/thumbs/masonry/woodcraft-600.jpg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                     srcset="images/thumbs/masonry/woodcraft-600.jpg 1x, images/thumbs/masonry/woodcraft-1200.jpg 2x" alt="" />&ndash;&gt;-->
+                        <!--                            </a>-->
+                        <!--                        </div>-->
 
                         <div class="entry__text">
                             <div class="entry__header">

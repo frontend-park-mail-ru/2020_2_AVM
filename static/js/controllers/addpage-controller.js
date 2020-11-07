@@ -1,3 +1,5 @@
+import {categories} from '../settings/categories.js';
+
 import Controller from '../api/controller.js';
 import AddPageView from '../views/addpage-view.js';
 import ArticleModel from '../models/article-model.js';
@@ -16,6 +18,8 @@ export default class AddPageController extends Controller {
         this.footerContainer = footer;
         this.router = router;
         this.view = new AddPageView(this.parent);
+
+        this.data.categories = categories;
     }
 
 
@@ -29,6 +33,8 @@ export default class AddPageController extends Controller {
         const articleTitleInput = form.querySelector('input#articleTitle');
         const articleDescInput = form.querySelector('input#articleDesc');
         const articleTextInput = form.querySelector('textarea#articleText');
+        const articleTextCategory = form.querySelector('select#articleCategory');
+        const articleArrayTags = form.querySelector('input#articleTags');
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -36,11 +42,15 @@ export default class AddPageController extends Controller {
             const title = articleTitleInput.value.trim();
             const desc = articleDescInput.value.trim();
             const content = articleTextInput.value.trim();
+            const category_name = articleTextCategory.value.trim();
+            const tags = articleArrayTags.value.trim().split(',');
 
             ArticleModel.makeArticle({
                 title,
                 desc,
                 content,
+                category_name,
+                tags,
             })
                 .then(({status}) => {
                     if (status === 201) {

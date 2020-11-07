@@ -9,4 +9,7 @@ export const URLS = {
 
     getAvatar: '/api/avatar',
     upAvatar: '/api/setting/avatar',
+
+    getArticlesByCategory: '/',
+    getArticlesBySubscribe: '/',
 }

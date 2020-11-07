@@ -5,24 +5,18 @@
                 <h1 class="h2"><span style="margin-right: 6px;"><fest:value>data.key</fest:value></span><fest:value>data.value</fest:value></h1>
 
                 <div class="row">
-                    <div class="large-4 mob-12 column">
-                        <select class="select-category">
-                            <option>Категория 1</option>
-                            <option>Категория 2</option>
+                    <div class="large-6 mob-12 column">
+                        <select id="select-choose-category" class="select-category">
+                            <fest:for iterate="data.categories" index="cat">
+                                <option><fest:value>data.categories[cat]</fest:value></option>
+                            </fest:for>
                         </select>
                     </div>
 
-                    <div class="large-4 mob-12 column">
-                        <select class="select-category">
-                            <option>Тэг 1</option>
-                            <option>Тэг 2</option>
-                        </select>
-                    </div>
-
-                    <div class="large-4 mob-12 column">
-                        <select class="select-category">
-                            <option>Сначала новые</option>
+                    <div class="large-6 mob-12 column">
+                        <select id="select-choose-sort" class="select-category">
                             <option>Сначала старые</option>
+                            <option>Сначала новые</option>
                         </select>
                     </div>
 
@@ -39,12 +33,12 @@
 
                 <fest:for iterate="data.articles" index="i">
                     <article class="brick entry format-standard animate-this">
-                        <div class="entry__thumb">
-                            <a href="#" class="thumb-link">
-                                <img src="images/thumbs/masonry/woodcraft-600.jpg"
-                                     srcset="images/thumbs/masonry/woodcraft-600.jpg 1x, images/thumbs/masonry/woodcraft-1200.jpg 2x" alt="" />
-                            </a>
-                        </div>
+<!--                        <div class="entry__thumb">-->
+<!--                            <a href="#" class="thumb-link">-->
+<!--&lt;!&ndash;                                <img src="images/thumbs/masonry/woodcraft-600.jpg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                     srcset="images/thumbs/masonry/woodcraft-600.jpg 1x, images/thumbs/masonry/woodcraft-1200.jpg 2x" alt="" />&ndash;&gt;-->
+<!--                            </a>-->
+<!--                        </div>-->
 
                         <div class="entry__text">
                             <div class="entry__header">
