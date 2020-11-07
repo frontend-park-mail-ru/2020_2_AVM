@@ -35,7 +35,7 @@
                             </form>
 
                             <div>
-                                <span>Ещё нет аккаунта?</span><code><a href="/signup">Зарегистрируйтесь</a></code>
+                                <span style="margin-right: 10px;">Ещё нет аккаунта?</span><code><a href="/signup">Зарегистрируйтесь</a></code>
                             </div>
                         </div>
                     </div> <!-- end entry__thumb -->

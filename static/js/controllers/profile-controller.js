@@ -45,6 +45,7 @@ export default class ProfilePageController extends Controller {
                     UserModel.getUserAvatar(this.data.avatar)
                         .then((res) => {
                             this.data.image = res.url;
+
                             this.view.render(this.data);
 
                             ArticleModel.getUserArticles(this.data.id)
@@ -57,27 +58,34 @@ export default class ProfilePageController extends Controller {
                                             footerView(this.footerContainer, this.config);
                                         });
                                     }
+                                    if (res.status === 400) {
+                                        this.data.isArticle = true;
+                                        this.view.render(this.data);
+                                        headerView(this.headerContainer, this.config);
+                                        footerView(this.footerContainer, this.config);
+                                    }
                                 })
                                 .catch((err) => {
                                     if (err.status === 500) {
                                         console.error('failed to fetch articles');
                                     }
-                            });
+                                })
+                                .catch((err) => {
+
+                                    if (err.status === 500) {
+                                        console.error('failed to fetch avatar');
+                                    }
+                                });
+
                         })
                         .catch((err) => {
                             if (err.status === 500) {
-                                console.error('failed to fetch avatar');
+                                console.error('fail to fetch profile');
+                                this.view.render(this.data);
                             }
                         });
-
-            })
-            .catch((err) => {
-                if (err.status === 500) {
-                    this.parent.innerHTML = window.fest['js/components/ProfilePage/ProfilePage.tmpl'](this.data);
-                    console.error('fail to fetch profile');
-                }
+                });
             });
-        });
-    }
 
+    }
 }

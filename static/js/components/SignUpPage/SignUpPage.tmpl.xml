@@ -48,7 +48,7 @@
 
 
                             <div>
-                                Уже есть аккаунт? Тогда<code><a href="/login">войдите</a></code>
+                                <span style="margin-right: 10px;">Уже есть аккаунт? Тогда</span><code><a href="/login">войдите</a></code>
                             </div>
 
                         </div>

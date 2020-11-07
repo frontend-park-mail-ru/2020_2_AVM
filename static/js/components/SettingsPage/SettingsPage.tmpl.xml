@@ -31,11 +31,11 @@
                             <form id="form-update">
                                 <div>
                                     <label for="inputName">Ваш логин</label>
-                                    <input class="h-full-width" type="name" placeholder="Иван" id="updateLogin"/>
+                                    <input class="h-full-width" type="name" placeholder="{data.currentProfileData.login}" id="updateLogin"/>
                                 </div>
                                 <div>
                                     <label for="inputEmail">Ваш email</label>
-                                    <input class="h-full-width" type="email" placeholder="test@mail.ru" id="updateEmail"/>
+                                    <input class="h-full-width" type="email" placeholder="{data.currentProfileData.email}" id="updateEmail"/>
                                 </div>
                                 <div>
                                     <label for="password">Пароль</label>

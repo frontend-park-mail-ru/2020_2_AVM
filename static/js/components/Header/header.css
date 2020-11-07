@@ -282,16 +282,6 @@
     color: black;
 }
 
-.s-header__search-form::after {
-    content: "Нажмите Enter для поиска.";
-    display: block;
-    letter-spacing: 0.6px;
-    font-size: 1.6rem;
-    margin-top: var(--vspace-1);
-    text-align: center;
-    color: rgba(0, 0, 0, 0.5);
-}
-
 .s-header__search-form input[type="search"] {
     background-color: transparent;
     color: black;

@@ -7,7 +7,8 @@ export function footerView(footer, config) {
                     <div class="column large-4 medium-6 tab-12 s-footer__info">
                         <h5>О проекте</h5>
                         <p>
-                           Untitled is copy of vc.ru
+                           Untitled: радуйте своих читателей статьями, но не забывайте придумывать 
+                           для них красивое название...
                         </p>
                     </div> 
                     <div class="column large-2 medium-3 tab-6 s-footer__site-links">
@@ -18,10 +19,10 @@ export function footerView(footer, config) {
                     <div class="column large-2 medium-3 tab-6 s-footer__social-links">
                         <h5>Социальные сети</h5>
                         <ul>
-                            <li><a href="#">Вконтакте</a></li>
-                            <li><a href="#">Фейсбук</a></li>
-                            <li><a href="#">Инстаграм</a></li>
-                            <li><a href="#">Твиттер</a></li>
+                            <li><a target="_blank" href="https://vk.com/markssu">Вконтакте</a></li>
+                            <li><a target="_blank" href="https://www.facebook.com/sadykovmark/">Фейсбук</a></li>
+                            <li><a target="_blank" href="https://www.instagram.com/mark_sadykov/">Инстаграм</a></li>
+                            <li><a target="_blank" href="https://twitter.com/mark_sadykov/">Твиттер</a></li>
                         </ul>
                     </div>
                     <div class="column large-4 medium-12 s-footer__subscribe">

@@ -7,13 +7,13 @@
                 </div>
              </div>
              <div class="row">
-                <div class="column large-6 tab-12">
+                <div class="column large-4 tab-12">
                     <h3 class="h-add-bottom">Аватар</h3>
                     <div style="background: url({data.image}) no-repeat center center;
                     background-size: cover;
-                    height: 400px;"></div>
+                    height: 300px;"></div>
                 </div>
-                <div class="column large-6 tab-12">
+                <div class="column large-8 tab-12">
                     <h3>О себе</h3>
                         <p class="drop-cap">
                             email: <fest:value>data.email</fest:value>
@@ -23,8 +23,18 @@
              <div class="row">
                  <div class="column large-12">
                      <h3>Статьи</h3>
-                     <div class="row half-bottom">
 
+                     <fest:if test = "data.isArticle">
+                         <div class="row">
+                             <div class="column large-12">
+                                 <div class="alert-box alert-box--info ">
+                                     <p>Пока нет статей</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </fest:if>
+
+                     <div class="row half-bottom">
                         <fest:for iterate="data.articles" index="i">
                              <div class="column large-6 tab-12">
                                  <h4><fest:value>data.articles[i].title</fest:value></h4>
