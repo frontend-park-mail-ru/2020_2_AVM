@@ -1,0 +1,60 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+
+         <section class="s-content s-styles">
+             <div class="row">
+                <div class="column large-12 intro">
+                    <h1><fest:value>data.login</fest:value></h1>
+                </div>
+             </div>
+             <div class="row">
+                <div class="column large-4 tab-12">
+                    <h3 class="h-add-bottom">Аватар</h3>
+                    <div style="background: url({data.image}) no-repeat center center;
+                    background-size: cover;
+                    height: 300px;"></div>
+                </div>
+                <div class="column large-8 tab-12">
+                    <h3>О себе</h3>
+                        <p class="drop-cap">
+                            email: <fest:value>data.email</fest:value>
+                        </p>
+
+                    <h3><span style="margin-right: 10px;">Подписка</span><span><fest:value>data.ok</fest:value></span></h3>
+                    <form id="form-add-category" name="cForm" class="s-content__form">
+                        <div class="form-field">
+                            <select id="categoryTitle" class="select-category">
+                                <fest:for iterate="data.categories" index="cat">
+                                    <option><fest:value>data.categories[cat]</fest:value></option>
+                                </fest:for>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit btn btn--primary btn--medium h-full-width">Подписаться</button>
+                    </form>
+                </div>
+             </div>
+             <div class="row">
+                 <div class="column large-12">
+                     <h3>Статьи</h3>
+
+                     <fest:if test = "data.isArticle">
+                         <div class="row">
+                             <div class="column large-12">
+                                 <div class="alert-box alert-box--info ">
+                                     <p>Пока нет статей</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </fest:if>
+
+                     <div class="row half-bottom">
+                        <fest:for iterate="data.articles" index="i">
+                             <div class="column large-6 tab-12">
+                                 <h4><fest:value>data.articles[i].article_title</fest:value></h4>
+                                 <p><fest:value>data.articles[i].description</fest:value></p>
+                             </div>
+                        </fest:for>
+                     </div>
+                 </div>
+             </div>
+         </section>
+</fest:template>

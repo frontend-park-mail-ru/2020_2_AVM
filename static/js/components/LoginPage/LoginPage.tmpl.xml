@@ -1,0 +1,47 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section class="s-content s-styles">
+
+        <section class="s-content s-content--single">
+            <fest:if test = "data.login">
+                <div class="row">
+                    <div class="column large-12">
+                        <div class="alert-box alert-box--error">
+                            <p>Неверно введён логин или пароль.</p>
+                        </div>
+                    </div>
+                </div>
+            </fest:if>
+
+
+            <div class="row">
+                <div class="column large-12">
+
+                    <div class="entry__text">
+
+                        <div class="column">
+
+                            <h2 class="s-content__title s-content__title--post">Вход</h2>
+
+                            <form id="form-login">
+                                <div>
+                                    <label for="sampleInput">Ваш логин</label>
+                                    <input class="h-full-width" type="text" placeholder="test" id="sampleInput" />
+                                </div>
+                                <div>
+                                    <label for="password">Пароль</label>
+                                    <input class="h-full-width" type="password" placeholder="********" id="password" />
+                                </div>
+                                <input class="btn--primary h-full-width" type="submit" value="Войти" />
+                            </form>
+
+                            <div>
+                                <span style="margin-right: 10px;">Ещё нет аккаунта?</span><code><a href="/signup">Зарегистрируйтесь</a></code>
+                            </div>
+                        </div>
+                    </div> <!-- end entry__thumb -->
+                </div>
+            </div>
+        </section>
+
+    </section> <!-- end s-content -->
+</fest:template>

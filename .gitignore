@@ -1,0 +1,7 @@
+static/js/components/*/*.tmpl.js
+
+node_modules/
+
+.idea/
+
+css/
