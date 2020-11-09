@@ -5,7 +5,7 @@
             <fest:if test = "data.success">
                 <div class="row">
                     <div class="column large-12">
-                        <div class="alert-box alert-box--error">
+                        <div class="alert-box alert-box--success">
                             <p>Вы вышли</p>
                         </div>
                     </div>

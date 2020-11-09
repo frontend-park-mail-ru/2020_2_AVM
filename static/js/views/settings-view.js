@@ -1,15 +1,14 @@
 import View from '../api/view.js';
 
-export default class SettingsView extends View { 
-    #parent
-
+export default class SettingsView extends View {
+    /**
+     * constructor description
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
-    	super();
+        super();
 
-    	this.#parent = parent;
-    }
-
-    render(data) {
-    	this.#parent.innerHTML = window.fest['js/components/SettingsPage/SettingsPage.tmpl'](data);
+        this.parent = parent;
+        this.template = 'js/components/SettingsPage/SettingsPage.tmpl';
     }
 }

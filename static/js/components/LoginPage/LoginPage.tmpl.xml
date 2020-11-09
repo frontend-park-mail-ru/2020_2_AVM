@@ -24,19 +24,18 @@
 
                             <form id="form-login">
                                 <div>
-                                    <label for="sampleInput">Ваш email</label>
-                                    <input class="h-full-width" type="email" placeholder="test@mail.ru" id="sampleInput" />
+                                    <label for="sampleInput">Ваш логин</label>
+                                    <input class="h-full-width" type="text" placeholder="test" id="sampleInput" />
                                 </div>
                                 <div>
                                     <label for="password">Пароль</label>
                                     <input class="h-full-width" type="password" placeholder="********" id="password" />
                                 </div>
-
                                 <input class="btn--primary h-full-width" type="submit" value="Войти" />
                             </form>
 
                             <div>
-                                Ещё нет аккаунта? <a href="#"> Зарегистрируйтесь</a>
+                                <span style="margin-right: 10px;">Ещё нет аккаунта?</span><code><a href="/signup">Зарегистрируйтесь</a></code>
                             </div>
                         </div>
                     </div> <!-- end entry__thumb -->

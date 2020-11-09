@@ -20,8 +20,26 @@
 
                     <form id="form-add-article" name="cForm" class="s-content__form">
                             <div class="form-field">
-                                <input name="postName" type="text" id="articleTitle" class="h-full-width" placeholder="Заголовок поста" value="" required="required" />
+                                <input name="postTitle" type="text" id="articleTitle" class="h-full-width" placeholder="Заголовок поста" value="" required="required" />
                             </div>
+
+                            <div class="form-field">
+                                <input name="postDesc" type="text" id="articleDesc" class="h-full-width" placeholder="Описание" value="" />
+                            </div>
+
+                        <div class="row">
+                            <div class="large-4 mob-12 column">
+                                <select name="postCategory" class="select-category" id="articleCategory" required="required">
+                                    <fest:for iterate="data.categories" index="cat">
+                                        <option><fest:value>data.categories[cat]</fest:value></option>
+                                    </fest:for>
+                                </select>
+                            </div>
+
+                            <div class="large-8 mob-12 column">
+                                <input name="postTags" type="text" id="articleTags" class="h-full-width" placeholder="Теги" value="" />
+                            </div>
+                        </div>
 
                             <div class="form-field">
                                 <textarea name="postBody" type="text" id="articleText" class="h-full-width" placeholder="О чём хотите рассказать?"  value="" required="required"></textarea>

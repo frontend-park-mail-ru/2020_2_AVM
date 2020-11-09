@@ -1,15 +1,15 @@
 import View from '../api/view.js';
 
 export default class AddPageView extends View { 
-    #parent
 
+    /**
+     * constructor description
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
-    	super();
+        super();
 
-    	this.#parent = parent;
-    }
-
-    render(data) {
-    	this.#parent.innerHTML = window.fest['js/components/AddPage/AddPage.tmpl'](data);
+        this.parent = parent;
+        this.template = 'js/components/AddPage/AddPage.tmpl';
     }
 }

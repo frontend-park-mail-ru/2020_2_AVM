@@ -1,6 +1,6 @@
 import View from '../api/view.js';
 
-export default class SettingsView extends View {
+export default class CategoryView extends View {
     /**
      * constructor description
      * @param  {HTMLElement} parent - HTML container
@@ -9,6 +9,6 @@ export default class SettingsView extends View {
         super();
 
         this.parent = parent;
-        this.template = 'js/components/LogoutPage/LogoutPage.tmpl';
+        this.template = 'js/components/CategoryPage/CategoryPage.tmpl';
     }
 }

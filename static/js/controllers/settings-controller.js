@@ -1,80 +1,130 @@
 import Controller from '../api/controller.js';
 import SettingsView from '../views/settings-view.js';
-import Router from '../api/router.js';
 import UserModel from '../models/user-model.js';
 
+import Router from "../api/router.js";
+import {headerView} from "../components/Header/header.js";
+
 export default class SettingsPageController extends Controller {
-    #parent
-    #data
-
+    /**
+     * constructor of controller
+     * @param  {HTMLElement} parent - HTML container
+     */
     constructor(parent) {
-    	super();
-
-    	this.#parent = parent;
-    	this.#data = {};
-
-    	this.view = new SettingsView(parent);
+        super();
+        this.parent = parent;
+        this.view = new SettingsView(parent);
     }
 
-    get data() {
-    	return this.#data;
-    }
-
-    set data(data) {
-    	this.#data = data;
-    }
-
+    /**
+     * action of controller, logic of settings
+     */
     action() {
-    	this.view.render(this.#data);
 
-    	const form = document.querySelector('form#form-update');
-    	const loginInput = form.querySelector('input#updateLogin');
-    	const emailInput = form.querySelector('input#updateEmail');
-    	const avatarInput = form.querySelector('input#updateAvatar');
-    	const quoteInput = form.querySelector('textarea#updateQuote');
-    	const quoteAuthorInput = form.querySelector('input#updateQuoteAuthor');
-    	const aboutInput = form.querySelector('textarea#updateAboutInput');
-    	const passwordInput = form.querySelector('input#updatePassword');
-    	const passwordRepeatInput = form.querySelector('input#updatePasswordRepeat');
+        //
+        const currentProfileData = {}
 
-    	form.addEventListener('submit', (evt) => {
-    		evt.preventDefault();
+        UserModel.getUserData()
+            .then((res) => {
+                if (res.status !== 201) {
+                    return Promise.reject(res);
+                }
 
-    		const login = loginInput.value.trim();
-    		const email = emailInput.value.trim();
-    		const avatar = avatarInput.value.trim();
-    		const quote = quoteInput.value.trim();
-    		const quoteAuthor = quoteAuthorInput.value.trim();
-    		const about = aboutInput.value.trim();
-    		const password = passwordInput.value.trim();
-    		const passwordRepeat = passwordRepeatInput.value.trim();
+                res.json().then((res) => {
+                        currentProfileData.login = res.login;
+                        currentProfileData.email = res.email;
+                        currentProfileData.password = res.password;
 
-    		UserModel.updateUser({
-    			login,
-    			email,
-    			avatar,
-    			quote,
-    			quoteAuthor,
-    			about,
-    			password,
-    			passwordRepeat,
-    		})
-    			.then(({statusCode, responseObject}) => {
-    				if (statusCode === 200) {
-    					Router.redirect('/profile');
-    				} else {
-    					const {error} = JSON.parse(responseObject);
-    					console.log(error);
-    				}
-    			})
-    			.catch((err) => {
-    				if (err instanceof Error) {
-    					console.log(err);
-    				}
-    				this.#data.success = true;
-    				this.render();
-    			});
-    	});
+                        this.data.currentProfileData = currentProfileData;
+
+                        this.view.render(this.data);
+
+                        const form = document.querySelector('form#form-update');
+                        const loginInput = form.querySelector('input#updateLogin');
+                        const emailInput = form.querySelector('input#updateEmail');
+                        const passwordInput = form.querySelector('input#updatePassword');
+
+                        const fileInput = form.querySelector('input#updateAvatar');
+                        const imageData = new FormData();
+
+                        form.addEventListener('submit', (evt) => {
+                            evt.preventDefault();
+
+                            let login = loginInput.value.trim();
+                            let email = emailInput.value.trim();
+                            let password = passwordInput.value.trim();
+
+                            if (login === '') {
+                                login = this.data.currentProfileData.login
+                            }
+                            if (email === '') {
+                                email = this.data.currentProfileData.email
+                            }
+                            if (password === '') {
+                                password = this.data.currentProfileData.password
+                            }
+
+                            UserModel.updateUser({
+                                login,
+                                email,
+                                password,
+                            })
+                                .then(({status}) => {
+                                    console.log(status);
+                                    if (status === 200) {
+                                        this.data.settings = true;
+                                        this.data.success = false;
+                                        this.action();
+                                    } else {
+                                        console.log('error');
+                                        this.data.settings = false;
+                                        this.data.success = true;
+                                        this.action();
+                                    }
+                                })
+                                .catch((err) => {
+                                    if (err instanceof Error) {
+                                        console.log(err);
+                                    }
+                                    this.data.success = true;
+                                    this.data.settings = false;
+                                    this.action();
+                                });
+
+                        });
+
+                        fileInput.addEventListener('change', (evt) => {
+
+                            imageData.append("avatar", fileInput.files[0], fileInput.files[0].name);
+
+                            UserModel.updateUserAvatar(imageData)
+                                .then(({status}) => {
+                                    console.log(status);
+                                    if (status === 200) {
+                                        this.data.settingsPhoto = true;
+                                        this.data.successPhoto = false;
+                                        this.action();
+                                    } else {
+                                        console.log('error');
+                                        this.data.successPhoto = true;
+                                        this.data.settingsPhoto = false;
+                                        this.action();
+                                    }
+                                })
+                                .catch((err) => {
+                                    if (err instanceof Error) {
+                                        console.log(err);
+                                    }
+                                    this.data.successPhoto = true;
+                                    this.data.settingsPhoto = false;
+                                    this.action();
+                                });
+                        });
+                    }
+                ).catch((err) => {
+                    console.log('error');
+                    this.action();
+                });
+            })
     }
-
 }

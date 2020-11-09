@@ -1,5 +1,5 @@
 export function footerView(footer, config) {
-	footer.innerHTML =
+    footer.innerHTML =
         `
         <footer class="s-footer">
             <div class="s-footer__main">
@@ -7,7 +7,8 @@ export function footerView(footer, config) {
                     <div class="column large-4 medium-6 tab-12 s-footer__info">
                         <h5>О проекте</h5>
                         <p>
-                            Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю. Съешь же ещё этих мягких французских булок да выпей чаю.
+                           Untitled: радуйте своих читателей статьями, но не забывайте придумывать 
+                           для них красивое название...
                         </p>
                     </div> 
                     <div class="column large-2 medium-3 tab-6 s-footer__site-links">
@@ -18,10 +19,10 @@ export function footerView(footer, config) {
                     <div class="column large-2 medium-3 tab-6 s-footer__social-links">
                         <h5>Социальные сети</h5>
                         <ul>
-                            <li><a href="#">Вконтакте</a></li>
-                            <li><a href="#">Фейсбук</a></li>
-                            <li><a href="#">Инстаграм</a></li>
-                            <li><a href="#">Твиттер</a></li>
+                            <li><a target="_blank" href="https://vk.com/markssu">Вконтакте</a></li>
+                            <li><a target="_blank" href="https://www.facebook.com/sadykovmark/">Фейсбук</a></li>
+                            <li><a target="_blank" href="https://www.instagram.com/mark_sadykov/">Инстаграм</a></li>
+                            <li><a target="_blank" href="https://twitter.com/mark_sadykov/">Твиттер</a></li>
                         </ul>
                     </div>
                     <div class="column large-4 medium-12 s-footer__subscribe">
@@ -49,25 +50,25 @@ export function footerView(footer, config) {
         </footer>
     `;
 
-	const menuFooter = document.getElementsByClassName('footer__menu')[0];
-	Object
-		.keys(config)
-		.map((menuKey) => {
-			const {href, text} = config[menuKey];
+    const menuFooter = document.getElementsByClassName('footer__menu')[0];
+    Object
+        .keys(config)
+        .map((menuKey) => {
+            const {href, text} = config[menuKey];
 
-			const menuItem = document.createElement('li');
-			const menuLink = document.createElement('a');
+            const menuItem = document.createElement('li');
+            const menuLink = document.createElement('a');
 
-			menuItem.appendChild(menuLink);
+            menuItem.appendChild(menuLink);
 
-			menuLink.href = href;
-			menuLink.textContent = text;
-			menuLink.dataset.section = menuKey;
+            menuLink.href = href;
+            menuLink.textContent = text;
+            menuLink.dataset.section = menuKey;
 
-			return menuItem;
-		})
-		.forEach((element) => {
-			menuFooter.appendChild(element);
-		})
-	;
+            return menuItem;
+        })
+        .forEach((element) => {
+            menuFooter.appendChild(element);
+        })
+    ;
 }

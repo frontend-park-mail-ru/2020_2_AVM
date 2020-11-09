@@ -1,154 +1,128 @@
-'use strict';
+"use strict";
 
 import {headerView} from './components/Header/header.js';
 import {footerView} from './components/Footer/footer.js';
 import {mobileMenu} from './components/MobileMenu/usingMobileMenu.js';
 import {search} from './components/Search/search.js';
 
-// import {profilePage} from './views/ProfilePage/profilePage.js';
-
-// import {SettingsPage} from './components/SettingsPage/SettingsPage.js';
-// import {AddPage} from './components/AddPage/AddPage.js';
-// import {SignUpPage} from './components/SignUpPage/SignUpPage.js';
-// import {LoginPage} from './components/LoginPage/LoginPage.js';
-// import {LogoutPage} from './components/LogoutPage/LogoutPage.js';
-
 /* Base init */
 const application = document.getElementById('app');
 const header = document.createElement('div');
+header.id = 'header';
 const container = document.createElement('div');
+container.id = 'container';
 const footer = document.createElement('div');
 
 application.appendChild(header);
 application.appendChild(container);
 application.appendChild(footer);
 
-const config = {
-	profile: {
-		href: '/profile',
-		text: 'Профиль',
-		// open: profileList,
-	},
-	settings: {
-		href: '/settings',
-		text: 'Настройки',
-		// open: settingsList,
-	},
-	signup: {
-		href: '/signup',
-		text: 'Зарегистрироваться',
-		// open: signupPage,
-	},
-	login: {
-		href: '/login',
-		text: 'Авторизоваться',
-		// open: loginPage,
-	},
-	// single: {
-	//     href: '/single',
-	//     text: 'Статья',
-	//     open: singlePage,
-	// },
-	add: {
-		href: '/add',
-		text: 'Добавить',
-		// open: addPage,
-	},
-	logout: {
-		href: '/logout',
-		text: 'Выйти',
-		// open: logoutList,
-	},
-};
+let config = {};
 
-// function loginPage() {
-//     container.innerHTML = '';
-
-//     const login = new LoginPage(container);
-//     login.data = {};
-//     login.render();
-//     login.submitForm();
-// }
-
-// function logoutList() {
-//     container.innerHTML = '';
-
-//     const logout = new LogoutPage(container);
-//     logout.data = {};
-//     logout.render();
-// }
-
-// function profileList() {
-//     profilePage(container);
-// }
-
-// function singlePage() {
-//     container.innerHTML = '';
-//
-//     const post = new PostPage(container);
-//     post.data = {};
-//     post.render();
-// }
-
-// function signupPage() {
-//     container.innerHTML = '';
-
-//     const signup = new SignUpPage(container);
-//     signup.data = {};
-//     signup.render();
-//     signup.submitForm();
-// }
-
-// function settingsList() {
-//     container.innerHTML = '';
-
-//     const setting = new SettingsPage(container);
-//     setting.data = {};
-//     setting.render();
-//     setting.submitForm();
-// }
-
-// function addPage() {
-//     container.innerHTML = '';
-
-//     const add = new AddPage(container);
-//     add.data = {};
-//     add.render();
-//     add.submitForm();
-// }
-
-// старый роутер
-// application.addEventListener('click', (evt) => {
-//     const {target} = evt;
-//     if (target instanceof HTMLAnchorElement) {
-//         evt.preventDefault();
-//         config[target.dataset.section].open();
-//     }
-// });
-
-headerView(header, config);
-mobileMenu();
-// loginPage();
-search();
-footerView(footer, config);
+let stateLogin = false;
 
 /************* Router */
 // TODO: избавиться от относительных путей во всём проекте
 // доделать остальные контроллеры, модели, представления
-import Router from '../js/api/router.js';
-import LoginController from '../js/controllers/login-controller.js';
-import LogoutController from '../js/controllers/logout-controller.js';
-import SignUpController from '../js/controllers/signup-controller.js';
+import Router from '../js/api/router.js'
+import LoginController from '../js/controllers/login-controller.js'
+import LogoutController from '../js/controllers/logout-controller.js'
+import SignUpController from '../js/controllers/signup-controller.js'
 import AddPageController from './controllers/addpage-controller.js';
 import SettingsPageController from './controllers/settings-controller.js';
 import ProfilePageController from './controllers/profile-controller.js';
+import MainPageController from './controllers/main-controller.js';
+import CategoryPageController from './controllers/category-controller.js';
+import TagPageController from './controllers/tag-controller.js';
 
-const router = new Router();
-router.addRoute('/', new LoginController(container));
-router.addRoute('/login', new LoginController(container));
-router.addRoute('/logout', new LogoutController(container));
-router.addRoute('/signup', new SignUpController(container));
-router.addRoute('/profile', new ProfilePageController(container));
-router.addRoute('/settings', new SettingsPageController(container));
-router.addRoute('/add', new AddPageController(container));
-router.route();
+import UserModel from './models/user-model.js';
+UserModel.getUserData().then((res) => {
+    if (res.status !== 201) {
+        stateLogin = false;
+        config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
+            tag: {
+                href: '/tags',
+                text: 'Теги',
+            },
+            signup: {
+                href: '/signup',
+                text: 'Зарегистрироваться',
+            },
+            login: {
+                href: '/login',
+                text: 'Авторизоваться',
+            },
+        }
+    } else {
+        stateLogin = true;
+        config = {
+            main: {
+                href: '/',
+                text: 'Главная',
+            },
+            category: {
+                href: '/category',
+                text: 'Категории',
+            },
+            tag: {
+                href: '/tags',
+                text: 'Теги',
+            },
+            profile: {
+                href: '/profile',
+                text: 'Профиль',
+            },
+            settings: {
+                href: '/settings',
+                text: 'Настройки',
+            },
+            add: {
+                href: '/add',
+                text: 'Добавить',
+            },
+            logout: {
+                href: '/logout',
+                text: 'Выйти',
+            },
+        }
+    }
+
+    headerView(header, config);
+    mobileMenu();
+    search();
+    footerView(footer, config);
+
+    const router = new Router(stateLogin);
+    router.addRoute('/', new MainPageController(container));
+    router.addRoute('/category', new CategoryPageController(container));
+    router.addRoute('/tags', new TagPageController(container));
+    router.addRoute('/login', new LoginController(container, header, footer, router));
+    router.addRoute('/logout', new LogoutController(container, header, footer, router));
+    router.addRoute('/signup', new SignUpController(container, header, footer, router));
+    router.addRoute('/profile', new ProfilePageController(container, header, footer));
+    router.addRoute('/settings', new SettingsPageController(container));
+    router.addRoute('/add', new AddPageController(container, header, footer, router));
+    router.route();
+})
+    .catch((err) => {
+        if (err instanceof Error) {
+            console.log(err);
+            console.log("no internet");
+        }
+        container.innerHTML = `
+        <section class="s-content s-styles">
+         <div class="row">
+            <div class="column large-12 intro">
+                <h1>Сервис недоступен</h1>
+            </div>
+     </section>
+    `;
+});
