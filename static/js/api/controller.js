@@ -11,6 +11,10 @@ export default class Controller {
                 href: '/category',
                 text: 'Категории',
             },
+            tag: {
+                href: '/tags',
+                text: 'Теги',
+            },
             profile: {
                 href: '/profile',
                 text: 'Профиль',
@@ -37,6 +41,10 @@ export default class Controller {
             category: {
                 href: '/category',
                 text: 'Категории',
+            },
+            tag: {
+                href: '/tags',
+                text: 'Теги',
             },
             signup: {
                 href: '/signup',

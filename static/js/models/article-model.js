@@ -1,6 +1,8 @@
 import Model from '../api/model.js';
 import Fetching from '../api/fetch.js';
-import {URLS} from '../settings/config.js'
+import {URLS} from '../settings/config.js';
+
+import Xss from '../utils/xss.js';
 
 let headers = new Headers();
 
@@ -48,39 +50,46 @@ export default class ArticleModel extends Model {
      *
      *     getUserArticles('hello', 'world', 'bro')
      */
-    static makeArticle({
-                        title = '',
-                        desc = '',
-                        content = '',
-                        category_name = '',
-                        tags = [],
-                    }) {
+    static makeArticle(
+                    formData
+                    ) {
         return Fetching.queryPost({
             url: URLS.makeArticle,
-            body: JSON.stringify({
-                'article_title': title,
-                'description': desc,
-                'content': content,
-                // 'category_name': category_name,
-                // 'tags': tags,
-            }),
+            body: formData,
             headers: {
                 'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
-                'Content-Type': 'application/json',
             },
         });
     };
 
 
-    static getArticlesByCategory(category) {
+    static getArticlesByCategory(category = '') {
+        category = Xss.removeScript(category);
         return Fetching.queryGet({
-            url: URLS.getArticlesByCategory + Category,
+            url: URLS.getArticlesByCategory + category,
+        });
+    }
+
+    static getArticlesByTag(tag = '') {
+        tag = Xss.removeScript(tag);
+        return Fetching.queryGet({
+            url: URLS.getArticlesByTag + tag,
         });
     }
 
     static getArticlesBySubscribe() {
         return Fetching.queryGet({
             url: URLS.getArticlesBySubscribe,
+        });
+    }
+
+    static addSubcribe(formData) {
+        return Fetching.queryPost({
+            url: URLS.addSubscribe,
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': Fetching.getCookie('X-CSRF-TOKEN'),
+            },
         });
     }
     

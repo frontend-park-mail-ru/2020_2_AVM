@@ -5,21 +5,13 @@
                 <h1 class="h2"><span style="margin-right: 6px;"><fest:value>data.key</fest:value></span><fest:value>data.value</fest:value></h1>
 
                 <div class="row">
-                    <div class="large-6 mob-12 column">
+                    <div class="large-4 mob-12 column">
                         <select id="select-choose-category" class="select-category">
                             <fest:for iterate="data.categories" index="cat">
                                 <option><fest:value>data.categories[cat]</fest:value></option>
                             </fest:for>
                         </select>
                     </div>
-
-                    <div class="large-6 mob-12 column">
-                        <select id="select-choose-sort" class="select-category">
-                            <option>Сначала старые</option>
-                            <option>Сначала новые</option>
-                        </select>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -50,7 +42,7 @@
                                     </fest:for>
                                 </div>
 
-                                <h1 class="entry__title"><a href="#"><fest:value>data.articles[i].title</fest:value></a></h1>
+                                <h1 class="entry__title"><a href="#"><fest:value>data.articles[i].article_title</fest:value></a></h1>
                             </div>
                             <div class="entry__excerpt">
                                 <p>

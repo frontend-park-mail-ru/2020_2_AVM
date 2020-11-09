@@ -42,16 +42,19 @@ export default class AddPageController extends Controller {
             const title = articleTitleInput.value.trim();
             const desc = articleDescInput.value.trim();
             const content = articleTextInput.value.trim();
-            const category_name = articleTextCategory.value.trim();
-            const tags = articleArrayTags.value.trim().split(',');
+            const category_title = articleTextCategory.value.trim();
+            const tagsSlice = articleArrayTags.value.trim();
 
-            ArticleModel.makeArticle({
-                title,
-                desc,
-                content,
-                category_name,
-                tags,
-            })
+            let formData = new FormData();
+            formData.append('article_title', title);
+            formData.append('description', desc);
+            formData.append('content', content);
+            formData.append('category_title', category_title);
+            formData.append('tags', tagsSlice);
+
+            ArticleModel.makeArticle(
+                formData
+            )
                 .then(({status}) => {
                     if (status === 201) {
                         this.router.redirect('/profile');

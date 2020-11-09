@@ -33,6 +33,7 @@ import SettingsPageController from './controllers/settings-controller.js';
 import ProfilePageController from './controllers/profile-controller.js';
 import MainPageController from './controllers/main-controller.js';
 import CategoryPageController from './controllers/category-controller.js';
+import TagPageController from './controllers/tag-controller.js';
 
 import UserModel from './models/user-model.js';
 UserModel.getUserData().then((res) => {
@@ -46,6 +47,10 @@ UserModel.getUserData().then((res) => {
             category: {
                 href: '/category',
                 text: 'Категории',
+            },
+            tag: {
+                href: '/tags',
+                text: 'Теги',
             },
             signup: {
                 href: '/signup',
@@ -66,6 +71,10 @@ UserModel.getUserData().then((res) => {
             category: {
                 href: '/category',
                 text: 'Категории',
+            },
+            tag: {
+                href: '/tags',
+                text: 'Теги',
             },
             profile: {
                 href: '/profile',
@@ -94,6 +103,7 @@ UserModel.getUserData().then((res) => {
     const router = new Router(stateLogin);
     router.addRoute('/', new MainPageController(container));
     router.addRoute('/category', new CategoryPageController(container));
+    router.addRoute('/tags', new TagPageController(container));
     router.addRoute('/login', new LoginController(container, header, footer, router));
     router.addRoute('/logout', new LogoutController(container, header, footer, router));
     router.addRoute('/signup', new SignUpController(container, header, footer, router));

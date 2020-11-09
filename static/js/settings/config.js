@@ -10,6 +10,10 @@ export const URLS = {
     getAvatar: '/api/avatar',
     upAvatar: '/api/setting/avatar',
 
-    getArticlesByCategory: '/',
-    getArticlesBySubscribe: '/',
+    getArticlesByCategory: '/api/article/category/',
+    getArticlesBySubscribe: '/api/article/subscribe/',
+
+    addSubscribe: '/api/subscribe',
+
+    getArticlesByTag: '/api/article/tag/'
 }

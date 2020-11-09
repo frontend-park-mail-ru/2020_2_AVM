@@ -15,9 +15,8 @@ export default class CategoryPageController extends Controller {
     constructor(parent) {
         super();
         this.parent = parent;
-        // this.data = {login: 'Вы не вошли'};
         this.view = new CategoryView(this.parent);
-
+        this.data.currentId = -1;
         this.data.categories = categories;
     }
 
@@ -26,140 +25,56 @@ export default class CategoryPageController extends Controller {
      */
     action() {
 
-        const articles =[
-            {
-                title: "Первый заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 1",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 1",
-            },
-            {
-                title: "Второй заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 2",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 2",
-            },
-            {
-                title: "Третий заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 3",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 3",
-            },
-            {
-                title: "Четвертый заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 4",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 4",
-            },
-            {
-                title: "Первый заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 1",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 1",
-            },
-            {
-                title: "Второй заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 2",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 2",
-            },
-            {
-                title: "Третий заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 3",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 3",
-            },
-            {
-                title: "Четвертый заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 4",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 4",
-            },
-            {
-                title: "Первый заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 1",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 1",
-            },
-            {
-                title: "Второй заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 2",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 2",
-            },
-            {
-                title: "Третий заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 3",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 3",
-            },
-            {
-                title: "Четвертый заголовок",
-                date: "1 сентября 2020",
-                author: "Автор 4",
-                categories: ["Дизайн", "Фотографии"],
-                description: "Описание к статье 4",
-            },
-        ];
-
         this.data.key = "Категория:";
-        this.data.value = "Текущая категория";
-        this.data.articles = articles;
+        this.data.value = "фотография";
+        this.getAritcles('фотография');
 
-        // this.getAritcles();
-
-        this.view.render(this.data); //после запроса убрать
-
-        const categorySelect = document.querySelector('select#select-choose-category.select-category');
-        const sortSelect = document.querySelector('select#select-choose-sort.select-category');
-
-        categorySelect.addEventListener('change', (evt) => {
-
-            console.log('change');
-            const category = categorySelect.value;
-
-            this.getAritcles();
-        });
-
-        sortSelect.addEventListener('change', (evt) => {
-
-            // current = this.data.articles;
-            // this.data.articles = current.reverse();
-
-        });
 
     }
 
-    getAritcles () {
-        // Article.getArticlesByCategory(category).then(res) => {
-        //     console.log(status);
-        //     if (res.status === 200) {
-        //         res.json().then((res) => {
-        //             this.data.articles = res;
-        //             this.view.render(this.data);
-        //         });
-        //     } else {
-        //         console.log('error');
-        //         this.view.render(this.data);
-        //     }
-        // })
-        //     .catch((err) => {
-        //         if (err instanceof Error) {
-        //             console.log(err);
-        //         }
-        //         this.action();
-        //     });
+    getAritcles (category) {
+        Article.getArticlesByCategory(category)
+            .then((res) => {
+
+            if (res.status === 200) {
+                res.json().then((res) => {
+                    console.log(res);
+                    this.data.articles = res;
+                    this.data.articles = this.data.articles.reverse();
+                    this.view.render(this.data);
+
+                    const categorySelect = document.querySelector('select#select-choose-category.select-category');
+
+                    categorySelect.addEventListener('change', (evt) => {
+                        console.log('change');
+                        const category = categorySelect.value;
+                        this.data.category= category;
+                        this.data.currentId = this.data.categories.indexOf(category);
+                        let category0 = this.data.categories[0];
+                        this.data.categories[0] = category;
+                        this.data.categories[this.data.currentId] = category0;
+                        this.data.value = category;
+                        this.getAritcles(category);
+                    });
+                });
+            } else {
+                console.log('error');
+                this.data.categories = categories;
+                this.data.value = "фотография";
+                this.getAritcles('фотография');
+            }
+        })
+            .catch((err) => {
+                if (err instanceof Error) {
+                    console.log(err);
+                    this.data.categories = categories;
+                    this.data.value = "фотография";
+                    this.getAritcles('фотография');
+                }
+                this.data.categories = categories;
+                this.data.value = "фотография";
+                this.getAritcles('фотография');
+            });
     }
 
 }

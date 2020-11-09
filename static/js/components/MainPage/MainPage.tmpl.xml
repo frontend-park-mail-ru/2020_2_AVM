@@ -14,9 +14,9 @@
                                     <div class="f-slide__content">
                                         <ul class="f-slide__meta">
 <!--                                            <li><fest:value>data.articles[0].date</fest:value></li>-->
-                                            <li><a href="#" ><fest:value>data.articles[0].author</fest:value></a></li>
+<!--                                            <li><a href="#" ><fest:value>data.articles[0].author</fest:value></a></li>-->
                                         </ul>
-                                        <h1 class="f-slide__title"><a href="#" title=""><fest:value>data.articles[0].title</fest:value></a></h1>
+                                        <h1 class="f-slide__title"><a href="#" title=""><fest:value>data.articles[0].article_title</fest:value></a></h1>
                                     </div>
                                 </div>
                             </div>
@@ -37,26 +37,15 @@
             </div>
         </div>
 
+        <div class="row current-cat">
+            <div class="column">
+                <h1 class="h2"><fest:value>data.key</fest:value></h1>
+            </div>
+        </div>
+
         <div class="masonry">
             <div class="bricks-wrapper h-group">
                 <div class="grid-sizer"></div>
-
-                <div class="row">
-                    <div class="large-6 mob-12 column">
-                        <select id="select-choose-category-or-main" class="select-category">
-                            <option>Популярные</option>
-                            <option>Подписки</option>
-                        </select>
-                    </div>
-
-                    <div class="large-6 mob-12 column">
-                        <select id="select-choose-sort-main" class="select-category">
-                            <option>Сначала старые</option>
-                            <option>Сначала новые</option>
-                        </select>
-                    </div>
-
-                </div>
 
                 <fest:for iterate="data.articles" index="i">
                     <article class="brick entry format-standard animate-this">
@@ -71,13 +60,13 @@
                             <div class="entry__header">
                                 <div class="entry__meta">
                                     <fest:for iterate="data.articles[i].categories" index="j">
-                                        <span class="entry__cat-links">
-                                            <a style="margin-right: 6px;" href="#"><fest:value>data.articles[i].categories[j]</fest:value></a>
-                                        </span>
+<!--                                        <span class="entry__cat-links">-->
+<!--                                            <a style="margin-right: 6px;" href="#"><fest:value>data.articles[i].categories[j]</fest:value></a>-->
+<!--                                        </span>-->
                                     </fest:for>
                                 </div>
 
-                                <h1 class="entry__title"><a href="#"><fest:value>data.articles[i].title</fest:value></a></h1>
+                                <h1 class="entry__title"><a href="#"><fest:value>data.articles[i].article_title</fest:value></a></h1>
                             </div>
                             <div class="entry__excerpt">
                                 <p>

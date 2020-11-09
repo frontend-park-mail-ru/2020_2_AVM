@@ -1,5 +1,5 @@
-const loginUrls = ['/', '/category', '/logout', '/profile', '/settings', '/add'];
-const NotLoginUrls = ['/', '/category', '/login', '/signup'];
+const loginUrls = ['/', '/category', '/tags', '/logout', '/profile', '/settings', '/add'];
+const NotLoginUrls = ['/', '/category', '/tags', '/login', '/signup'];
 
 export default class Router {
 
@@ -39,9 +39,6 @@ export default class Router {
      */
     handleRoute(url) {
         console.log(url);
-        // const activeController = this.controllersMap.get(url);
-        // this.currentController = activeController;
-        // this.currentController.action();
 
         if (this.login && loginUrls.includes(url, 0)
             || !this.login  && NotLoginUrls.includes(url, 0)) {
@@ -71,10 +68,6 @@ export default class Router {
      * @param  {string} url - url of route
      */
     redirect(url) {
-        // window.history.pushState({}, '', url);
-        // window.history.pushState({}, '', url);
-        // window.history.back();
-
 
         if (this.login && loginUrls.includes(url, 0)
             || !this.login  && NotLoginUrls.includes(url, 0)) {
