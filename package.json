@@ -2,17 +2,16 @@
   "name": "2020_2_AVM",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "private": "true",
   "scripts": {
-    "start": "DEBUG=http node server",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=static",
     "prestart": "npm run tmpl",
     "stylelint": "stylelint \"**/*.css\"",
     "precommit": "lint-staged",
     "eslint": "lint-staged",
     "lint": "eslint --fix --ext .js .",
-    "build-css": "node-sass static/scss/ -o static/css"
+    "build-css": "node-sass static/scss/ -o static/css",
+    "build-bundle": "npx webpack"
   },
   "repository": {
     "type": "git",
@@ -33,16 +32,32 @@
     "prettier-scripts": "^0.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^5.0.1",
     "eslint": "^7.12.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "fest-webpack-loader": "^3.0.0",
+    "html-webpack-plugin": "^4.5.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.0",
     "node-sass": "^4.14.1",
     "nodemon": "^2.0.6",
+    "postcss": "^8.1.6",
     "prettier": "^2.1.2",
+    "resolve-url-loader": "^3.1.2",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.0.5",
+    "style-loader": "^2.0.0",
     "stylelint": "^13.7.2",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-config-standard": "^20.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
+    "xml2js": "^0.4.23"
   },
   "lint-staged": {
     "*.{js,json,css,scss,html,md}": [
