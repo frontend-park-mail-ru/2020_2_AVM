@@ -1,5 +1,18 @@
 "use strict";
 
+// import '../styles.scss';
+import './components/LogoutPage/LogoutPage.tmpl.js';
+import './components/LogoutPage/LogoutPage.tmpl.js';
+import './components/SettingsPage/SettingsPage.tmpl.js';
+import './components/LoginPage/LoginPage.tmpl.js';
+import './components/SignUpPage/SignUpPage.tmpl.js';
+import './components/AddPage/AddPage.tmpl.js';
+import './components/PostPage/PostPage.tmpl.js';
+import './components/ProfilePage/ProfilePage.tmpl.js';
+import './components/MainPage/MainPage.tmpl.js';
+import './components/CategoryPage/CategoryPage.tmpl.js';
+import './components/TagPage/TagPage.tmpl.js';
+
 import {headerView} from './components/Header/header.js';
 import {footerView} from './components/Footer/footer.js';
 import {mobileMenu} from './components/MobileMenu/usingMobileMenu.js';
